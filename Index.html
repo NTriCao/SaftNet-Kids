@@ -59,7 +59,11 @@
       color: inherit
     }
 
-    /* ── TOKENS ── */
+    .nav-close-item { display: none }
+
+    @media(max-width:960px) {
+      .nav-close-item { display: flex }
+    }
     :root {
       --hue: 214;
       --bg: #f0f4ff;
@@ -435,6 +439,36 @@
 
       .nav-links-backdrop.show {
         display: block
+      }
+
+      /* Close button inside drawer */
+      .nav-close-item {
+        display: flex;
+        justify-content: flex-end;
+        padding-bottom: 8px;
+        margin-bottom: 8px;
+        border-bottom: 1px solid var(--border)
+      }
+
+      .nav-close-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        color: var(--text2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all .2s
+      }
+
+      .nav-close-btn:hover {
+        background: var(--danger-bg);
+        color: var(--danger);
+        border-color: var(--danger)
       }
     }
 
@@ -2522,10 +2556,10 @@
     .hamburger { width: 32px; height: 32px; }
     .ham-bar { width: 20px; }
 
-    /* Mobile nav drawer: full-width slide-in from right */
+    /* Mobile nav drawer: full-width on small screens */
     .nav-links {
-      width: 100%;
-      padding: 72px 20px 40px;
+      width: 100% !important;
+      padding: 16px 16px 40px !important;
     }
     .nav-link {
       font-size: .95rem;
@@ -2779,15 +2813,17 @@
       </a>
       <div class="nav-links-backdrop" id="navBackdrop"></div>
       <ul class="nav-links" id="navLinks">
+        <li class="nav-close-item">
+          <button class="nav-close-btn" id="navCloseBtn" aria-label="Đóng menu">
+            <i class="fas fa-xmark"></i>
+          </button>
+        </li>
         <li><a href="#home" class="nav-link" onclick="showMainPage()"><i class="fas fa-house"></i> Trang chủ</a></li>
-        <li><a href="#risks" class="nav-link" onclick="showMainPage()"><i class="fas fa-triangle-exclamation"></i> Nguy
-            hiểm</a></li>
+        <li><a href="#risks" class="nav-link" onclick="showMainPage()"><i class="fas fa-triangle-exclamation"></i> Nguy hiểm</a></li>
         <li><a href="#skills" class="nav-link" onclick="showMainPage()"><i class="fas fa-brain"></i> Kỹ năng</a></li>
-        <li><a href="#emergency" class="nav-link" onclick="showMainPage()"><i class="fas fa-circle-info"></i> Xử lý</a>
-        </li>
+        <li><a href="#emergency" class="nav-link" onclick="showMainPage()"><i class="fas fa-circle-info"></i> Xử lý</a></li>
         <li><a href="#laws" class="nav-link" onclick="showMainPage()"><i class="fas fa-gavel"></i> Pháp luật</a></li>
-        <li><a href="#contact" class="nav-link" onclick="showMainPage()"><i class="fas fa-envelope"></i> Liên hệ</a>
-        </li>
+        <li><a href="#contact" class="nav-link" onclick="showMainPage()"><i class="fas fa-envelope"></i> Liên hệ</a></li>
       </ul>
       <a href="tel:1800-1567" class="nav-cta" aria-label="Hotline khẩn cấp">
         <i class="fas fa-phone-volume"></i><span> 1800 1567</span>
@@ -3701,6 +3737,17 @@
       hamburger.setAttribute('aria-expanded', open);
       navBackdrop.classList.toggle('show', open);
     });
+
+    // Close button inside drawer
+    const navCloseBtn = document.getElementById('navCloseBtn');
+    if (navCloseBtn) {
+      navCloseBtn.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navBackdrop.classList.remove('show');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    }
+
     navBackdrop.addEventListener('click', () => {
       navLinks.classList.remove('open');
       navBackdrop.classList.remove('show');
