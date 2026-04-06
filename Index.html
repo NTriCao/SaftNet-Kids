@@ -2474,6 +2474,273 @@
     @media(min-width:640px) { .footer-bottom { flex-direction: row; } }
     .footer-bottom p { font-size: 0.75rem; color: rgba(100,116,139,0.5); }
 
+  /* ══════════════════════════════════════
+     MOBILE PROFESSIONAL OVERHAUL
+     Targeted: max-width 480px & 640px
+  ══════════════════════════════════════ */
+
+  /* ── Safe area support for notch/home-bar ── */
+  @supports (padding: env(safe-area-inset-bottom)) {
+    .navbar { padding-top: env(safe-area-inset-top); }
+    .chatbot-fab { bottom: calc(20px + env(safe-area-inset-bottom)); right: calc(16px + env(safe-area-inset-right)); }
+    .chatbot-win { bottom: calc(90px + env(safe-area-inset-bottom)); right: calc(16px + env(safe-area-inset-right)); }
+    .back-top { bottom: calc(90px + env(safe-area-inset-bottom)); }
+  }
+
+  /* ── Mobile base adjustments ── */
+  @media (max-width: 640px) {
+    :root { --nav-h: 58px; }
+
+    /* Container tighter padding on mobile */
+    .container { padding: 0 16px; }
+
+    /* Navbar */
+    .nav-inner { padding: 0 16px; gap: 8px; }
+    .nav-logo { font-size: 1.15rem; gap: 8px; }
+    .logo-box { width: 34px; height: 34px; font-size: .9rem; }
+    .nav-cta {
+      padding: 7px 12px;
+      font-size: .78rem;
+      gap: 5px;
+    }
+    .nav-cta span { display: none; }
+    .theme-btn { width: 32px; height: 32px; font-size: .8rem; }
+
+    /* Hamburger */
+    .hamburger { width: 32px; height: 32px; }
+    .ham-bar { width: 20px; }
+
+    /* Mobile nav drawer: full-width slide-in from right */
+    .nav-links {
+      width: 100%;
+      padding: 72px 20px 40px;
+    }
+    .nav-link {
+      font-size: .95rem;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-link:last-child { border-bottom: none; }
+
+    /* Section padding */
+    .section { padding: 56px 0; }
+    .sec-header { margin-bottom: 36px; }
+    .sec-title { font-size: clamp(1.5rem, 6vw, 2rem); }
+    .sec-sub { font-size: .92rem; }
+
+    /* Hero */
+    #home .hero-content { padding: 5.5rem 1rem 3rem; gap: 2rem; }
+    #home .hero-title { font-size: 2rem; line-height: 1.15; }
+    .hero-desc { font-size: 1rem; margin-bottom: 1.75rem; }
+    #home .hero-badge { font-size: .78rem; padding: 6px 14px; margin-bottom: 1.25rem; }
+    #home .hero-btns { gap: .75rem; flex-direction: column; align-items: center; }
+    .btn-cta, .btn-outline-hero {
+      width: 100%;
+      max-width: 320px;
+      justify-content: center;
+      padding: .8rem 1.5rem;
+      font-size: .95rem;
+    }
+
+    /* Hero stats: 2x2 grid on mobile */
+    #home .hero-stats {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr;
+      flex-direction: unset;
+      border-radius: 16px;
+      overflow: hidden;
+      gap: 0;
+    }
+    #home .hero-stats .stat {
+      padding: 1rem;
+      border-right: 1px solid rgba(240,249,255,0.12);
+      border-bottom: 1px solid rgba(240,249,255,0.12);
+    }
+    #home .hero-stats .stat:nth-child(2n) { border-right: none; }
+    #home .hero-stats .stat:nth-child(3),
+    #home .hero-stats .stat:nth-child(4) { border-bottom: none; }
+    #home .hero-stats .stat-num { font-size: 1.5rem; }
+    #home .hero-stats .stat-label { font-size: .7rem; }
+
+    /* Shield visual: smaller on mobile */
+    .shield-wrapper { width: 180px; height: 180px; }
+    .shield-outer { width: 150px; height: 150px; }
+    .shield-inner { width: 110px; height: 110px; }
+    .shield-inner i { font-size: 2.2rem; }
+    .float-icon { width: 38px; height: 38px; font-size: .9rem; }
+
+    /* Risk cards: full-width with better touch targets */
+    .risks-grid { grid-template-columns: 1fr; gap: 14px; }
+    .risk-card {
+      padding: 22px 20px;
+      gap: 10px;
+      border-radius: 18px;
+      /* horizontal layout on mobile */
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      grid-template-rows: auto auto auto;
+      align-items: start;
+    }
+    .risk-icon-wrap { width: 52px; height: 52px; border-radius: 14px; font-size: 1.25rem; grid-row: 1; grid-column: 1; }
+    .risk-tag { grid-row: 1; grid-column: 2; align-self: center; font-size: .65rem; }
+    .risk-card h3 { grid-row: 2; grid-column: 1 / -1; font-size: 1.05rem; margin-top: 4px; }
+    .risk-card p { grid-row: 3; grid-column: 1 / -1; font-size: .875rem; }
+    .risk-cta { grid-row: 4; grid-column: 1 / -1; font-size: .82rem; }
+
+    /* Quiz */
+    .quiz-intro { padding: 28px 20px; border-radius: 18px; }
+    .quiz-intro-icon { width: 64px; height: 64px; font-size: 1.6rem; border-radius: 16px; margin-bottom: 18px; }
+    .quiz-intro h3 { font-size: 1.3rem; }
+    .quiz-info-row { gap: 10px; }
+    .quiz-info-item { font-size: .8rem; padding: 8px 12px; }
+    .quiz-question { font-size: 1.05rem; }
+    .quiz-opt {
+      padding: 14px 16px 14px 48px;
+      font-size: .9rem;
+      border-radius: 12px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .quiz-opt::before { left: 14px; width: 24px; height: 24px; font-size: .75rem; line-height: 24px; }
+
+    /* Emergency section */
+    .emergency-grid { grid-template-columns: 1fr; gap: 14px; }
+    .emer-card { padding: 22px 18px; border-radius: 18px; }
+    .emer-icon { width: 46px; height: 46px; font-size: 1.15rem; margin-bottom: 12px; }
+    .emer-card h3 { font-size: .95rem; margin-bottom: 8px; }
+
+    /* Hotlines: 2 cols on mobile */
+    .hotlines-row { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .hotline-card { padding: 18px 14px; border-radius: 16px; }
+    .hotline-num { font-size: 1.4rem; }
+    .hotline-desc { font-size: .75rem; }
+
+    /* Laws grid */
+    .laws-grid { grid-template-columns: 1fr; gap: 14px; }
+    .law-card { padding: 22px 18px; border-radius: 18px; }
+
+    /* Contact section */
+    .contact-inner { grid-template-columns: 1fr; gap: 32px; }
+    .contact-cta-box { padding: 28px 20px; border-radius: 18px; }
+    .contact-cta-icon { width: 60px; height: 60px; font-size: 1.5rem; }
+
+    /* Report form */
+    .report-form { padding: 24px 18px; border-radius: 18px; }
+    .form-grid { grid-template-columns: 1fr; gap: 16px; }
+    .form-actions { flex-direction: column-reverse; gap: 10px; }
+    .form-actions .btn { width: 100%; justify-content: center; }
+    .report-page-header { padding: calc(var(--nav-h)+24px) 16px 36px; }
+
+    /* Footer */
+    .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+    footer { padding: 36px 0 20px; }
+
+    /* Modal: slide-up sheet on mobile */
+    .modal-overlay { padding: 0; align-items: flex-end; }
+    .modal-box {
+      max-height: 92vh;
+      border-radius: 24px 24px 0 0;
+      transform: translateY(60px);
+    }
+    .modal-overlay.open .modal-box { transform: none; }
+    .modal-head { padding: 20px 20px 0; }
+    .modal-title { font-size: 1.2rem; }
+    .modal-body { padding: 16px 20px 32px; }
+    /* Pull indicator */
+    .modal-box::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      margin: 12px auto 0;
+    }
+
+    /* Chatbot: full-width at bottom */
+    .chatbot-fab {
+      width: 52px; height: 52px;
+      font-size: 1.1rem;
+      bottom: 20px; right: 16px;
+    }
+    .chatbot-win {
+      width: calc(100vw - 24px);
+      right: 12px;
+      bottom: 84px;
+      max-height: 72vh;
+      border-radius: 20px;
+    }
+    .chat-msgs { max-height: 45vh; min-height: 160px; }
+    .chat-msg { font-size: .82rem; padding: 9px 12px; }
+    .chat-input { font-size: .875rem; padding: 10px 14px; }
+    .chat-send { width: 36px; height: 36px; }
+    .quick-btn { font-size: .72rem; padding: 5px 10px; }
+
+    /* Back to top */
+    .back-top { bottom: 84px; right: 16px; width: 38px; height: 38px; }
+
+    /* Toast */
+    .toast {
+      bottom: 20px;
+      left: 12px;
+      right: 12px;
+      transform: translateX(0) translateY(20px);
+      white-space: normal;
+      border-radius: 14px;
+    }
+    .toast.show { transform: translateX(0) translateY(0); }
+
+    /* Btn sizing */
+    .btn { padding: 13px 22px; font-size: .93rem; }
+  }
+
+  /* ── Very small screens 360px ── */
+  @media (max-width: 380px) {
+    .nav-logo { font-size: 1.05rem; }
+    .logo-box { width: 30px; height: 30px; font-size: .8rem; }
+    .nav-cta { padding: 6px 10px; }
+    #home .hero-title { font-size: 1.75rem; }
+    .hotlines-row { grid-template-columns: 1fr; }
+    .risk-card { grid-template-columns: 48px 1fr; }
+    .risk-icon-wrap { width: 46px; height: 46px; }
+  }
+
+  /* ── Tablet 641–960px: polish ── */
+  @media (min-width: 641px) and (max-width: 960px) {
+    .container { padding: 0 20px; }
+    .section { padding: 72px 0; }
+    .risks-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
+    .laws-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
+    .emergency-grid { gap: 18px; }
+    .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+    .footer-inner { grid-template-columns: 1fr 1fr; gap: 28px; }
+    .modal-overlay { padding: 20px; }
+    .chatbot-win { width: 360px; }
+  }
+
+  @media (min-width: 641px) {
+    .nav-cta span { display: inline; }
+  }
+
+  /* ── Touch-friendly enhancements ── */
+  @media (hover: none) and (pointer: coarse) {
+    .risk-card:hover { transform: none; }
+    .law-card:hover { transform: none; }
+    .hotline-card:hover { transform: none; }
+    .btn-primary:hover,
+    .btn-cta:hover,
+    .btn-outline-hero:hover { transform: none; }
+    /* Active states instead */
+    .risk-card:active { transform: scale(.98); }
+    .law-card:active { transform: scale(.98); }
+    .hotline-card:active { transform: scale(.97); }
+    .btn-cta:active, .btn-outline-hero:active, .btn-primary:active { transform: scale(.97); }
+    /* Bigger tap targets */
+    .nav-link { padding: 14px 18px; }
+    .quick-btn { padding: 8px 14px; }
+    .quiz-opt { min-height: 52px; }
+  }
+
   </style>
 </head>
 
@@ -2501,7 +2768,7 @@
         </li>
       </ul>
       <a href="tel:1800-1567" class="nav-cta" aria-label="Hotline khẩn cấp">
-        <i class="fas fa-phone-volume"></i> 1800 1567
+        <i class="fas fa-phone-volume"></i><span> 1800 1567</span>
       </a>
       <button class="theme-btn" id="themeBtn" aria-label="Đổi chế độ sáng/tối">
         <i class="fas fa-moon" id="themeIcon"></i>
