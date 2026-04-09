@@ -59,11 +59,7 @@
       color: inherit
     }
 
-    .nav-close-item { display: none }
-
-    @media(max-width:960px) {
-      .nav-close-item { display: flex }
-    }
+    /* ── TOKENS ── */
     :root {
       --hue: 214;
       --bg: #f0f4ff;
@@ -374,23 +370,11 @@
       height: 2px;
       background: #fff;
       border-radius: 2px;
-      transition: transform .3s, opacity .3s, width .3s
+      transition: .3s
     }
 
     .navbar.scrolled .ham-bar {
       background: var(--text)
-    }
-
-    /* Animate to X when open */
-    .hamburger[aria-expanded="true"] .ham-bar:nth-child(1) {
-      transform: translateY(7px) rotate(45deg)
-    }
-    .hamburger[aria-expanded="true"] .ham-bar:nth-child(2) {
-      opacity: 0;
-      width: 0
-    }
-    .hamburger[aria-expanded="true"] .ham-bar:nth-child(3) {
-      transform: translateY(-7px) rotate(-45deg)
     }
 
     @media(max-width:960px) {
@@ -439,36 +423,6 @@
 
       .nav-links-backdrop.show {
         display: block
-      }
-
-      /* Close button inside drawer */
-      .nav-close-item {
-        display: flex;
-        justify-content: flex-end;
-        padding-bottom: 8px;
-        margin-bottom: 8px;
-        border-bottom: 1px solid var(--border)
-      }
-
-      .nav-close-btn {
-        width: 38px;
-        height: 38px;
-        border-radius: 50%;
-        background: var(--surface2);
-        border: 1px solid var(--border);
-        color: var(--text2);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: all .2s
-      }
-
-      .nav-close-btn:hover {
-        background: var(--danger-bg);
-        color: var(--danger);
-        border-color: var(--danger)
       }
     }
 
@@ -2459,7 +2413,7 @@
     .hero-blobs .blob { position: absolute; border-radius: 9999px; filter: blur(80px); opacity: 0.25; }
     .hero-grid-overlay { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px); background-size: 60px 60px; }
     #home .hero-content { position: relative; z-index: 10; display: grid; gap: 3rem; padding: 7rem 0; max-width: 1200px; margin: 0 auto; padding-left: 1.5rem; padding-right: 1.5rem; }
-    @media(min-width:1024px) { #home .hero-content { grid-template-columns: 1fr 1fr; gap: 4rem; padding-top: 0; padding-bottom: 0; } }
+    @media(min-width:1024px) { #home .hero-content { grid-template-columns: 1fr 1fr; gap: 4rem; padding-top: 6rem; padding-bottom: 4rem; } }
     .hero-text { display: flex; flex-direction: column; justify-content: center; text-align: center; animation: fade-in-up 0.8s ease-out; }
     @media(min-width:1024px) { .hero-text { text-align: left; order: 1; } .hero-visual { order: 2; } }
     #home .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(240,249,255,0.1); border: 1px solid rgba(240,249,255,0.25); backdrop-filter: blur(8px); padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.05em; color: var(--accent-400); margin-bottom: 1.5rem; align-self: center; animation: none; }
@@ -2520,283 +2474,6 @@
     @media(min-width:640px) { .footer-bottom { flex-direction: row; } }
     .footer-bottom p { font-size: 0.75rem; color: rgba(100,116,139,0.5); }
 
-  /* ══════════════════════════════════════
-     MOBILE PROFESSIONAL OVERHAUL
-     Targeted: max-width 480px & 640px
-  ══════════════════════════════════════ */
-
-  /* ── Safe area support for notch/home-bar ── */
-  @supports (padding: env(safe-area-inset-bottom)) {
-    .navbar { padding-top: env(safe-area-inset-top); }
-    .chatbot-fab { bottom: calc(20px + env(safe-area-inset-bottom)); right: calc(16px + env(safe-area-inset-right)); }
-    .chatbot-win { bottom: calc(90px + env(safe-area-inset-bottom)); right: calc(16px + env(safe-area-inset-right)); }
-    .back-top { bottom: calc(90px + env(safe-area-inset-bottom)); }
-  }
-
-  /* ── Mobile base adjustments ── */
-  @media (max-width: 640px) {
-    :root { --nav-h: 58px; }
-
-    /* Container tighter padding on mobile */
-    .container { padding: 0 16px; }
-
-    /* Navbar */
-    .nav-inner { padding: 0 16px; gap: 8px; }
-    .nav-logo { font-size: 1.15rem; gap: 8px; }
-    .logo-box { width: 34px; height: 34px; font-size: .9rem; }
-    .nav-cta {
-      padding: 7px 12px;
-      font-size: .78rem;
-      gap: 5px;
-    }
-    .nav-cta span { display: none; }
-    .theme-btn { width: 32px; height: 32px; font-size: .8rem; }
-
-    /* Hamburger */
-    .hamburger { width: 32px; height: 32px; }
-    .ham-bar { width: 20px; }
-
-    /* Mobile nav drawer: full-width on small screens */
-    .nav-links {
-      width: 100% !important;
-      padding: 16px 16px 40px !important;
-    }
-    .nav-link {
-      font-size: .95rem;
-      padding: 14px 18px;
-      border-radius: 12px;
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-link:last-child { border-bottom: none; }
-
-    /* Section padding */
-    .section { padding: 56px 0; }
-    .sec-header { margin-bottom: 36px; }
-    .sec-title { font-size: clamp(1.5rem, 6vw, 2rem); }
-    .sec-sub { font-size: .92rem; }
-
-    /* Hero */
-    #home .hero-content { padding: 5.5rem 1rem 3rem; gap: 1.25rem; display: flex; flex-direction: column; }
-    /* Order on mobile: badge → shield → text */
-    #home .hero-content > .hero-badge { order: 1; align-self: center; margin-bottom: 0; }
-    .hero-visual { order: 2; }
-    .hero-text { order: 3; }
-    #home .hero-title { font-size: 2rem; line-height: 1.15; }
-    .hero-desc { font-size: 1rem; margin-bottom: 1.75rem; }
-    #home .hero-badge { font-size: .78rem; padding: 6px 14px; margin-bottom: 1.25rem; }
-    #home .hero-btns { gap: .75rem; flex-direction: column; align-items: center; }
-    .btn-cta, .btn-outline-hero {
-      width: 100%;
-      max-width: 320px;
-      justify-content: center;
-      padding: .8rem 1.5rem;
-      font-size: .95rem;
-    }
-
-    /* Hero stats: 2x2 grid on mobile */
-    #home .hero-stats {
-      display: grid !important;
-      grid-template-columns: 1fr 1fr;
-      flex-direction: unset;
-      border-radius: 16px;
-      overflow: hidden;
-      gap: 0;
-    }
-    #home .hero-stats .stat {
-      padding: 1rem;
-      border-right: 1px solid rgba(240,249,255,0.12);
-      border-bottom: 1px solid rgba(240,249,255,0.12);
-    }
-    #home .hero-stats .stat:nth-child(2n) { border-right: none; }
-    #home .hero-stats .stat:nth-child(3),
-    #home .hero-stats .stat:nth-child(4) { border-bottom: none; }
-    #home .hero-stats .stat-num { font-size: 1.5rem; }
-    #home .hero-stats .stat-label { font-size: .7rem; }
-
-    /* Shield visual: smaller on mobile */
-    .shield-wrapper { width: 180px; height: 180px; }
-    .shield-outer { width: 150px; height: 150px; }
-    .shield-inner { width: 110px; height: 110px; }
-    .shield-inner i { font-size: 2.2rem; }
-    .float-icon { width: 38px; height: 38px; font-size: .9rem; }
-
-    /* Risk cards: full-width with better touch targets */
-    .risks-grid { grid-template-columns: 1fr; gap: 14px; }
-    .risk-card {
-      padding: 22px 20px;
-      gap: 10px;
-      border-radius: 18px;
-      /* horizontal layout on mobile */
-      display: grid;
-      grid-template-columns: 56px 1fr;
-      grid-template-rows: auto auto auto;
-      align-items: start;
-    }
-    .risk-icon-wrap { width: 52px; height: 52px; border-radius: 14px; font-size: 1.25rem; grid-row: 1; grid-column: 1; }
-    .risk-tag { grid-row: 1; grid-column: 2; align-self: center; font-size: .65rem; }
-    .risk-card h3 { grid-row: 2; grid-column: 1 / -1; font-size: 1.05rem; margin-top: 4px; }
-    .risk-card p { grid-row: 3; grid-column: 1 / -1; font-size: .875rem; }
-    .risk-cta { grid-row: 4; grid-column: 1 / -1; font-size: .82rem; }
-
-    /* Quiz */
-    .quiz-intro { padding: 28px 20px; border-radius: 18px; }
-    .quiz-intro-icon { width: 64px; height: 64px; font-size: 1.6rem; border-radius: 16px; margin-bottom: 18px; }
-    .quiz-intro h3 { font-size: 1.3rem; }
-    .quiz-info-row { gap: 10px; }
-    .quiz-info-item { font-size: .8rem; padding: 8px 12px; }
-    .quiz-question { font-size: 1.05rem; }
-    .quiz-opt {
-      padding: 14px 16px 14px 48px;
-      font-size: .9rem;
-      border-radius: 12px;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .quiz-opt::before { left: 14px; width: 24px; height: 24px; font-size: .75rem; line-height: 24px; }
-
-    /* Emergency section */
-    .emergency-grid { grid-template-columns: 1fr; gap: 14px; }
-    .emer-card { padding: 22px 18px; border-radius: 18px; }
-    .emer-icon { width: 46px; height: 46px; font-size: 1.15rem; margin-bottom: 12px; }
-    .emer-card h3 { font-size: .95rem; margin-bottom: 8px; }
-
-    /* Hotlines: 2 cols on mobile */
-    .hotlines-row { grid-template-columns: 1fr 1fr; gap: 12px; }
-    .hotline-card { padding: 18px 14px; border-radius: 16px; }
-    .hotline-num { font-size: 1.4rem; }
-    .hotline-desc { font-size: .75rem; }
-
-    /* Laws grid */
-    .laws-grid { grid-template-columns: 1fr; gap: 14px; }
-    .law-card { padding: 22px 18px; border-radius: 18px; }
-
-    /* Contact section */
-    .contact-inner { grid-template-columns: 1fr; gap: 32px; }
-    .contact-cta-box { padding: 28px 20px; border-radius: 18px; }
-    .contact-cta-icon { width: 60px; height: 60px; font-size: 1.5rem; }
-
-    /* Report form */
-    .report-form { padding: 24px 18px; border-radius: 18px; }
-    .form-grid { grid-template-columns: 1fr; gap: 16px; }
-    .form-actions { flex-direction: column-reverse; gap: 10px; }
-    .form-actions .btn { width: 100%; justify-content: center; }
-    .report-page-header { padding: calc(var(--nav-h)+24px) 16px 36px; }
-
-    /* Footer */
-    .footer-inner { grid-template-columns: 1fr; gap: 28px; }
-    footer { padding: 36px 0 20px; }
-
-    /* Modal: slide-up sheet on mobile */
-    .modal-overlay { padding: 0; align-items: flex-end; }
-    .modal-box {
-      max-height: 92vh;
-      border-radius: 24px 24px 0 0;
-      transform: translateY(60px);
-    }
-    .modal-overlay.open .modal-box { transform: none; }
-    .modal-head { padding: 20px 20px 0; }
-    .modal-title { font-size: 1.2rem; }
-    .modal-body { padding: 16px 20px 32px; }
-    /* Pull indicator */
-    .modal-box::before {
-      content: '';
-      display: block;
-      width: 40px;
-      height: 4px;
-      background: var(--border);
-      border-radius: 2px;
-      margin: 12px auto 0;
-    }
-
-    /* Chatbot: full-width at bottom */
-    .chatbot-fab {
-      width: 52px; height: 52px;
-      font-size: 1.1rem;
-      bottom: 20px; right: 16px;
-    }
-    .chatbot-win {
-      width: calc(100vw - 24px);
-      right: 12px;
-      bottom: 84px;
-      max-height: 72vh;
-      border-radius: 20px;
-    }
-    .chat-msgs { max-height: 45vh; min-height: 160px; }
-    .chat-msg { font-size: .82rem; padding: 9px 12px; }
-    .chat-input { font-size: .875rem; padding: 10px 14px; }
-    .chat-send { width: 36px; height: 36px; }
-    .quick-btn { font-size: .72rem; padding: 5px 10px; }
-
-    /* Back to top */
-    .back-top { bottom: 84px; right: 16px; width: 38px; height: 38px; }
-
-    /* Toast */
-    .toast {
-      bottom: 20px;
-      left: 12px;
-      right: 12px;
-      transform: translateX(0) translateY(20px);
-      white-space: normal;
-      border-radius: 14px;
-    }
-    .toast.show { transform: translateX(0) translateY(0); }
-
-    /* Btn sizing */
-    .btn { padding: 13px 22px; font-size: .93rem; }
-  }
-
-  /* ── Very small screens 360px ── */
-  @media (max-width: 380px) {
-    .nav-logo { font-size: 1.05rem; }
-    .logo-box { width: 30px; height: 30px; font-size: .8rem; }
-    .nav-cta { padding: 6px 10px; }
-    #home .hero-title { font-size: 1.75rem; }
-    .hotlines-row { grid-template-columns: 1fr; }
-    .risk-card { grid-template-columns: 48px 1fr; }
-    .risk-icon-wrap { width: 46px; height: 46px; }
-  }
-
-  /* ── Tablet 641–960px: polish ── */
-  @media (min-width: 641px) and (max-width: 960px) {
-    .container { padding: 0 20px; }
-    .section { padding: 72px 0; }
-    .risks-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
-    .laws-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
-    .emergency-grid { gap: 18px; }
-    .contact-inner { grid-template-columns: 1fr; gap: 40px; }
-    .footer-inner { grid-template-columns: 1fr 1fr; gap: 28px; }
-    .modal-overlay { padding: 20px; }
-    .chatbot-win { width: 360px; }
-  }
-
-  @media (min-width: 641px) {
-    .nav-cta span { display: inline; }
-    /* Restore desktop hero layout */
-    #home .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-    /* Badge floats above hero-text in desktop grid - span full width or sit in col 1 */
-    #home .hero-content > .hero-badge { order: unset; grid-column: 1; grid-row: 1; align-self: end; margin-bottom: 0; }
-    .hero-text { order: unset; grid-column: 1; grid-row: 2; }
-    .hero-visual { order: unset; grid-column: 2; grid-row: 1 / 3; display: flex; align-items: center; }
-  }
-
-  /* ── Touch-friendly enhancements ── */
-  @media (hover: none) and (pointer: coarse) {
-    .risk-card:hover { transform: none; }
-    .law-card:hover { transform: none; }
-    .hotline-card:hover { transform: none; }
-    .btn-primary:hover,
-    .btn-cta:hover,
-    .btn-outline-hero:hover { transform: none; }
-    /* Active states instead */
-    .risk-card:active { transform: scale(.98); }
-    .law-card:active { transform: scale(.98); }
-    .hotline-card:active { transform: scale(.97); }
-    .btn-cta:active, .btn-outline-hero:active, .btn-primary:active { transform: scale(.97); }
-    /* Bigger tap targets */
-    .nav-link { padding: 14px 18px; }
-    .quick-btn { padding: 8px 14px; }
-    .quiz-opt { min-height: 52px; }
-  }
-
   </style>
 </head>
 
@@ -2813,20 +2490,18 @@
       </a>
       <div class="nav-links-backdrop" id="navBackdrop"></div>
       <ul class="nav-links" id="navLinks">
-        <li class="nav-close-item">
-          <button class="nav-close-btn" id="navCloseBtn" aria-label="Đóng menu">
-            <i class="fas fa-xmark"></i>
-          </button>
-        </li>
         <li><a href="#home" class="nav-link" onclick="showMainPage()"><i class="fas fa-house"></i> Trang chủ</a></li>
-        <li><a href="#risks" class="nav-link" onclick="showMainPage()"><i class="fas fa-triangle-exclamation"></i> Nguy hiểm</a></li>
-        <li><a href="#skills" class="nav-link" onclick="showMainPage()"><i class="fas fa-brain"></i> Kỹ năng</a></li>
-        <li><a href="#emergency" class="nav-link" onclick="showMainPage()"><i class="fas fa-circle-info"></i> Xử lý</a></li>
+        <li><a href="#risks" class="nav-link" onclick="showMainPage()"><i class="fas fa-triangle-exclamation"></i> Nguy
+            hiểm</a></li>
+        <li><a href="#skills" class="nav-link" onclick="showMainPage()"><i class="fas fa-brain"></i> Kiểm tra</a></li>
+        <li><a href="#emergency" class="nav-link" onclick="showMainPage()"><i class="fas fa-circle-info"></i> Xử lý</a>
+        </li>
         <li><a href="#laws" class="nav-link" onclick="showMainPage()"><i class="fas fa-gavel"></i> Pháp luật</a></li>
-        <li><a href="#contact" class="nav-link" onclick="showMainPage()"><i class="fas fa-envelope"></i> Liên hệ</a></li>
+        <li><a href="#contact" class="nav-link" onclick="showMainPage()"><i class="fas fa-envelope"></i> Báo cáo</a>
+        </li>
       </ul>
       <a href="tel:1800-1567" class="nav-cta" aria-label="Hotline khẩn cấp">
-        <i class="fas fa-phone-volume"></i><span> 1800 1567</span>
+        <i class="fas fa-phone-volume"></i> 1800 1567
       </a>
       <button class="theme-btn" id="themeBtn" aria-label="Đổi chế độ sáng/tối">
         <i class="fas fa-moon" id="themeIcon"></i>
@@ -2852,13 +2527,13 @@
         <div class="hero-grid-overlay"></div>
       </div>
       <div class="hero-content">
-        <div class="hero-badge"><i class="fas fa-star" style="color:#facc15"></i> Chương trình an toàn mạng cho trẻ em</div>
         <div class="hero-text">
+          <div class="hero-badge"><i class="fas fa-star" style="color:#facc15"></i> Chương trình an toàn mạng cho trẻ em</div>
           <h1 class="hero-title">Mạng an toàn –<br><span class="gradient-text">Em vững bước!</span></h1>
           <p class="hero-desc">Trang bị cho em những kỹ năng quan trọng để nhận biết và phòng tránh <strong>bạo lực, lừa đảo, dụ dỗ bắt cóc</strong> trên không gian mạng.</p>
           <div class="hero-btns">
             <a href="#risks" class="btn-cta"><i class="fas fa-compass"></i> Tìm hiểu ngay</a>
-            <a href="#skills" class="btn-outline-hero"><i class="fas fa-play-circle"></i> Học kỹ năng bảo vệ</a>
+            <a href="#skills" class="btn-outline-hero"><i class="fas fa-play-circle"></i> Kiểm tra kiến thức</a>
           </div>
           <div class="hero-stats">
             <div class="stat"><span class="stat-num">3</span><span class="stat-label">Loại nguy hiểm</span></div>
@@ -3243,7 +2918,7 @@
             <h4>Khám phá</h4>
             <ul>
               <li><a href="#risks"><i class="fas fa-chevron-right"></i> Tác hại trên mạng</a></li>
-              <li><a href="#skills"><i class="fas fa-chevron-right"></i> Kỹ năng bảo vệ</a></li>
+              <li><a href="#skills"><i class="fas fa-chevron-right"></i> Kiểm tra kiến thức</a></li>
               <li><a href="#emergency"><i class="fas fa-chevron-right"></i> Xử lý tình huống</a></li>
               <li><a href="#laws"><i class="fas fa-chevron-right"></i> Pháp luật bảo vệ</a></li>
               <li><a href="#" onclick="showReportPage();return false"><i class="fas fa-chevron-right"></i> Báo cáo sự cố</a></li>
@@ -3259,7 +2934,7 @@
           </div>
         </div>
         <div class="footer-bottom">
-          <p>© 2025 SafeNet Kids. Dự án phi lợi nhuận bảo vệ trẻ em.</p>
+          <p>© 2026 SafeNet Kids. Dự án phi lợi nhuận bảo vệ trẻ em.</p>
           <p><i class="fas fa-heart" style="color:#ef4444"></i> Vì một không gian mạng an toàn</p>
         </div>
       </div>
@@ -3567,26 +3242,47 @@
   <div class="modal-overlay" id="modal-law1" onclick="if(event.target===this)closeModal('modal-law1')">
     <div class="modal-box">
       <div class="modal-head">
-        <h2 class="modal-title"><i class="fas fa-child-reaching" style="color:var(--primary);margin-right:10px"></i>Luật
-          Trẻ em 2016</h2>
+        <h2 class="modal-title"><i class="fas fa-child-reaching" style="color:var(--primary);margin-right:10px"></i>Luật Trẻ em 2016</h2>
         <button class="modal-close" onclick="closeModal('modal-law1')"><i class="fas fa-xmark"></i></button>
       </div>
       <div class="modal-body">
         <div class="modal-section">
-          <h4><i class="fas fa-book-open" style="color:var(--primary)"></i> Nội dung chính</h4>
+          <h4><i class="fas fa-book-open" style="color:var(--primary)"></i> Thông tin cơ bản</h4>
           <ul class="modal-list">
-            <li><i class="fas fa-check-circle" style="color:var(--primary)"></i><strong>Điều 54:</strong> Quy định bảo
-              vệ trẻ em khỏi xâm hại trên môi trường mạng</li>
-            <li><i class="fas fa-check-circle" style="color:var(--primary)"></i>Cha mẹ, gia đình có trách nhiệm giám
-              sát, hướng dẫn trẻ sử dụng mạng an toàn</li>
-            <li><i class="fas fa-check-circle" style="color:var(--primary)"></i>Nhà nước đảm bảo quyền được bảo vệ thông
-              tin cá nhân của trẻ em</li>
-            <li><i class="fas fa-check-circle" style="color:var(--primary)"></i>Cơ quan chức năng phải can thiệp kịp
-              thời khi trẻ em bị xâm hại</li>
+            <li><i class="fas fa-check-circle" style="color:var(--primary)"></i><strong>Số hiệu:</strong> Luật số 102/2016/QH13</li>
+            <li><i class="fas fa-check-circle" style="color:var(--primary)"></i><strong>Thông qua:</strong> Kỳ họp thứ 11, Quốc hội khóa XIII ngày 05/4/2016</li>
+            <li><i class="fas fa-check-circle" style="color:var(--primary)"></i><strong>Có hiệu lực:</strong> Ngày 01/6/2017</li>
+            <li><i class="fas fa-check-circle" style="color:var(--primary)"></i><strong>Phạm vi:</strong> Áp dụng cho trẻ em dưới 16 tuổi tại Việt Nam</li>
           </ul>
         </div>
-        <div class="modal-alert"><i class="fas fa-info-circle"></i><span>Luật này được Quốc hội thông qua ngày 5/4/2016
-            và có hiệu lực từ ngày 1/6/2017.</span></div>
+        <div class="modal-section">
+          <h4><i class="fas fa-shield-halved" style="color:var(--primary)"></i> Quyền trẻ em trên môi trường mạng (Điều 54)</h4>
+          <ul class="modal-list">
+            <li><i class="fas fa-check-circle" style="color:var(--primary)"></i>Trẻ em có quyền được bảo vệ khỏi các thông tin, hình ảnh, âm thanh độc hại trên môi trường mạng</li>
+            <li><i class="fas fa-check-circle" style="color:var(--primary)"></i>Được bảo vệ bí mật đời sống riêng tư, bí mật cá nhân trên không gian mạng</li>
+            <li><i class="fas fa-check-circle" style="color:var(--primary)"></i>Được tiếp cận thông tin, giáo dục kỹ năng sử dụng mạng an toàn</li>
+            <li><i class="fas fa-check-circle" style="color:var(--primary)"></i>Không bị sử dụng hình ảnh, thông tin cá nhân trái phép trên mạng</li>
+          </ul>
+        </div>
+        <div class="modal-section">
+          <h4><i class="fas fa-users" style="color:var(--cyan)"></i> Trách nhiệm bảo vệ trẻ em (Điều 55–62)</h4>
+          <ul class="modal-list">
+            <li><i class="fas fa-check-circle" style="color:var(--cyan)"></i><strong>Gia đình:</strong> Giám sát, hướng dẫn trẻ sử dụng mạng lành mạnh; không để trẻ tiếp cận nội dung độc hại</li>
+            <li><i class="fas fa-check-circle" style="color:var(--cyan)"></i><strong>Nhà trường:</strong> Giáo dục kỹ năng an toàn mạng; phát hiện và can thiệp kịp thời khi học sinh bị xâm hại</li>
+            <li><i class="fas fa-check-circle" style="color:var(--cyan)"></i><strong>Cơ quan nhà nước:</strong> Ban hành chính sách, thiết lập hệ thống tiếp nhận tố cáo và hỗ trợ trẻ em bị xâm hại</li>
+            <li><i class="fas fa-check-circle" style="color:var(--cyan)"></i><strong>Doanh nghiệp mạng:</strong> Chặn, gỡ nội dung độc hại; bảo vệ dữ liệu cá nhân trẻ em theo yêu cầu pháp luật</li>
+          </ul>
+        </div>
+        <div class="modal-section">
+          <h4><i class="fas fa-gavel" style="color:var(--warning)"></i> Mức xử phạt vi phạm (Nghị định 130/2021/NĐ-CP)</h4>
+          <ul class="modal-list">
+            <li><i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i>Xúc phạm danh dự, nhân phẩm trẻ em trên mạng: phạt <strong>5 – 10 triệu đồng</strong></li>
+            <li><i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i>Tiết lộ thông tin bí mật đời sống riêng tư của trẻ em: phạt <strong>10 – 20 triệu đồng</strong></li>
+            <li><i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i>Cung cấp dịch vụ trực tuyến không an toàn cho trẻ em: phạt <strong>20 – 40 triệu đồng</strong></li>
+            <li><i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i>Hành vi xâm hại nghiêm trọng: truy cứu trách nhiệm hình sự theo Bộ luật Hình sự 2015</li>
+          </ul>
+        </div>
+        <div class="modal-alert"><i class="fas fa-phone"></i><span><strong>Tổng đài bảo vệ trẻ em:</strong> Gọi <strong>111</strong> hoặc <strong>1800 1567</strong> (miễn phí, 24/7) để báo cáo khi trẻ em bị xâm hại.</span></div>
       </div>
     </div>
   </div>
@@ -3595,35 +3291,48 @@
   <div class="modal-overlay" id="modal-law2" onclick="if(event.target===this)closeModal('modal-law2')">
     <div class="modal-box">
       <div class="modal-head">
-        <h2 class="modal-title"><i class="fas fa-shield-halved" style="color:var(--cyan);margin-right:10px"></i>Luật An
-          ninh mạng 2018</h2>
+        <h2 class="modal-title"><i class="fas fa-shield-halved" style="color:var(--cyan);margin-right:10px"></i>Luật An ninh mạng 2018</h2>
         <button class="modal-close" onclick="closeModal('modal-law2')"><i class="fas fa-xmark"></i></button>
       </div>
       <div class="modal-body">
         <div class="modal-section">
-          <h4><i class="fas fa-ban" style="color:var(--danger)"></i> Hành vi bị nghiêm cấm (Điều 8, 16, 29)</h4>
+          <h4><i class="fas fa-book-open" style="color:var(--cyan)"></i> Thông tin cơ bản</h4>
           <ul class="modal-list">
-            <li><i class="fas fa-times-circle" style="color:var(--danger)"></i>Lợi dụng mạng để dụ dỗ, xâm hại, bóc lột
-              trẻ em</li>
-            <li><i class="fas fa-times-circle" style="color:var(--danger)"></i>Phát tán nội dung khiêu dâm, bạo lực liên
-              quan đến trẻ em</li>
-            <li><i class="fas fa-times-circle" style="color:var(--danger)"></i>Đánh cắp, mua bán thông tin cá nhân của
-              trẻ em</li>
-            <li><i class="fas fa-times-circle" style="color:var(--danger)"></i>Tấn công mạng, phát tán mã độc vào các hệ
-              thống giáo dục</li>
+            <li><i class="fas fa-check-circle" style="color:var(--cyan)"></i><strong>Số hiệu:</strong> Luật số 24/2018/QH14</li>
+            <li><i class="fas fa-check-circle" style="color:var(--cyan)"></i><strong>Thông qua:</strong> Kỳ họp thứ 5, Quốc hội khóa XIV ngày 12/6/2018</li>
+            <li><i class="fas fa-check-circle" style="color:var(--cyan)"></i><strong>Có hiệu lực:</strong> Ngày 01/01/2019</li>
+            <li><i class="fas fa-check-circle" style="color:var(--cyan)"></i><strong>Nghị định hướng dẫn:</strong> Nghị định 13/2023/NĐ-CP về bảo vệ dữ liệu cá nhân</li>
           </ul>
         </div>
         <div class="modal-section">
-          <h4><i class="fas fa-gavel" style="color:var(--warning)"></i> Mức xử phạt</h4>
+          <h4><i class="fas fa-ban" style="color:var(--danger)"></i> Hành vi bị nghiêm cấm liên quan đến trẻ em (Điều 8, 16, 29)</h4>
           <ul class="modal-list">
-            <li><i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i>Phạt hành chính: 10 – 100 triệu
-              đồng</li>
-            <li><i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i>Truy cứu hình sự: có thể lên đến
-              12 năm tù</li>
-            <li><i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i>Tịch thu tài sản và phương tiện
-              phạm tội</li>
+            <li><i class="fas fa-times-circle" style="color:var(--danger)"></i><strong>Điều 8, khoản 6:</strong> Lợi dụng không gian mạng để dụ dỗ, lôi kéo, kích động trẻ em tham gia hoạt động trái pháp luật</li>
+            <li><i class="fas fa-times-circle" style="color:var(--danger)"></i><strong>Điều 16:</strong> Cấm đăng tải, phát tán thông tin xúc phạm danh dự, nhân phẩm, xâm phạm quyền trẻ em</li>
+            <li><i class="fas fa-times-circle" style="color:var(--danger)"></i><strong>Điều 29:</strong> Cấm thu thập, mua bán, trao đổi trái phép thông tin cá nhân của trẻ em</li>
+            <li><i class="fas fa-times-circle" style="color:var(--danger)"></i>Phát tán nội dung khiêu dâm, bạo lực liên quan đến trẻ em trên không gian mạng</li>
+            <li><i class="fas fa-times-circle" style="color:var(--danger)"></i>Sử dụng AI, deepfake để tạo hình ảnh giả mạo, xúc phạm trẻ em</li>
           </ul>
         </div>
+        <div class="modal-section">
+          <h4><i class="fas fa-gavel" style="color:var(--warning)"></i> Mức xử phạt (Nghị định 15/2020/NĐ-CP, sửa đổi 14/2022/NĐ-CP)</h4>
+          <ul class="modal-list">
+            <li><i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i>Đăng thông tin sai sự thật xâm phạm quyền trẻ em: phạt <strong>10 – 20 triệu đồng</strong></li>
+            <li><i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i>Thu thập, sử dụng trái phép thông tin cá nhân trẻ em: phạt <strong>20 – 40 triệu đồng</strong></li>
+            <li><i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i>Phát tán nội dung khiêu dâm trẻ em: phạt <strong>50 – 100 triệu đồng</strong> + truy cứu hình sự</li>
+            <li><i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i><strong>Truy cứu hình sự:</strong> Điều 226 BLHS 2015 – tội xâm phạm quyền trẻ em trên mạng có thể lên đến <strong>12 năm tù</strong></li>
+          </ul>
+        </div>
+        <div class="modal-section">
+          <h4><i class="fas fa-flag" style="color:var(--success)"></i> Cách báo cáo vi phạm</h4>
+          <ul class="modal-list">
+            <li><i class="fas fa-check-circle" style="color:var(--success)"></i>Truy cập <strong>canhbao.ncsc.gov.vn</strong> – Cổng cảnh báo an toàn thông tin mạng quốc gia</li>
+            <li><i class="fas fa-check-circle" style="color:var(--success)"></i>Gọi <strong>1800 1567</strong> – Tổng đài bảo vệ trẻ em (miễn phí)</li>
+            <li><i class="fas fa-check-circle" style="color:var(--success)"></i>Báo cáo trực tiếp qua nền tảng (Facebook, TikTok, YouTube...)</li>
+            <li><i class="fas fa-check-circle" style="color:var(--success)"></i>Trình báo cơ quan Công an địa phương và cung cấp bằng chứng (ảnh chụp màn hình)</li>
+          </ul>
+        </div>
+        <div class="modal-alert" style="background:var(--danger-bg);border-color:rgba(220,38,38,.3);color:var(--danger)"><i class="fas fa-exclamation-circle"></i><span><strong>Quan trọng:</strong> Mọi nội dung xâm hại trẻ em phải được báo cáo ngay. Chụp ảnh bằng chứng trước khi nội dung bị xóa!</span></div>
       </div>
     </div>
   </div>
@@ -3632,28 +3341,48 @@
   <div class="modal-overlay" id="modal-law3" onclick="if(event.target===this)closeModal('modal-law3')">
     <div class="modal-box">
       <div class="modal-head">
-        <h2 class="modal-title"><i class="fas fa-robot" style="color:var(--purple);margin-right:10px"></i>Quy định về AI
-          2025</h2>
+        <h2 class="modal-title"><i class="fas fa-robot" style="color:var(--purple);margin-right:10px"></i>Quy định về Trí tuệ nhân tạo (AI)</h2>
         <button class="modal-close" onclick="closeModal('modal-law3')"><i class="fas fa-xmark"></i></button>
       </div>
       <div class="modal-body">
         <div class="modal-section">
-          <h4><i class="fas fa-robot" style="color:var(--purple)"></i> Nội dung quy định</h4>
+          <h4><i class="fas fa-book-open" style="color:var(--purple)"></i> Văn bản pháp lý hiện hành</h4>
           <ul class="modal-list">
-            <li><i class="fas fa-check-circle" style="color:var(--purple)"></i>Cấm sử dụng AI tạo deepfake, nội dung giả
-              mạo liên quan đến trẻ em</li>
-            <li><i class="fas fa-check-circle" style="color:var(--purple)"></i>AI phải được thiết kế đảm bảo an toàn cho
-              người dùng trẻ em</li>
-            <li><i class="fas fa-check-circle" style="color:var(--purple)"></i>Doanh nghiệp AI phải có cơ chế bảo vệ dữ
-              liệu của trẻ em</li>
-            <li><i class="fas fa-check-circle" style="color:var(--purple)"></i>Xử lý nghiêm các trường hợp AI được dùng
-              để xâm hại trẻ em</li>
+            <li><i class="fas fa-check-circle" style="color:var(--purple)"></i><strong>Chiến lược Quốc gia về AI:</strong> Quyết định 127/QĐ-TTg ngày 26/01/2021 của Thủ tướng Chính phủ</li>
+            <li><i class="fas fa-check-circle" style="color:var(--purple)"></i><strong>Nghị định bảo vệ dữ liệu cá nhân:</strong> Nghị định 13/2023/NĐ-CP (hiệu lực 1/7/2023) – áp dụng trực tiếp cho dữ liệu trẻ em do AI xử lý</li>
+            <li><i class="fas fa-check-circle" style="color:var(--purple)"></i><strong>Luật Giao dịch điện tử 2023:</strong> Luật số 20/2023/QH15, quy định về chữ ký điện tử và dữ liệu do AI tạo ra</li>
+            <li><i class="fas fa-check-circle" style="color:var(--purple)"></i><strong>Đề án phát triển AI 2025:</strong> Khuôn khổ pháp lý AI toàn diện đang được Bộ KH&CN hoàn thiện</li>
           </ul>
         </div>
-        <div class="modal-alert"
-          style="background:var(--purple-bg);border-color:rgba(124,58,237,.3);color:var(--purple)">
-          <i class="fas fa-info-circle"></i><span>Việt Nam đang xây dựng hành lang pháp lý toàn diện cho AI, phù hợp với
-            tiêu chuẩn quốc tế về đạo đức AI.</span>
+        <div class="modal-section">
+          <h4><i class="fas fa-ban" style="color:var(--danger)"></i> Hành vi AI bị cấm liên quan đến trẻ em</h4>
+          <ul class="modal-list">
+            <li><i class="fas fa-times-circle" style="color:var(--danger)"></i>Sử dụng AI/Deepfake tạo ảnh, video giả mạo hình ảnh trẻ em – vi phạm Điều 16 Luật An ninh mạng 2018</li>
+            <li><i class="fas fa-times-circle" style="color:var(--danger)"></i>Dùng AI tổng hợp giọng nói giả mạo người thân trẻ em để lừa đảo – vi phạm Điều 174 BLHS về tội lừa đảo chiếm đoạt tài sản</li>
+            <li><i class="fas fa-times-circle" style="color:var(--danger)"></i>Thu thập, xử lý dữ liệu sinh trắc học (khuôn mặt, giọng nói) của trẻ em mà không có sự đồng ý của cha mẹ – vi phạm Nghị định 13/2023</li>
+            <li><i class="fas fa-times-circle" style="color:var(--danger)"></i>Sử dụng AI để phân tích hành vi, gây nghiện hoặc thao túng tâm lý trẻ em trên nền tảng số</li>
+          </ul>
+        </div>
+        <div class="modal-section">
+          <h4><i class="fas fa-gavel" style="color:var(--warning)"></i> Chế tài xử phạt</h4>
+          <ul class="modal-list">
+            <li><i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i>Tạo deepfake xâm phạm quyền trẻ em: phạt <strong>20 – 70 triệu đồng</strong> hành chính (Nghị định 15/2020)</li>
+            <li><i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i>Vi phạm bảo vệ dữ liệu cá nhân trẻ em: phạt <strong>40 – 80 triệu đồng</strong> (Nghị định 13/2023)</li>
+            <li><i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i>Sử dụng AI lừa đảo chiếm đoạt tài sản: truy cứu hình sự tù <strong>2 – 20 năm</strong> (Điều 174 BLHS)</li>
+            <li><i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i>Dùng deepfake để tống tiền, bôi nhọ trẻ em: tù <strong>3 – 7 năm</strong> (Điều 155, 156 BLHS)</li>
+          </ul>
+        </div>
+        <div class="modal-section">
+          <h4><i class="fas fa-eye" style="color:var(--success)"></i> Cách nhận biết và tự bảo vệ khỏi AI giả mạo</h4>
+          <ul class="modal-list">
+            <li><i class="fas fa-check-circle" style="color:var(--success)"></i>Video deepfake thường có: ánh mắt không tự nhiên, viền khuôn mặt nhòe, giọng nói thiếu cảm xúc</li>
+            <li><i class="fas fa-check-circle" style="color:var(--success)"></i>Dùng từ khóa bí mật với gia đình để xác nhận khi nhận cuộc gọi lạ giả giọng người thân</li>
+            <li><i class="fas fa-check-circle" style="color:var(--success)"></i>Không chia sẻ ảnh/video cá nhân công khai – hạn chế nguồn dữ liệu cho kẻ tạo deepfake</li>
+            <li><i class="fas fa-check-circle" style="color:var(--success)"></i>Báo cáo ngay nội dung deepfake xâm hại lên nền tảng và cơ quan chức năng</li>
+          </ul>
+        </div>
+        <div class="modal-alert" style="background:var(--purple-bg);border-color:rgba(124,58,237,.3);color:var(--purple)">
+          <i class="fas fa-info-circle"></i><span>Việt Nam đang xây dựng Luật AI chuyên biệt dự kiến ban hành năm 2025–2026, hướng tới bảo vệ toàn diện trẻ em trong kỷ nguyên số theo tiêu chuẩn quốc tế UNESCO và EU AI Act.</span>
         </div>
       </div>
     </div>
@@ -3737,17 +3466,6 @@
       hamburger.setAttribute('aria-expanded', open);
       navBackdrop.classList.toggle('show', open);
     });
-
-    // Close button inside drawer
-    const navCloseBtn = document.getElementById('navCloseBtn');
-    if (navCloseBtn) {
-      navCloseBtn.addEventListener('click', () => {
-        navLinks.classList.remove('open');
-        navBackdrop.classList.remove('show');
-        hamburger.setAttribute('aria-expanded', 'false');
-      });
-    }
-
     navBackdrop.addEventListener('click', () => {
       navLinks.classList.remove('open');
       navBackdrop.classList.remove('show');
