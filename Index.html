@@ -353,7 +353,78 @@
       transform: rotate(15deg) scale(1.08)
     }
 
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      width: 36px;
+      height: 36px;
+      align-items: center;
+      justify-content: center;
+      margin-left: auto;
+      flex-shrink: 0
+    }
 
+    .ham-bar {
+      width: 22px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: .3s
+    }
+
+    .navbar.scrolled .ham-bar {
+      background: var(--text)
+    }
+
+    @media(max-width:960px) {
+      .nav-links {
+        position: fixed;
+        inset: 0 0 0 auto;
+        width: 280px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+        background: var(--surface);
+        padding: 80px 20px 32px;
+        transform: translateX(100%);
+        transition: transform .3s;
+        box-shadow: var(--sh-lg);
+        z-index: 1000;
+        overflow-y: auto
+      }
+
+      .nav-links.open {
+        transform: none
+      }
+
+      .nav-link {
+        color: var(--text2);
+        padding: 12px 16px;
+        border-radius: var(--r-md)
+      }
+
+      .nav-link:hover {
+        background: var(--surface2);
+        color: var(--primary)
+      }
+
+      .hamburger {
+        display: flex
+      }
+
+      .nav-links-backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, .4);
+        z-index: 999
+      }
+
+      .nav-links-backdrop.show {
+        display: block
+      }
+    }
 
     /* ══════════════════════════════════════
    HERO
@@ -2272,149 +2343,6 @@
     }
 
     /* ══════════════════════════════════════
-   HAMBURGER & MOBILE MENU
-══════════════════════════════════════ */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      border: 1.5px solid rgba(255, 255, 255, .3);
-      background: none;
-      cursor: pointer;
-      gap: 5px;
-      transition: all .2s;
-      flex-shrink: 0;
-      margin-left: 8px;
-    }
-
-    .navbar.scrolled .hamburger {
-      border-color: var(--border);
-    }
-
-    .hamburger span {
-      display: block;
-      width: 18px;
-      height: 2px;
-      background: #fff;
-      border-radius: 2px;
-      transition: all .3s cubic-bezier(.4, 0, .2, 1);
-      transform-origin: center;
-    }
-
-    .navbar.scrolled .hamburger span {
-      background: var(--text);
-    }
-
-    .hamburger.open span:nth-child(1) {
-      transform: translateY(7px) rotate(45deg);
-    }
-
-    .hamburger.open span:nth-child(2) {
-      opacity: 0;
-      transform: scaleX(0);
-    }
-
-    .hamburger.open span:nth-child(3) {
-      transform: translateY(-7px) rotate(-45deg);
-    }
-
-    /* Mobile overlay */
-    .mobile-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, .5);
-      z-index: 850;
-      opacity: 0;
-      transition: opacity .3s;
-      backdrop-filter: blur(4px);
-    }
-
-    .mobile-overlay.show {
-      opacity: 1;
-    }
-
-    /* Mobile drawer */
-    .mobile-menu {
-      display: none;
-      position: fixed;
-      top: var(--nav-h);
-      left: 0;
-      right: 0;
-      z-index: 860;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, .15);
-      padding: 16px 0 20px;
-      transform: translateY(-110%);
-      transition: transform .35s cubic-bezier(.4, 0, .2, 1);
-    }
-
-    .mobile-menu.open {
-      transform: translateY(0);
-    }
-
-    .mobile-menu-list {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      padding: 0 16px;
-    }
-
-    .mobile-menu-list a {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 13px 16px;
-      border-radius: var(--r-md);
-      font-size: .95rem;
-      font-weight: 600;
-      color: var(--text2);
-      transition: all .2s;
-    }
-
-    .mobile-menu-list a i {
-      width: 20px;
-      text-align: center;
-      font-size: .85rem;
-      color: var(--primary-light);
-    }
-
-    .mobile-menu-list a:hover {
-      background: var(--primary-glow);
-      color: var(--primary);
-    }
-
-    .mobile-menu-divider {
-      height: 1px;
-      background: var(--border);
-      margin: 10px 16px;
-    }
-
-    .mobile-menu-cta {
-      margin: 10px 16px 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 13px;
-      background: linear-gradient(135deg, #dc2626, #ea580c);
-      color: #fff !important;
-      border-radius: var(--r-md);
-      font-weight: 700;
-      font-size: .95rem;
-      box-shadow: 0 4px 14px rgba(220, 38, 38, .3);
-    }
-
-    .mobile-menu-cta i {
-      color: #fff !important;
-    }
-
-    /* ══════════════════════════════════════
    RESPONSIVE
 ══════════════════════════════════════ */
     @media(max-width:900px) {
@@ -2432,28 +2360,6 @@
 
       .form-grid {
         grid-template-columns: 1fr
-      }
-    }
-
-    @media(max-width:768px) {
-      .nav-links {
-        display: none !important;
-      }
-
-      .nav-cta {
-        display: none !important;
-      }
-
-      .hamburger {
-        display: flex !important;
-      }
-
-      .mobile-menu {
-        display: block;
-      }
-
-      .mobile-overlay {
-        display: block;
       }
     }
 
@@ -2816,10 +2722,16 @@
     }
 
     .hero-visual {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      animation: fade-in-up 0.8s ease-out 0.2s both;
+      display: none;
+    }
+
+    @media(min-width:640px) {
+      .hero-visual {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: fade-in-up 0.8s ease-out 0.2s both;
+      }
     }
 
     .shield-wrapper {
@@ -3226,7 +3138,6 @@
         <div class="logo-box"><i class="fas fa-shield-halved"></i></div>
         SafeNet<span class="logo-accent">Kids</span>
       </a>
-
       <ul class="nav-links" id="navLinks">
         <li><a href="#home" class="nav-link" onclick="showMainPage()"><i class="fas fa-house"></i> Trang chủ</a></li>
         <li><a href="#risks" class="nav-link" onclick="showMainPage()"><i class="fas fa-triangle-exclamation"></i> Nguy
@@ -3244,33 +3155,13 @@
       <button class="theme-btn" id="themeBtn" aria-label="Đổi chế độ sáng/tối">
         <i class="fas fa-moon" id="themeIcon"></i>
       </button>
-
-      <button class="hamburger" id="hamburgerBtn" aria-label="Mở menu" aria-expanded="false">
-        <span></span><span></span><span></span>
+      <button class="hamburger" id="hamburger" aria-label="Mở menu">
+        <span class="ham-bar"></span><span class="ham-bar"></span><span class="ham-bar"></span>
       </button>
     </div>
   </nav>
-
-  <!-- Mobile overlay -->
-  <div class="mobile-overlay" id="mobileOverlay"></div>
-
-  <!-- Mobile menu drawer -->
-  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-    <ul class="mobile-menu-list">
-      <li><a href="#home" onclick="closeMobileMenu();showMainPage()"><i class="fas fa-house"></i> Trang chủ</a></li>
-      <li><a href="#risks" onclick="closeMobileMenu();showMainPage()"><i class="fas fa-triangle-exclamation"></i> Nguy
-          hiểm</a></li>
-      <li><a href="#skills" onclick="closeMobileMenu();showMainPage()"><i class="fas fa-brain"></i> Kiểm tra</a></li>
-      <li><a href="#emergency" onclick="closeMobileMenu();showMainPage()"><i class="fas fa-circle-info"></i> Xử lý</a>
-      </li>
-      <li><a href="#laws" onclick="closeMobileMenu();showMainPage()"><i class="fas fa-gavel"></i> Pháp luật</a></li>
-      <li><a href="#contact" onclick="closeMobileMenu();showMainPage()"><i class="fas fa-envelope"></i> Báo cáo</a></li>
-    </ul>
-    <div class="mobile-menu-divider"></div>
-    <a href="tel:1800-1567" class="mobile-menu-cta" onclick="closeMobileMenu()">
-      <i class="fas fa-phone-volume"></i> Gọi khẩn cấp: 1800 1567
-    </a>
-  </div>
+  <!-- Backdrop luôn nằm ngoài nav để tránh lỗi stacking context -->
+  <div class="nav-links-backdrop" id="navBackdrop"></div>
 
   <!-- ============================================================
      MAIN PAGE
@@ -3653,10 +3544,10 @@
               </div>
               <div class="cf-item">
                 <div class="cf-icon"><i class="fas fa-envelope"></i></div>
-                <div class="cf-text"><strong>Email</strong><span><a href="mailto:tricao5117@gmail.com"
-                      class="__cf_email__" data-cfemail="33405255565d5647585a5740735657461d455d"><span
-                        class="__cf_email__"
-                        data-cfemail="6713150e0406085256565027000a060e0b4904080a">tricao5117@gmail.com</span></a></span>
+                <div class="cf-text"><strong>Email</strong><span><a
+                      href="/cdn-cgi/l/email-protection#2d595f444e4c42181c1c1a6d4a404c4441034e4240" class="__cf_email__"
+                      data-cfemail="33405255565d5647585a5740735657461d455d"><span class="__cf_email__"
+                        data-cfemail="fe8a8c979d9f91cbcfcfc9be99939f9792d09d9193">[email&#160;protected]</span></a></span>
                 </div>
               </div>
               <div class="cf-item">
@@ -4369,12 +4260,50 @@
 
     // ── NAVBAR ──
     const navbar = document.getElementById('navbar');
+    const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
+    const navBackdrop = document.getElementById('navBackdrop');
+    const navInner = document.querySelector('.nav-inner');
+
+    // Fix lỗi mobile: position:fixed lồng trong position:fixed (navbar) gây lỗi trên iOS/Android
+    // → Chuyển navLinks ra ngoài navbar khi ở mobile, đặt lại vào khi desktop
+    function relocateNavLinks() {
+      if (window.innerWidth <= 960) {
+        if (navLinks.closest('.navbar')) {
+          navbar.parentNode.insertBefore(navLinks, navBackdrop.nextSibling);
+        }
+      } else {
+        if (!navLinks.closest('.navbar')) {
+          const navCta = navInner.querySelector('.nav-cta');
+          navInner.insertBefore(navLinks, navCta);
+        }
+      }
+    }
+    relocateNavLinks();
+    window.addEventListener('resize', relocateNavLinks);
 
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 40);
       document.getElementById('backTop').classList.toggle('show', window.scrollY > 400);
     }, { passive: true });
+
+    hamburger.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', open);
+      navBackdrop.classList.toggle('show', open);
+    });
+    navBackdrop.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navBackdrop.classList.remove('show');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+    navLinks.querySelectorAll('.nav-link').forEach(l => {
+      l.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navBackdrop.classList.remove('show');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
 
     // ── DARK MODE ──
     const themeBtn = document.getElementById('themeBtn');
@@ -4893,33 +4822,6 @@
       '🤖 Mình hiểu em đang muốn tìm hiểu thêm! Mình có thể tư vấn chuyên sâu về:<br><br>🎣 <strong>Lừa đảo</strong> – cách nhận biết & phòng tránh<br>😰 <strong>Bắt nạt mạng</strong> – xử lý & báo cáo<br>🚨 <strong>Người lạ dụ dỗ</strong> – quy tắc an toàn<br>🤖 <strong>Deepfake AI</strong> – hiểu & bảo vệ<br>🔐 <strong>Bảo mật</strong> – mật khẩu & tài khoản<br>📱 <strong>Mạng xã hội</strong> – cài đặt riêng tư<br>🎮 <strong>Game online</strong> – chơi an toàn<br>⚖️ <strong>Pháp luật</strong> – quyền trẻ em<br>💙 <strong>Tâm lý</strong> – hỗ trợ cảm xúc<br><br>Em thử hỏi lại theo chủ đề cụ thể nhé! 😊',
       '💡 Mình chưa tìm thấy câu trả lời chính xác, nhưng đây là điều quan trọng em cần nhớ:<br><br><strong>5 Nguyên tắc vàng an toàn mạng:</strong><br>① Không chia sẻ thông tin cá nhân<br>② Không gặp người lạ từ mạng một mình<br>③ Lưu bằng chứng khi bị quấy rối<br>④ Báo ngay cho người lớn tin cậy<br>⑤ Gọi <strong>1800 1567</strong> khi cần giúp đỡ<br><br>Hãy hỏi mình câu khác hoặc mô tả cụ thể hơn nhé! 🙋'
     ];
-
-    // ── MOBILE MENU ──
-    function closeMobileMenu() {
-      document.getElementById('mobileMenu').classList.remove('open');
-      document.getElementById('mobileOverlay').classList.remove('show');
-      document.getElementById('hamburgerBtn').classList.remove('open');
-      document.getElementById('hamburgerBtn').setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-    }
-    (function initMobileMenu() {
-      const btn = document.getElementById('hamburgerBtn');
-      const menu = document.getElementById('mobileMenu');
-      const overlay = document.getElementById('mobileOverlay');
-      btn.addEventListener('click', () => {
-        const isOpen = menu.classList.contains('open');
-        if (isOpen) {
-          closeMobileMenu();
-        } else {
-          menu.classList.add('open');
-          overlay.classList.add('show');
-          btn.classList.add('open');
-          btn.setAttribute('aria-expanded', 'true');
-          document.body.style.overflow = 'hidden';
-        }
-      });
-      overlay.addEventListener('click', closeMobileMenu);
-    })();
 
     let fallbackIdx = 0;
 
