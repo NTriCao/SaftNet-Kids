@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <meta name="description"
-    content="SafeNet Kids – Bảo vệ em trên không gian mạng. Nhận biết nguy hiểm, rèn kỹ năng an toàn, báo cáo sự cố." />
+    content="SafeNet Kids – Bảo vệ bạn trên không gian mạng. Nhận biết nguy hiểm, rèn kỹ năng an toàn, báo cáo sự cố." />
   <title>SafeNet Kids – Bảo Vệ Em Trên Không Gian Mạng</title>
   <link rel="icon" type="image/png" href="https://ntricao.github.io/SaftNet-Kids/Logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -3150,6 +3150,271 @@
       border: 1px solid var(--border);
       color: var(--text3);
     }
+
+    /* ══════════════════════════════════════
+   AUTH MODALS
+══════════════════════════════════════ */
+    .auth-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.6);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(4px);
+    }
+    .auth-overlay.open { display: flex; }
+
+    .auth-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      width: 100%;
+      max-width: 440px;
+      box-shadow: var(--sh-lg);
+      overflow: hidden;
+      animation: authSlideIn .3s ease;
+    }
+    @keyframes authSlideIn {
+      from { opacity:0; transform:translateY(-20px); }
+      to   { opacity:1; transform:none; }
+    }
+    .auth-head {
+      background: linear-gradient(135deg, var(--primary), var(--cyan));
+      padding: 28px 28px 24px;
+      position: relative;
+    }
+    .auth-head h2 {
+      color: #fff;
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .auth-head p { color: rgba(255,255,255,.75); font-size: .875rem; }
+    .auth-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.15);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .85rem;
+      transition: background .2s;
+    }
+    .auth-close:hover { background: rgba(255,255,255,.3); }
+    .auth-body { padding: 28px; }
+    .auth-field { margin-bottom: 18px; }
+    .auth-field label {
+      display: block;
+      font-size: .8rem; font-weight: 700;
+      color: var(--text2);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    .auth-field input, .auth-field select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-md);
+      background: var(--surface2);
+      color: var(--text);
+      font-size: .9rem;
+      transition: border-color .2s;
+      outline: none;
+    }
+    .auth-field input:focus, .auth-field select:focus {
+      border-color: var(--primary-light);
+    }
+    .auth-field .auth-err {
+      color: var(--danger);
+      font-size: .78rem;
+      margin-top: 5px;
+      display: none;
+    }
+    .auth-field .auth-err.show { display: block; }
+    .auth-role-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .auth-role-btn {
+      padding: 12px 10px;
+      border: 2px solid var(--border);
+      border-radius: var(--r-md);
+      background: var(--surface2);
+      color: var(--text2);
+      font-weight: 600;
+      font-size: .85rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .auth-role-btn:hover { border-color: var(--primary-light); color: var(--primary); }
+    .auth-role-btn.selected {
+      border-color: var(--primary);
+      background: var(--primary-glow);
+      color: var(--primary);
+    }
+    .auth-role-btn i { display: block; font-size: 1.3rem; margin-bottom: 6px; }
+    .auth-submit {
+      width: 100%;
+      padding: 13px;
+      background: linear-gradient(135deg, var(--primary), var(--cyan));
+      color: #fff;
+      border-radius: var(--r-full);
+      font-weight: 700;
+      font-size: 1rem;
+      font-family: var(--font-head);
+      transition: all .2s;
+      margin-top: 4px;
+      border: none;
+      cursor: pointer;
+    }
+    .auth-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(59,130,246,.35); }
+    .auth-switch {
+      text-align: center;
+      margin-top: 18px;
+      font-size: .875rem;
+      color: var(--text3);
+    }
+    .auth-switch a { color: var(--primary); font-weight: 700; cursor: pointer; }
+    .auth-switch a:hover { text-decoration: underline; }
+    .auth-divider {
+      display: flex; align-items: center; gap: 12px;
+      margin: 18px 0;
+    }
+    .auth-divider::before, .auth-divider::after {
+      content: ''; flex:1; height:1px; background: var(--border);
+    }
+    .auth-divider span { color: var(--text3); font-size: .8rem; }
+
+    /* ── USER PROFILE NAV ── */
+    .nav-user {
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 12px;
+      border-radius: var(--r-full);
+      background: rgba(255,255,255,.12);
+      border: 1.5px solid rgba(255,255,255,.25);
+      color: #fff;
+      font-size: .85rem; font-weight: 600;
+      cursor: pointer;
+      transition: all .2s;
+      white-space: nowrap;
+    }
+    .navbar.scrolled .nav-user {
+      background: var(--primary-glow);
+      border-color: var(--primary-light);
+      color: var(--primary);
+    }
+    .nav-user:hover { transform: translateY(-1px); }
+    .nav-user-avatar {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-light), var(--cyan));
+      display: flex; align-items: center; justify-content: center;
+      font-size: .7rem; font-weight: 800; color: #fff;
+      flex-shrink: 0;
+    }
+    .nav-auth-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 16px;
+      border-radius: var(--r-full);
+      background: rgba(255,255,255,.12);
+      border: 1.5px solid rgba(255,255,255,.3);
+      color: #fff;
+      font-size: .85rem; font-weight: 600;
+      cursor: pointer;
+      transition: all .2s;
+      white-space: nowrap;
+    }
+    .navbar.scrolled .nav-auth-btn {
+      background: var(--primary-glow);
+      border-color: var(--primary-light);
+      color: var(--primary);
+    }
+    .nav-auth-btn:hover { transform: translateY(-1px); }
+
+    /* ── USER DROPDOWN ── */
+    .user-dropdown {
+      position: fixed;
+      top: calc(var(--nav-h) + 8px);
+      right: 24px;
+      width: 280px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      box-shadow: var(--sh-lg);
+      z-index: 950;
+      display: none;
+      animation: authSlideIn .2s ease;
+    }
+    .user-dropdown.open { display: block; }
+    .ud-head {
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(30,64,175,.08), rgba(8,145,178,.06));
+      border-bottom: 1px solid var(--border);
+      border-radius: var(--r-xl) var(--r-xl) 0 0;
+    }
+    .ud-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-light), var(--cyan));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; font-weight: 800; color: #fff;
+      margin-bottom: 10px;
+    }
+    .ud-name { font-weight: 800; font-size: .95rem; color: var(--text); }
+    .ud-role-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 10px;
+      border-radius: var(--r-full);
+      font-size: .72rem; font-weight: 700;
+      margin-top: 5px;
+    }
+    .ud-role-member { background: var(--primary-glow); color: var(--primary); }
+    .ud-role-collab { background: var(--purple-bg); color: var(--purple); }
+    .ud-history { padding: 12px 16px; border-bottom: 1px solid var(--border); }
+    .ud-history h4 {
+      font-size: .75rem; font-weight: 700;
+      color: var(--text3);
+      text-transform: uppercase; letter-spacing: .06em;
+      margin-bottom: 10px;
+    }
+    .ud-hist-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 0;
+      font-size: .8rem; color: var(--text2);
+    }
+    .ud-hist-item i { color: var(--text3); font-size: .75rem; width: 14px; }
+    .ud-hist-time { margin-left: auto; color: var(--text3); font-size: .72rem; }
+    .ud-logout {
+      display: flex; align-items: center; gap: 8px;
+      width: 100%; padding: 14px 16px;
+      color: var(--danger); font-size: .875rem; font-weight: 600;
+      border-radius: 0 0 var(--r-xl) var(--r-xl);
+      transition: background .2s;
+    }
+    .ud-logout:hover { background: var(--danger-bg); }
+
+    /* ── SUCCESS AUTH SCREEN ── */
+    .auth-success {
+      text-align: center; padding: 32px 28px;
+    }
+    .auth-success-icon {
+      width: 64px; height: 64px;
+      background: var(--success-bg);
+      color: var(--success);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      margin: 0 auto 16px;
+    }
+    .auth-success h3 { font-size: 1.2rem; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+    .auth-success p { color: var(--text3); font-size: .9rem; }
   </style>
 </head>
 
@@ -3179,6 +3444,11 @@
           </a></li>
       </ul>
 
+      <div id="navAuthArea">
+        <button class="nav-auth-btn" id="navAuthBtn" onclick="openAuthModal('login')">
+          <i class="fas fa-user"></i> Đăng nhập
+        </button>
+      </div>
       <button class="theme-btn" id="themeBtn" aria-label="Đổi chế độ sáng/tối">
         <i class="fas fa-moon" id="themeIcon"></i>
       </button>
@@ -3212,10 +3482,10 @@
       </div>
       <div class="hero-content">
         <div class="hero-text">
-          <div class="hero-badge"><i class="fas fa-star" style="color:#facc15"></i> Chương trình an toàn mạng cho trẻ em
+          <div class="hero-badge"><i class="fas fa-star" style="color:#facc15"></i> Sáng kiến bảo đảm trật tự trường học về phòng, chống bạo lực học đường
           </div>
           <h1 class="hero-title">Mạng an toàn –<br><span class="gradient-text">Em vững bước!</span></h1>
-          <p class="hero-desc">Trang bị cho em những kỹ năng quan trọng để nhận biết và phòng tránh <strong>bạo lực, lừa
+          <p class="hero-desc">Trang bị cho bạn những kỹ năng quan trọng để nhận biết và phòng tránh <strong>bạo lực, lừa
               đảo, dụ dỗ bắt cóc</strong> trên không gian mạng.</p>
           <div class="hero-btns">
             <a href="#risks" class="btn-cta"><i class="fas fa-compass"></i> Tìm hiểu ngay</a>
@@ -3302,7 +3572,7 @@
             <div class="risk-icon-wrap ri-blue"><i class="fas fa-robot"></i></div>
             <span class="risk-tag rt-blue">Nguy cơ mới</span>
             <h3>AI Deepfake & Giả mạo</h3>
-            <p>Công nghệ AI tạo ảnh/video giả mạo để vu khống, tống tiền hoặc lừa đảo bằng hình ảnh của em.</p>
+            <p>Công nghệ AI tạo ảnh/video giả mạo để vu khống, tống tiền hoặc lừa đảo bằng hình ảnh của bạn.</p>
             <div class="risk-cta"><span>Xem chi tiết</span><i class="fas fa-arrow-right"></i></div>
           </div>
         </div>
@@ -3315,7 +3585,7 @@
         <div class="sec-header fade-up">
           <span class="sec-badge badge-green"><i class="fas fa-brain"></i> Rèn luyện kỹ năng</span>
           <h2 class="sec-title">Kiểm Tra Kiến Thức<br><span class="grad-text">An Toàn Mạng</span></h2>
-          <p class="sec-sub">15 câu trắc nghiệm giúp em đánh giá mức độ hiểu biết về an toàn trực tuyến và nhận lời
+          <p class="sec-sub">15 câu trắc nghiệm giúp bạn đánh giá mức độ hiểu biết về an toàn trực tuyến và nhận lời
             khuyên cá nhân.</p>
         </div>
         <div class="quiz-wrap fade-up">
@@ -3324,7 +3594,7 @@
             <div class="quiz-intro-icon"><i class="fas fa-shield-halved"></i></div>
 
             <h3>Bạn có an toàn trên mạng không?</h3>
-            <p>Hãy làm bài kiểm tra 15 câu để biết em đang ở mức độ nào và nhận lời khuyên riêng!</p>
+            <p>Hãy làm bài kiểm tra 15 câu để biết bạn đang ở mức độ nào và nhận lời khuyên riêng!</p>
             <div class="quiz-info-row">
               <div class="quiz-info-item"><i class="fas fa-list-check"></i> 15 câu hỏi</div>
               <div class="quiz-info-item"><i class="fas fa-clock"></i> ~10 phút</div>
@@ -3364,7 +3634,7 @@
               <p class="result-msg" id="resultMsg"></p>
               <div class="result-bars" id="resultBars"></div>
               <div class="result-advice" id="resultAdvice">
-                <h4><i class="fas fa-lightbulb" style="color:var(--warning)"></i> Lời khuyên cho em</h4>
+                <h4><i class="fas fa-lightbulb" style="color:var(--warning)"></i> Lời khuyên cho bạn</h4>
                 <div class="advice-list" id="adviceList"></div>
               </div>
               <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
@@ -3387,7 +3657,7 @@
         <div class="sec-header fade-up">
           <span class="sec-badge badge-blue"><i class="fas fa-circle-info"></i> Xử lý khẩn cấp</span>
           <h2 class="sec-title">Khi Gặp Sự Cố<br><span class="grad-text">Phải Làm Gì?</span></h2>
-          <p class="sec-sub">Những bước đơn giản giúp em xử lý an toàn khi gặp tình huống nguy hiểm trên mạng.</p>
+          <p class="sec-sub">Những bước đơn giản giúp bạn xử lý an toàn khi gặp tình huống nguy hiểm trên mạng.</p>
         </div>
         <div class="emergency-grid fade-up">
           <div class="emer-card">
@@ -3522,7 +3792,7 @@
           <div class="law-card" onclick="openModal('modal-law1')">
             <div class="law-icon li-blue"><i class="fas fa-child-reaching"></i></div>
             <span class="law-meta">Luật số 102/2016/QH13</span>
-            <h3>Luật Trẻ em 2016</h3>
+            <h3>Luật Trẻ bạn 2016</h3>
             <p>Quy định toàn diện về quyền trẻ em, bảo vệ trẻ em trên môi trường mạng và trách nhiệm của gia đình, nhà
               trường.</p>
             <div class="law-btn">Xem chi tiết <i class="fas fa-arrow-right"></i></div>
@@ -3548,7 +3818,7 @@
           <i class="fas fa-balance-scale"></i>
           <p><strong>Em cần biết:</strong> Mọi hành vi xâm hại, bắt nạt, lừa đảo trẻ em trên mạng đều là <strong>vi phạm
               pháp luật</strong>. Kẻ vi phạm có thể bị phạt tiền từ 10–100 triệu đồng, hoặc bị truy cứu trách nhiệm hình
-            sự với mức án lên đến <strong>12 năm tù</strong>. Nếu em hoặc bạn bè bị xâm hại, hãy báo ngay cho người lớn
+            sự với mức án lên đến <strong>12 năm tù</strong>. Nếu bạn hoặc bạn bè bị xâm hại, hãy báo ngay cho người lớn
             hoặc gọi <strong>1800 1567</strong>.</p>
         </div>
       </div>
@@ -3562,7 +3832,7 @@
             <div class="contact-badge"><span class="sec-badge badge-cyan"><i class="fas fa-file-shield"></i> Tiếp nhận
                 thông tin</span></div>
             <h2 class="contact-title">Báo Cáo Sự Cố<br><span class="grad-text">An Toàn Mạng</span></h2>
-            <p class="contact-desc">Nếu em hoặc ai đó đang gặp nguy hiểm trên mạng, hãy liên hệ với chúng tôi. Mọi thông
+            <p class="contact-desc">Nếu bạn hoặc ai đó đang gặp nguy hiểm trên mạng, hãy liên hệ với chúng tôi. Mọi thông
               tin được bảo mật tuyệt đối và xử lý nhanh chóng.</p>
             <div class="contact-facts">
               <div class="cf-item">
@@ -3586,7 +3856,7 @@
             <div class="contact-cta-box">
               <div class="contact-cta-icon"><i class="fas fa-flag"></i></div>
               <h3>Gửi Báo Cáo Sự Cố</h3>
-              <p>Hãy mô tả chi tiết sự cố em gặp phải. Đội ngũ của chúng tôi sẽ hỗ trợ em trong thời gian sớm nhất.</p>
+              <p>Hãy mô tả chi tiết sự cố bạn gặp phải. Đội ngũ của chúng tôi sẽ hỗ trợ bạn trong thời gian sớm nhất.</p>
               <button class="btn btn-report" onclick="showReportPage()">
                 <i class="fas fa-paper-plane"></i> Báo Cáo Ngay
               </button>
@@ -3608,7 +3878,7 @@
                 style="font-family:var(--font-head);font-weight:800;font-size:1.25rem;color:#f0f9ff;margin-left:8px">SafeNet<span
                   style="color:#22d3ee">Kids</span></span>
             </a>
-            <p>Dự án giáo dục an toàn mạng cho trẻ em Việt Nam. Bảo vệ em trước bạo lực, lừa đảo và dụ dỗ trên không
+            <p>Dự án giáo dục an toàn mạng cho trẻ em Việt Nam. Bảo vệ bạn trước bạo lực, lừa đảo và dụ dỗ trên không
               gian mạng.</p>
           </div>
           <div class="footer-col">
@@ -3654,7 +3924,7 @@
         <div id="reportFormContent">
           <h2 style="font-size:1.3rem;font-weight:800;color:var(--text);margin-bottom:8px">📋 Thông tin báo cáo</h2>
           <p style="font-size:.875rem;color:var(--text3);margin-bottom:28px">Vui lòng điền đầy đủ và chính xác để chúng
-            tôi có thể hỗ trợ em tốt nhất.</p>
+            tôi có thể hỗ trợ bạn tốt nhất.</p>
           <form id="reportForm" novalidate>
             <div class="form-grid">
 
@@ -3783,7 +4053,7 @@
         <div class="submit-success" id="reportSuccess">
           <div class="submit-success-icon"><i class="fas fa-check"></i></div>
           <h3>Báo cáo đã được gửi!</h3>
-          <p>Cảm ơn em đã tin tưởng. Chúng tôi sẽ xem xét và phản hồi trong vòng 24 giờ qua email của em.</p>
+          <p>Cảm ơn bạn đã tin tưởng. Chúng tôi sẽ xem xét và phản hồi trong vòng 24 giờ qua email của bạn.</p>
           <p style="margin-bottom:24px;font-size:.85rem;color:var(--text3)">Nếu khẩn cấp, hãy gọi ngay <strong
               style="color:var(--danger)">1800 1567</strong> hoặc <strong style="color:var(--danger)">113</strong>.</p>
           <button class="btn btn-primary" onclick="showMainPage()"><i class="fas fa-home"></i> Về trang chủ</button>
@@ -3870,7 +4140,7 @@
           </ul>
         </div>
         <div class="modal-section">
-          <h4><i class="fas fa-heart" style="color:var(--success)"></i> Khi bị bắt nạt, em nên</h4>
+          <h4><i class="fas fa-heart" style="color:var(--success)"></i> Khi bị bắt nạt, bạn nên</h4>
           <ul class="modal-list">
             <li><i class="fas fa-check-circle" style="color:var(--success)"></i>Không trả lời – đừng cho kẻ bắt nạt thêm
               sự chú ý</li>
@@ -3879,11 +4149,11 @@
             <li><i class="fas fa-check-circle" style="color:var(--success)"></i>Chặn và báo cáo tài khoản đó ngay lập
               tức</li>
             <li><i class="fas fa-check-circle" style="color:var(--success)"></i>Chia sẻ với bố mẹ, thầy cô – đây không
-              phải lỗi của em</li>
+              phải lỗi của bạn</li>
           </ul>
         </div>
         <div class="modal-alert"><i class="fas fa-heart"></i><span><strong>Nhớ nhé:</strong> Bị bắt nạt KHÔNG phải lỗi
-            của em. Em có quyền được an toàn và hạnh phúc!</span></div>
+            của bạn. Em có quyền được an toàn và hạnh phúc!</span></div>
       </div>
     </div>
   </div>
@@ -3952,7 +4222,7 @@
             <li><i class="fas fa-circle" style="color:var(--primary);font-size:.45rem;margin-top:7px"></i>Công nghệ AI
               tạo ra video/ảnh giả mạo rất giống thật</li>
             <li><i class="fas fa-circle" style="color:var(--primary);font-size:.45rem;margin-top:7px"></i>Kẻ xấu có thể
-              ghép mặt em vào video không phù hợp</li>
+              ghép mặt bạn vào video không phù hợp</li>
             <li><i class="fas fa-circle" style="color:var(--primary);font-size:.45rem;margin-top:7px"></i>Tạo tin nhắn
               giọng nói giả của bố mẹ, thầy cô để lừa đảo</li>
             <li><i class="fas fa-circle" style="color:var(--primary);font-size:.45rem;margin-top:7px"></i>Dùng hình ảnh
@@ -3984,11 +4254,11 @@
       <div class="modal-head">
         <div>
           <h2 class="modal-title"><i class="fas fa-child-reaching"
-              style="color:var(--primary);margin-right:10px"></i>Luật Trẻ em 2016</h2>
+              style="color:var(--primary);margin-right:10px"></i>Luật Trẻ bạn 2016</h2>
           <div class="law-modal-meta">
             <span class="law-modal-tag"><i class="fas fa-file-lines"></i> Luật số 102/2016/QH13</span>
             <span class="law-modal-tag"><i class="fas fa-calendar"></i> Hiệu lực: 01/6/2017</span>
-            <span class="law-modal-tag"><i class="fas fa-users"></i> Trẻ em dưới 16 tuổi</span>
+            <span class="law-modal-tag"><i class="fas fa-users"></i> Trẻ bạn dưới 16 tuổi</span>
           </div>
         </div>
         <button class="modal-close" onclick="closeModal('modal-law1')"><i class="fas fa-xmark"></i></button>
@@ -4010,7 +4280,7 @@
         <div class="modal-section">
           <h4><i class="section-icon-blue fas fa-shield-halved"></i> Quyền trẻ em trên môi trường mạng (Điều 54)</h4>
           <ul class="modal-list">
-            <li><i class="fas fa-check-circle" style="color:var(--primary)"></i>Trẻ em có quyền được bảo vệ khỏi các
+            <li><i class="fas fa-check-circle" style="color:var(--primary)"></i>Trẻ bạn có quyền được bảo vệ khỏi các
               thông tin, hình ảnh, âm thanh độc hại trên môi trường mạng</li>
             <li><i class="fas fa-check-circle" style="color:var(--primary)"></i>Được bảo vệ bí mật đời sống riêng tư, bí
               mật cá nhân trên không gian mạng</li>
@@ -4037,7 +4307,7 @@
           <h4><i class="section-icon-warning fas fa-gavel"></i> Mức xử phạt vi phạm (Nghị định 130/2021/NĐ-CP)</h4>
           <ul class="modal-list">
             <li><i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i>Xúc phạm danh dự, nhân phẩm trẻ
-              em trên mạng: phạt <strong>5 – 10 triệu đồng</strong></li>
+              bạn trên mạng: phạt <strong>5 – 10 triệu đồng</strong></li>
             <li><i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i>Tiết lộ thông tin bí mật đời
               sống riêng tư của trẻ em: phạt <strong>10 – 20 triệu đồng</strong></li>
             <li><i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i>Cung cấp dịch vụ trực tuyến
@@ -4107,7 +4377,7 @@
             <li><i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i>Thu thập, sử dụng trái phép
               thông tin cá nhân trẻ em: phạt <strong>20 – 40 triệu đồng</strong></li>
             <li><i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i>Phát tán nội dung khiêu dâm trẻ
-              em: phạt <strong>50 – 100 triệu đồng</strong> + truy cứu hình sự</li>
+              bạn: phạt <strong>50 – 100 triệu đồng</strong> + truy cứu hình sự</li>
             <li><i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i><strong>Truy cứu hình
                 sự:</strong> Điều 226 BLHS 2015 – tội xâm phạm quyền trẻ em trên mạng có thể lên đến <strong>12 năm
                 tù</strong></li>
@@ -4182,7 +4452,7 @@
           <h4><i class="section-icon-warning fas fa-gavel"></i> Chế tài xử phạt</h4>
           <ul class="modal-list">
             <li><i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i>Tạo deepfake xâm phạm quyền trẻ
-              em: phạt <strong>20 – 70 triệu đồng</strong> hành chính (Nghị định 15/2020)</li>
+              bạn: phạt <strong>20 – 70 triệu đồng</strong> hành chính (Nghị định 15/2020)</li>
             <li><i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i>Vi phạm bảo vệ dữ liệu cá nhân
               trẻ em: phạt <strong>40 – 80 triệu đồng</strong> (Nghị định 13/2023)</li>
             <li><i class="fas fa-exclamation-triangle" style="color:var(--warning)"></i>Sử dụng AI lừa đảo chiếm đoạt
@@ -4243,6 +4513,103 @@
       <input class="chat-input" id="chatInput" placeholder="Hỏi SafeBot..." type="text" />
       <button class="chat-send" id="chatSend"><i class="fas fa-paper-plane"></i></button>
     </div>
+  </div>
+
+
+
+  <!-- ============================================================
+     AUTH MODALS
+============================================================ -->
+
+  <!-- LOGIN MODAL -->
+  <div class="auth-overlay" id="loginModal">
+    <div class="auth-box" id="loginBox">
+      <div class="auth-head">
+        <button class="auth-close" onclick="closeAuthModal('loginModal')"><i class="fas fa-xmark"></i></button>
+        <h2><i class="fas fa-shield-halved" style="margin-right:8px"></i>Đăng nhập</h2>
+        <p>Chào mừng trở lại! Đăng nhập để theo dõi lịch sử của bạn.</p>
+      </div>
+      <div class="auth-body" id="loginBody">
+        <div class="auth-field">
+          <label><i class="fas fa-envelope"></i> Email</label>
+          <input type="email" id="li_email" placeholder="ten@email.com" autocomplete="email" />
+          <div class="auth-err" id="li_email_err"></div>
+        </div>
+        <div class="auth-field">
+          <label><i class="fas fa-lock"></i> Mật khẩu</label>
+          <input type="password" id="li_pass" placeholder="Nhập mật khẩu" autocomplete="current-password" />
+          <div class="auth-err" id="li_pass_err"></div>
+        </div>
+        <div class="auth-err" id="li_general_err" style="margin-bottom:10px; font-size:.85rem;"></div>
+        <button class="auth-submit" onclick="doLogin()">
+          <i class="fas fa-right-to-bracket"></i> Đăng nhập
+        </button>
+        <div class="auth-switch">Chưa có tài khoản? <a onclick="switchAuthModal('registerModal')">Đăng ký ngay</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REGISTER MODAL -->
+  <div class="auth-overlay" id="registerModal">
+    <div class="auth-box" id="registerBox">
+      <div class="auth-head">
+        <button class="auth-close" onclick="closeAuthModal('registerModal')"><i class="fas fa-xmark"></i></button>
+        <h2><i class="fas fa-user-plus" style="margin-right:8px"></i>Đăng ký</h2>
+        <p>Tạo tài khoản để theo dõi tiến độ học tập và bảo vệ bản thân tốt hơn.</p>
+      </div>
+      <div class="auth-body" id="registerBody">
+        <div class="auth-field">
+          <label><i class="fas fa-user"></i> Họ và tên</label>
+          <input type="text" id="rg_name" placeholder="Nhập họ và tên đầy đủ" autocomplete="name" maxlength="100" />
+          <div class="auth-err" id="rg_name_err"></div>
+        </div>
+        <div class="auth-field">
+          <label><i class="fas fa-envelope"></i> Email</label>
+          <input type="email" id="rg_email" placeholder="ten@email.com" autocomplete="email" />
+          <div class="auth-err" id="rg_email_err"></div>
+        </div>
+        <div class="auth-field">
+          <label><i class="fas fa-lock"></i> Mật khẩu <span style="color:var(--text3);font-weight:400;text-transform:none">(tối thiểu 6 ký tự)</span></label>
+          <input type="password" id="rg_pass" placeholder="Tạo mật khẩu" autocomplete="new-password" />
+          <div class="auth-err" id="rg_pass_err"></div>
+        </div>
+        <div class="auth-field">
+          <label><i class="fas fa-users"></i> Vai trò của bạn</label>
+          <div class="auth-role-row">
+            <div class="auth-role-btn selected" id="role_member" onclick="selectRole('member')">
+              <i class="fas fa-user-graduate"></i>
+              Thành viên
+            </div>
+            <div class="auth-role-btn" id="role_collab" onclick="selectRole('collab')">
+              <i class="fas fa-people-group"></i>
+              Cộng tác viên
+            </div>
+          </div>
+          <div class="auth-err" id="rg_role_err"></div>
+        </div>
+        <div class="auth-err" id="rg_general_err" style="margin-bottom:10px; font-size:.85rem;"></div>
+        <button class="auth-submit" onclick="doRegister()">
+          <i class="fas fa-user-plus"></i> Tạo tài khoản
+        </button>
+        <div class="auth-switch">Đã có tài khoản? <a onclick="switchAuthModal('loginModal')">Đăng nhập</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- USER DROPDOWN -->
+  <div class="user-dropdown" id="userDropdown">
+    <div class="ud-head">
+      <div class="ud-avatar" id="udAvatar">?</div>
+      <div class="ud-name" id="udName">Người dùng</div>
+      <div class="ud-role-badge" id="udRoleBadge"><i class="fas fa-user"></i> <span id="udRoleText">Thành viên</span></div>
+    </div>
+    <div class="ud-history">
+      <h4><i class="fas fa-clock-rotate-left"></i> Lịch sử truy cập</h4>
+      <div id="udHistList"></div>
+    </div>
+    <button class="ud-logout" onclick="doLogout()">
+      <i class="fas fa-right-from-bracket"></i> Đăng xuất
+    </button>
   </div>
 
   <!-- BACK TO TOP -->
@@ -4615,20 +4982,20 @@
 
     // ── QUIZ ──
     const QUESTIONS = [
-      { q: "Nếu người lạ trên mạng hỏi địa chỉ nhà em, em nên làm gì?", opts: ["Cung cấp địa chỉ vì họ trông có vẻ tốt bụng", "Không cung cấp và báo ngay cho bố mẹ", "Chia sẻ vì mọi người đều có thể tin tưởng", "Hỏi lại xem họ cần làm gì"], ans: 1, exp: "Tuyệt vời! Không bao giờ chia sẻ địa chỉ nhà với người lạ trên mạng. Hãy báo ngay cho bố mẹ hoặc người lớn tin cậy." },
+      { q: "Nếu người lạ trên mạng hỏi địa chỉ nhà bạn, bạn nên làm gì?", opts: ["Cung cấp địa chỉ vì họ trông có vẻ tốt bụng", "Không cung cấp và báo ngay cho bố mẹ", "Chia sẻ vì mọi người đều có thể tin tưởng", "Hỏi lại xem họ cần làm gì"], ans: 1, exp: "Tuyệt vời! Không bao giờ chia sẻ địa chỉ nhà với người lạ trên mạng. Hãy báo ngay cho bố mẹ hoặc người lớn tin cậy." },
       { q: "Deepfake là gì?", opts: ["Một loại trò chơi điện tử", "Công nghệ AI tạo video/ảnh giả mạo rất thật", "Một ứng dụng học tập trực tuyến", "Phần mềm chỉnh sửa ảnh thông thường"], ans: 1, exp: "Đúng! Deepfake là công nghệ AI dùng để tạo ra video hoặc ảnh giả mạo trông rất giống thật, có thể được dùng để lừa đảo." },
-      { q: "Mật khẩu an toàn là mật khẩu như thế nào?", opts: ["Ngày sinh của em", "Tên của bố hoặc mẹ", "Chuỗi ký tự ngẫu nhiên ít nhất 12 ký tự (chữ hoa, thường, số, ký tự đặc biệt)", "1234567890"], ans: 2, exp: "Chính xác! Mật khẩu an toàn phải có ít nhất 12 ký tự, kết hợp chữ hoa, thường, số và ký tự đặc biệt. Không dùng thông tin cá nhân." },
-      { q: "Khi bị bắt nạt trực tuyến, điều đầu tiên em nên làm là gì?", opts: ["Trả đũa và chửi lại kẻ bắt nạt", "Không làm gì và chịu đựng", "Chụp màn hình bằng chứng, chặn người đó và báo cáo", "Xóa tài khoản mạng xã hội của mình"], ans: 2, exp: "Đúng! Hãy lưu bằng chứng trước, sau đó chặn kẻ bắt nạt và báo cáo với nền tảng. Đừng trả đũa vì điều đó có thể khiến tình trạng tệ hơn." },
+      { q: "Mật khẩu an toàn là mật khẩu như thế nào?", opts: ["Ngày sinh của bạn", "Tên của bố hoặc mẹ", "Chuỗi ký tự ngẫu nhiên ít nhất 12 ký tự (chữ hoa, thường, số, ký tự đặc biệt)", "1234567890"], ans: 2, exp: "Chính xác! Mật khẩu an toàn phải có ít nhất 12 ký tự, kết hợp chữ hoa, thường, số và ký tự đặc biệt. Không dùng thông tin cá nhân." },
+      { q: "Khi bị bắt nạt trực tuyến, điều đầu tiên bạn nên làm là gì?", opts: ["Trả đũa và chửi lại kẻ bắt nạt", "Không làm gì và chịu đựng", "Chụp màn hình bằng chứng, chặn người đó và báo cáo", "Xóa tài khoản mạng xã hội của mình"], ans: 2, exp: "Đúng! Hãy lưu bằng chứng trước, sau đó chặn kẻ bắt nạt và báo cáo với nền tảng. Đừng trả đũa vì điều đó có thể khiến tình trạng tệ hơn." },
       { q: "Đường dây hỗ trợ bảo vệ trẻ em miễn phí 24/7 ở Việt Nam là số nào?", opts: ["113", "1800 1567", "114", "1080"], ans: 1, exp: "Đúng! 1800 1567 là Tổng đài Bảo vệ trẻ em, hoàn toàn miễn phí, hoạt động 24/7. Hãy ghi nhớ số này!" },
       { q: "Em nhận được email thông báo trúng 100 triệu đồng và yêu cầu cung cấp số tài khoản. Em nên làm gì?", opts: ["Cung cấp số tài khoản ngay để nhận tiền", "Đây là lừa đảo – xóa email và báo cho bố mẹ", "Hỏi xem họ cần thêm thông tin gì", "Chia sẻ thông tin vì đây là cơ hội hiếm có"], ans: 1, exp: "Hoàn toàn đúng! Đây là hình thức lừa đảo rất phổ biến. Không ai tặng tiền ngẫu nhiên. Hãy xóa ngay và báo cho người lớn." },
-      { q: "Người quen trên mạng rủ em gặp mặt ngoài đời một mình. Em nên làm gì?", opts: ["Đồng ý vì đã quen nhau trên mạng lâu rồi", "Từ chối dứt khoát và báo ngay cho bố mẹ", "Đồng ý nhưng không nói cho bố mẹ biết", "Hẹn gặp ở chỗ vắng để không ai nhìn thấy"], ans: 1, exp: "Tốt lắm! Không bao giờ gặp người quen qua mạng một mình, dù đã nói chuyện lâu. Hãy từ chối và báo cho bố mẹ ngay." },
-      { q: "Khi lướt web em gặp nội dung không phù hợp (bạo lực, người lớn), em nên làm gì?", opts: ["Tiếp tục xem vì chỉ một lần không sao", "Chia sẻ cho bạn bè cùng xem", "Đóng trang web lại và báo cho bố mẹ hoặc thầy cô", "Lưu lại để xem sau"], ans: 2, exp: "Đúng! Hãy đóng ngay trang web đó và kể cho bố mẹ hoặc thầy cô biết. Họ sẽ giúp em xử lý và bảo vệ em." },
-      { q: "Tính năng 'xác thực 2 bước (2FA)' dùng để làm gì?", opts: ["Tăng tốc độ internet", "Bảo vệ tài khoản bằng cách yêu cầu xác nhận thêm khi đăng nhập", "Chặn quảng cáo trực tuyến", "Lưu mật khẩu tự động"], ans: 1, exp: "Chính xác! 2FA thêm một lớp bảo mật, kẻ xấu dù có mật khẩu của em cũng khó đăng nhập vào tài khoản. Hãy bật tính năng này!" },
+      { q: "Người quen trên mạng rủ bạn gặp mặt ngoài đời một mình. Em nên làm gì?", opts: ["Đồng ý vì đã quen nhau trên mạng lâu rồi", "Từ chối dứt khoát và báo ngay cho bố mẹ", "Đồng ý nhưng không nói cho bố mẹ biết", "Hẹn gặp ở chỗ vắng để không ai nhìn thấy"], ans: 1, exp: "Tốt lắm! Không bao giờ gặp người quen qua mạng một mình, dù đã nói chuyện lâu. Hãy từ chối và báo cho bố mẹ ngay." },
+      { q: "Khi lướt web bạn gặp nội dung không phù hợp (bạo lực, người lớn), bạn nên làm gì?", opts: ["Tiếp tục xem vì chỉ một lần không sao", "Chia sẻ cho bạn bè cùng xem", "Đóng trang web lại và báo cho bố mẹ hoặc thầy cô", "Lưu lại để xem sau"], ans: 2, exp: "Đúng! Hãy đóng ngay trang web đó và kể cho bố mẹ hoặc thầy cô biết. Họ sẽ giúp bạn xử lý và bảo vệ bạn." },
+      { q: "Tính năng 'xác thực 2 bước (2FA)' dùng để làm gì?", opts: ["Tăng tốc độ internet", "Bảo vệ tài khoản bằng cách yêu cầu xác nhận thêm khi đăng nhập", "Chặn quảng cáo trực tuyến", "Lưu mật khẩu tự động"], ans: 1, exp: "Chính xác! 2FA thêm một lớp bảo mật, kẻ xấu dù có mật khẩu của bạn cũng khó đăng nhập vào tài khoản. Hãy bật tính năng này!" },
       { q: "Em nhận được tin nhắn của người tự xưng là nhân viên ngân hàng yêu cầu cung cấp OTP. Em nên làm gì?", opts: ["Cung cấp OTP vì họ là nhân viên ngân hàng", "Không cung cấp – ngân hàng không bao giờ hỏi OTP qua tin nhắn", "Hỏi họ số tài khoản ngân hàng của mình", "Đợi xem họ có nhắn thêm không"], ans: 1, exp: "Hoàn toàn đúng! Ngân hàng KHÔNG BAO GIỜ hỏi OTP, mật khẩu hay thông tin thẻ qua điện thoại/tin nhắn. Đây là lừa đảo!" },
       { q: "Điều gì KHÔNG nên đăng công khai trên mạng xã hội?", opts: ["Ảnh phong cảnh đẹp", "Địa chỉ nhà, số điện thoại và lịch trình hằng ngày", "Sở thích đọc sách", "Bài hát yêu thích"], ans: 1, exp: "Tuyệt vời! Địa chỉ nhà, số điện thoại, trường học và lịch trình là những thông tin nhạy cảm không nên đăng công khai." },
-      { q: "Ai là người em nên kể khi gặp tình huống nguy hiểm trên mạng?", opts: ["Không cần kể ai, tự giải quyết", "Kể cho bạn cùng lớp biết", "Bố mẹ, thầy cô hoặc người lớn tin cậy", "Chỉ đăng lên mạng xã hội để mọi người biết"], ans: 2, exp: "Đúng! Bố mẹ, thầy cô và người lớn tin cậy là những người có thể giúp em tốt nhất khi gặp nguy hiểm. Đừng ngại kể cho họ nghe." },
-      { q: "Nếu ai đó gửi cho em ảnh hoặc video không phù hợp, em nên làm gì?", opts: ["Xem thử một chút", "Chuyển tiếp cho bạn bè", "Không xem, xóa ngay và báo cáo cho người lớn", "Lưu lại để làm bằng chứng sau này"], ans: 2, exp: "Chính xác! Không xem, xóa ngay và báo cáo cho bố mẹ hoặc thầy cô. Không chuyển tiếp vì điều đó có thể là vi phạm pháp luật." },
-      { q: "Người lạ hứa tặng em điện thoại nếu em giữ bí mật với bố mẹ. Em nên làm gì?", opts: ["Nhận quà vì điện thoại đắt tiền", "Từ chối và kể ngay cho bố mẹ – bí mật nào của người lạ cũng đáng ngờ", "Hỏi thêm thông tin trước khi quyết định", "Đồng ý giữ bí mật để lấy điện thoại"], ans: 1, exp: "Xuất sắc! Bí mật nào của người lạ/người lớn yêu cầu em giấu bố mẹ đều là dấu hiệu nguy hiểm. Hãy kể ngay cho bố mẹ!" },
+      { q: "Ai là người bạn nên kể khi gặp tình huống nguy hiểm trên mạng?", opts: ["Không cần kể ai, tự giải quyết", "Kể cho bạn cùng lớp biết", "Bố mẹ, thầy cô hoặc người lớn tin cậy", "Chỉ đăng lên mạng xã hội để mọi người biết"], ans: 2, exp: "Đúng! Bố mẹ, thầy cô và người lớn tin cậy là những người có thể giúp bạn tốt nhất khi gặp nguy hiểm. Đừng ngại kể cho họ nghe." },
+      { q: "Nếu ai đó gửi cho bạn ảnh hoặc video không phù hợp, bạn nên làm gì?", opts: ["Xem thử một chút", "Chuyển tiếp cho bạn bè", "Không xem, xóa ngay và báo cáo cho người lớn", "Lưu lại để làm bằng chứng sau này"], ans: 2, exp: "Chính xác! Không xem, xóa ngay và báo cáo cho bố mẹ hoặc thầy cô. Không chuyển tiếp vì điều đó có thể là vi phạm pháp luật." },
+      { q: "Người lạ hứa tặng bạn điện thoại nếu bạn giữ bí mật với bố mẹ. Em nên làm gì?", opts: ["Nhận quà vì điện thoại đắt tiền", "Từ chối và kể ngay cho bố mẹ – bí mật nào của người lạ cũng đáng ngờ", "Hỏi thêm thông tin trước khi quyết định", "Đồng ý giữ bí mật để lấy điện thoại"], ans: 1, exp: "Xuất sắc! Bí mật nào của người lạ/người lớn yêu cầu bạn giấu bố mẹ đều là dấu hiệu nguy hiểm. Hãy kể ngay cho bố mẹ!" },
       { q: "Website có biểu tượng ổ khóa 🔒 và địa chỉ bắt đầu bằng 'https://' có nghĩa là gì?", opts: ["Website đó miễn phí và an toàn tuyệt đối", "Kết nối được mã hóa, nhưng vẫn cần cẩn thận với nội dung trang", "Website đó chứa nhiều quảng cáo", "Website đó chỉ dành cho người lớn"], ans: 1, exp: "Đúng! HTTPS có nghĩa là kết nối được mã hóa, nhưng không đảm bảo trang web đó là hợp pháp hay an toàn. Em vẫn cần cẩn thận!" }
     ];
 
@@ -4717,7 +5084,7 @@
       if (catScores[0].some(x => x === 0)) advice.push({ icon: 'fas fa-fish-fins', text: 'Hãy xem lại phần "Lừa đảo trực tuyến" để nhận biết các chiêu trò phổ biến.' });
       if (catScores[1].some(x => x === 0)) advice.push({ icon: 'fas fa-lock', text: 'Tăng cường bảo mật tài khoản bằng mật khẩu mạnh và xác thực 2 bước (2FA).' });
       if (catScores[2].some(x => x === 0)) advice.push({ icon: 'fas fa-shield-halved', text: 'Khi gặp sự cố hãy luôn báo ngay cho người lớn và gọi 1800 1567 nếu cần.' });
-      if (catScores[3].some(x => x === 0)) advice.push({ icon: 'fas fa-gavel', text: 'Tìm hiểu thêm về Luật Trẻ em 2016 và Luật An ninh mạng 2018 để biết quyền của em.' });
+      if (catScores[3].some(x => x === 0)) advice.push({ icon: 'fas fa-gavel', text: 'Tìm hiểu thêm về Luật Trẻ bạn 2016 và Luật An ninh mạng 2018 để biết quyền của bạn.' });
       if (pct >= 87) advice.push({ icon: 'fas fa-star', text: 'Em đang làm rất tốt! Hãy chia sẻ kiến thức này với bạn bè và gia đình.' });
       if (!advice.length) advice.push({ icon: 'fas fa-check-circle', text: 'Em đã nắm vững kiến thức! Tiếp tục duy trì ý thức an toàn mạng mỗi ngày.' });
       document.getElementById('adviceList').innerHTML = advice.map(a =>
@@ -4739,7 +5106,7 @@
       // === BẮT NẠT MẠNG ===
       {
         keys: ['bắt nạt', 'cyberbullying', 'chế nhạo', 'xúc phạm', 'chửi', 'bôi nhọ', 'đe dọa', 'hù dọa', 'cô lập', 'tẩy chay', 'nói xấu', 'bị ghét', 'bị chê', 'bị cười', 'sỉ nhục', 'hạ nhục', 'ảnh xấu', 'video xấu', 'tung ảnh', 'lan truyền', 'đồn đại', 'tin đồn', 'bị bully', 'bully'],
-        a: '😰 <strong>Bắt nạt mạng (Cyberbullying) – Hiểu & Xử lý:</strong><br><br><strong>📋 Các hình thức bắt nạt mạng:</strong><br>• Chế nhạo, xúc phạm qua tin nhắn hoặc bình luận<br>• Lan truyền ảnh chế, video gây xấu hổ<br>• Tạo tài khoản giả mạo để bôi nhọ<br>• Loại trừ khỏi nhóm, cô lập bạn bè<br>• Đe dọa, hù dọa liên tục qua mạng<br>• Chia sẻ thông tin cá nhân mà không được phép<br><br><strong>🆘 Khi bị bắt nạt, em nên:</strong><br>① KHÔNG trả lời – đừng cho kẻ bắt nạt sự chú ý<br>② Chụp màn hình tất cả bằng chứng<br>③ Chặn & báo cáo tài khoản đó ngay lập tức<br>④ Kể cho bố mẹ, thầy cô – đây KHÔNG phải lỗi của em<br>⑤ Gọi <strong>1800 1567</strong> nếu cần hỗ trợ tâm lý<br><br><strong>⚠️ Tác hại:</strong> Bắt nạt mạng gây tổn thương tâm lý nghiêm trọng: lo âu, trầm cảm, mất tự tin. Nếu em cảm thấy buồn hoặc sợ, hãy nói với người lớn tin cậy.<br><br><strong>⚖️ Pháp luật:</strong> Bắt nạt trẻ em trên mạng là vi phạm pháp luật, có thể bị phạt 10-100 triệu đồng hoặc truy cứu hình sự.<br><br>💙 <em>Nhớ nhé: Bị bắt nạt KHÔNG phải lỗi của em. Em có quyền được an toàn!</em>'
+        a: '😰 <strong>Bắt nạt mạng (Cyberbullying) – Hiểu & Xử lý:</strong><br><br><strong>📋 Các hình thức bắt nạt mạng:</strong><br>• Chế nhạo, xúc phạm qua tin nhắn hoặc bình luận<br>• Lan truyền ảnh chế, video gây xấu hổ<br>• Tạo tài khoản giả mạo để bôi nhọ<br>• Loại trừ khỏi nhóm, cô lập bạn bè<br>• Đe dọa, hù dọa liên tục qua mạng<br>• Chia sẻ thông tin cá nhân mà không được phép<br><br><strong>🆘 Khi bị bắt nạt, bạn nên:</strong><br>① KHÔNG trả lời – đừng cho kẻ bắt nạt sự chú ý<br>② Chụp màn hình tất cả bằng chứng<br>③ Chặn & báo cáo tài khoản đó ngay lập tức<br>④ Kể cho bố mẹ, thầy cô – đây KHÔNG phải lỗi của bạn<br>⑤ Gọi <strong>1800 1567</strong> nếu cần hỗ trợ tâm lý<br><br><strong>⚠️ Tác hại:</strong> Bắt nạt mạng gây tổn thương tâm lý nghiêm trọng: lo âu, trầm cảm, mất tự tin. Nếu bạn cảm thấy buồn hoặc sợ, hãy nói với người lớn tin cậy.<br><br><strong>⚖️ Pháp luật:</strong> Bắt nạt trẻ em trên mạng là vi phạm pháp luật, có thể bị phạt 10-100 triệu đồng hoặc truy cứu hình sự.<br><br>💙 <em>Nhớ nhé: Bị bắt nạt KHÔNG phải lỗi của bạn. Em có quyền được an toàn!</em>'
       },
       // === DỤ DỖ BẮT CÓC ===
       {
@@ -4749,7 +5116,7 @@
       // === DEEPFAKE & AI ===
       {
         keys: ['deepfake', 'ai', 'trí tuệ nhân tạo', 'giả mạo video', 'giả mạo ảnh', 'ghép mặt', 'video giả', 'ảnh giả', 'công nghệ giả', 'robot', 'chatgpt', 'deep fake', 'fake video', 'fake ảnh', 'giọng nói giả', 'cuộc gọi giả'],
-        a: '🤖 <strong>AI Deepfake & Giả mạo – Hiểu biết toàn diện:</strong><br><br><strong>❓ Deepfake là gì?</strong><br>Là công nghệ AI tạo ra video, ảnh hoặc giọng nói giả mạo rất giống thật. Kẻ xấu có thể:<br>• Ghép mặt em vào video không phù hợp<br>• Tạo tin nhắn giọng nói giả của bố mẹ, thầy cô<br>• Dùng hình ảnh người nổi tiếng giả để quảng cáo lừa đảo<br>• Tạo tài khoản giả mạo với ảnh của em<br><br><strong>🛡️ Cách tự bảo vệ:</strong><br>• Không đăng quá nhiều ảnh/video cá nhân lên mạng<br>• Đặt hồ sơ mạng xã hội ở chế độ riêng tư<br>• Kiểm tra kỹ nội dung bất thường trước khi chia sẻ<br>• Cảnh giác với cuộc gọi video từ "người thân" xin tiền<br>• Xác minh bằng cách gọi lại số điện thoại thật<br><br><strong>🔍 Cách nhận biết Deepfake:</strong><br>• Chuyển động miệng không khớp với âm thanh<br>• Ánh sáng, bóng trên khuôn mặt bất thường<br>• Viền khuôn mặt bị nhòe hoặc méo<br>• Nháy mắt không tự nhiên<br><br><strong>⚖️ Pháp luật:</strong> Luật An ninh mạng 2018 và Nghị định AI 2025 nghiêm cấm tạo deepfake trẻ em. Vi phạm có thể bị phạt tù và bồi thường thiệt hại.'
+        a: '🤖 <strong>AI Deepfake & Giả mạo – Hiểu biết toàn diện:</strong><br><br><strong>❓ Deepfake là gì?</strong><br>Là công nghệ AI tạo ra video, ảnh hoặc giọng nói giả mạo rất giống thật. Kẻ xấu có thể:<br>• Ghép mặt bạn vào video không phù hợp<br>• Tạo tin nhắn giọng nói giả của bố mẹ, thầy cô<br>• Dùng hình ảnh người nổi tiếng giả để quảng cáo lừa đảo<br>• Tạo tài khoản giả mạo với ảnh của bạn<br><br><strong>🛡️ Cách tự bảo vệ:</strong><br>• Không đăng quá nhiều ảnh/video cá nhân lên mạng<br>• Đặt hồ sơ mạng xã hội ở chế độ riêng tư<br>• Kiểm tra kỹ nội dung bất thường trước khi chia sẻ<br>• Cảnh giác với cuộc gọi video từ "người thân" xin tiền<br>• Xác minh bằng cách gọi lại số điện thoại thật<br><br><strong>🔍 Cách nhận biết Deepfake:</strong><br>• Chuyển động miệng không khớp với âm thanh<br>• Ánh sáng, bóng trên khuôn mặt bất thường<br>• Viền khuôn mặt bị nhòe hoặc méo<br>• Nháy mắt không tự nhiên<br><br><strong>⚖️ Pháp luật:</strong> Luật An ninh mạng 2018 và Nghị định AI 2025 nghiêm cấm tạo deepfake trẻ em. Vi phạm có thể bị phạt tù và bồi thường thiệt hại.'
       },
       // === MẬT KHẨU & BẢO MẬT ===
       {
@@ -4759,12 +5126,12 @@
       // === HOTLINE & KHẨN CẤP ===
       {
         keys: ['số điện thoại', 'hotline', 'gọi ai', 'cần giúp', 'khẩn cấp', 'cầu cứu', 'cứu', 'giúp đỡ', '113', '1800', '1567', '111', 'liên hệ', 'báo cáo', 'tố cáo', 'trình báo', 'công an', 'cảnh sát', 'đường dây nóng', 'tổng đài'],
-        a: '📞 <strong>Đường dây hỗ trợ khẩn cấp:</strong><br><br>🚔 <strong>113</strong> – Cảnh sát khẩn cấp (24/7)<br>→ Gọi khi bị đe dọa, theo dõi, bắt cóc<br><br>👶 <strong>1800 1567</strong> – Tổng đài bảo vệ trẻ em<br>→ Hoàn toàn MIỄN PHÍ, hoạt động 24/7<br>→ Tư vấn tâm lý, pháp lý, can thiệp khẩn cấp<br><br>🌐 <strong>111</strong> – Đường dây trẻ em (miễn phí)<br>→ Tư vấn, lắng nghe, hỗ trợ tâm lý<br><br>💻 <strong>canhbao.ncsc.gov.vn</strong> – Báo cáo an ninh mạng<br>→ Báo cáo trang web lừa đảo, mã độc<br><br>📧 <strong>safenetkids@edu.vn</strong> – Email liên hệ<br>→ Thời gian hỗ trợ: 7:00 – 22:00 hàng ngày<br><br>💙 <em>Em không đơn độc! Luôn có người sẵn sàng giúp đỡ em.</em>'
+        a: '📞 <strong>Đường dây hỗ trợ khẩn cấp:</strong><br><br>🚔 <strong>113</strong> – Cảnh sát khẩn cấp (24/7)<br>→ Gọi khi bị đe dọa, theo dõi, bắt cóc<br><br>👶 <strong>1800 1567</strong> – Tổng đài bảo vệ trẻ em<br>→ Hoàn toàn MIỄN PHÍ, hoạt động 24/7<br>→ Tư vấn tâm lý, pháp lý, can thiệp khẩn cấp<br><br>🌐 <strong>111</strong> – Đường dây trẻ em (miễn phí)<br>→ Tư vấn, lắng nghe, hỗ trợ tâm lý<br><br>💻 <strong>canhbao.ncsc.gov.vn</strong> – Báo cáo an ninh mạng<br>→ Báo cáo trang web lừa đảo, mã độc<br><br>📧 <strong>safenetkids@edu.vn</strong> – Email liên hệ<br>→ Thời gian hỗ trợ: 7:00 – 22:00 hàng ngày<br><br>💙 <em>Em không đơn độc! Luôn có người sẵn sàng giúp đỡ bạn.</em>'
       },
       // === MẠNG XÃ HỘI ===
       {
         keys: ['facebook', 'instagram', 'tiktok', 'youtube', 'zalo', 'messenger', 'telegram', 'mạng xã hội', 'social media', 'đăng bài', 'story', 'reels', 'livestream', 'live', 'phát trực tiếp', 'bình luận', 'comment', 'like', 'follow', 'theo dõi', 'unfollow', 'block', 'chặn', 'báo cáo tài khoản', 'report', 'snap', 'snapchat', 'twitter', 'x.com', 'threads'],
-        a: '📱 <strong>An toàn trên mạng xã hội:</strong><br><br><strong>🔒 Cài đặt riêng tư:</strong><br>• Đặt tài khoản ở chế độ <strong>Riêng tư (Private)</strong><br>• Chỉ chấp nhận kết bạn từ người quen ngoài đời<br>• Tắt tính năng định vị/vị trí khi đăng bài<br>• Giới hạn ai có thể xem Story/bài đăng<br>• Kiểm tra cài đặt quyền riêng tư định kỳ<br><br><strong>⚠️ KHÔNG nên đăng:</strong><br>• Địa chỉ nhà, trường học, nơi học thêm<br>• Số điện thoại, email cá nhân<br>• Lịch trình hàng ngày (đi đâu, lúc nào)<br>• Ảnh/video trong trang phục không phù hợp<br>• Ảnh có biển số xe, tên đường rõ ràng<br>• Ảnh chụp giấy tờ tùy thân<br><br><strong>🛡️ Mẹo an toàn:</strong><br>• Suy nghĩ kỹ trước khi đăng – internet không quên!<br>• Không nhắn tin riêng với người lạ<br>• Chặn và báo cáo ngay tài khoản quấy rối<br>• Không click vào link lạ trong tin nhắn<br>• Hỏi bố mẹ trước khi tạo tài khoản mới<br><br>📌 <em>Quy tắc vàng: Đừng đăng gì mà em không muốn cả thế giới thấy!</em>'
+        a: '📱 <strong>An toàn trên mạng xã hội:</strong><br><br><strong>🔒 Cài đặt riêng tư:</strong><br>• Đặt tài khoản ở chế độ <strong>Riêng tư (Private)</strong><br>• Chỉ chấp nhận kết bạn từ người quen ngoài đời<br>• Tắt tính năng định vị/vị trí khi đăng bài<br>• Giới hạn ai có thể xem Story/bài đăng<br>• Kiểm tra cài đặt quyền riêng tư định kỳ<br><br><strong>⚠️ KHÔNG nên đăng:</strong><br>• Địa chỉ nhà, trường học, nơi học thêm<br>• Số điện thoại, email cá nhân<br>• Lịch trình hàng ngày (đi đâu, lúc nào)<br>• Ảnh/video trong trang phục không phù hợp<br>• Ảnh có biển số xe, tên đường rõ ràng<br>• Ảnh chụp giấy tờ tùy thân<br><br><strong>🛡️ Mẹo an toàn:</strong><br>• Suy nghĩ kỹ trước khi đăng – internet không quên!<br>• Không nhắn tin riêng với người lạ<br>• Chặn và báo cáo ngay tài khoản quấy rối<br>• Không click vào link lạ trong tin nhắn<br>• Hỏi bố mẹ trước khi tạo tài khoản mới<br><br>📌 <em>Quy tắc vàng: Đừng đăng gì mà bạn không muốn cả thế giới thấy!</em>'
       },
       // === GAME ONLINE ===
       {
@@ -4774,22 +5141,22 @@
       // === PHÁP LUẬT ===
       {
         keys: ['luật', 'pháp luật', 'luật trẻ em', 'luật an ninh mạng', 'điều luật', 'xử phạt', 'phạt', 'tội', 'hình sự', 'vi phạm', 'nghị định', 'quy định', 'bộ luật', 'hình phạt', 'phạt tiền', 'phạt tù', 'quyền trẻ em', 'bảo vệ trẻ em', 'điều 54', 'an ninh mạng 2018'],
-        a: '⚖️ <strong>Pháp luật bảo vệ trẻ em trên mạng:</strong><br><br><strong>📜 Luật Trẻ em 2016 (Luật 102/2016/QH13):</strong><br>• Điều 54: Bảo vệ trẻ em khỏi xâm hại trên môi trường mạng<br>• Cha mẹ có trách nhiệm giám sát, hướng dẫn trẻ sử dụng mạng an toàn<br>• Nhà nước đảm bảo quyền bảo vệ thông tin cá nhân của trẻ<br>• Có hiệu lực từ 1/6/2017<br><br><strong>🛡️ Luật An ninh mạng 2018 (Luật 24/2018/QH14):</strong><br>• Cấm dụ dỗ, xâm hại, bóc lột trẻ em qua mạng<br>• Cấm phát tán nội dung khiêu dâm, bạo lực liên quan đến trẻ em<br>• Cấm đánh cắp, mua bán thông tin cá nhân của trẻ<br><br><strong>🤖 Nghị định về AI 2025:</strong><br>• Cấm sử dụng AI tạo deepfake liên quan đến trẻ em<br>• AI phải được thiết kế đảm bảo an toàn cho người dùng trẻ<br>• Doanh nghiệp AI phải có cơ chế bảo vệ dữ liệu trẻ em<br><br><strong>⚠️ Mức xử phạt:</strong><br>• Phạt hành chính: 10 – 100 triệu đồng<br>• Truy cứu hình sự: lên đến <strong>12 năm tù</strong><br>• Tịch thu tài sản và phương tiện phạm tội<br><br>📌 <em>Mọi hành vi xâm hại trẻ em trên mạng đều bị xử lý nghiêm theo pháp luật!</em>'
+        a: '⚖️ <strong>Pháp luật bảo vệ trẻ em trên mạng:</strong><br><br><strong>📜 Luật Trẻ bạn 2016 (Luật 102/2016/QH13):</strong><br>• Điều 54: Bảo vệ trẻ em khỏi xâm hại trên môi trường mạng<br>• Cha mẹ có trách nhiệm giám sát, hướng dẫn trẻ sử dụng mạng an toàn<br>• Nhà nước đảm bảo quyền bảo vệ thông tin cá nhân của trẻ<br>• Có hiệu lực từ 1/6/2017<br><br><strong>🛡️ Luật An ninh mạng 2018 (Luật 24/2018/QH14):</strong><br>• Cấm dụ dỗ, xâm hại, bóc lột trẻ em qua mạng<br>• Cấm phát tán nội dung khiêu dâm, bạo lực liên quan đến trẻ em<br>• Cấm đánh cắp, mua bán thông tin cá nhân của trẻ<br><br><strong>🤖 Nghị định về AI 2025:</strong><br>• Cấm sử dụng AI tạo deepfake liên quan đến trẻ em<br>• AI phải được thiết kế đảm bảo an toàn cho người dùng trẻ<br>• Doanh nghiệp AI phải có cơ chế bảo vệ dữ liệu trẻ em<br><br><strong>⚠️ Mức xử phạt:</strong><br>• Phạt hành chính: 10 – 100 triệu đồng<br>• Truy cứu hình sự: lên đến <strong>12 năm tù</strong><br>• Tịch thu tài sản và phương tiện phạm tội<br><br>📌 <em>Mọi hành vi xâm hại trẻ em trên mạng đều bị xử lý nghiêm theo pháp luật!</em>'
       },
       // === SỨC KHỎE TÂM LÝ ===
       {
         keys: ['buồn', 'sợ', 'lo lắng', 'lo âu', 'trầm cảm', 'stress', 'căng thẳng', 'tự tử', 'muốn chết', 'không muốn sống', 'cô đơn', 'tâm lý', 'sức khỏe tinh thần', 'khóc', 'đau khổ', 'tổn thương', 'bất an', 'hoảng sợ', 'ám ảnh', 'mất ngủ', 'không ngủ được'],
-        a: '💙 <strong>Sức khỏe tâm lý – Em không đơn độc:</strong><br><br><strong>❤️ Nếu em đang cảm thấy buồn hoặc sợ:</strong><br>• Đó là cảm xúc bình thường – em không sai khi có cảm xúc đó<br>• Em xứng đáng được lắng nghe và giúp đỡ<br>• Không ai có quyền làm em tổn thương<br><br><strong>🆘 Em có thể làm gì:</strong><br>① Nói chuyện với bố mẹ hoặc người lớn tin cậy<br>② Gọi <strong>1800 1567</strong> – có chuyên gia tâm lý lắng nghe em<br>③ Gọi <strong>111</strong> – đường dây trẻ em miễn phí<br>④ Viết ra cảm xúc của em (nhật ký, vẽ tranh)<br>⑤ Tập thở sâu khi cảm thấy lo lắng<br><br><strong>⚠️ Quan trọng:</strong><br>• Nếu em hoặc bạn bè có ý nghĩ tự làm hại bản thân, hãy gọi NGAY <strong>1800 1567</strong> hoặc kể cho người lớn<br>• Đây không phải điều đáng xấu hổ<br>• Luôn có người sẵn sàng giúp em<br><br>💪 <em>Em rất dũng cảm khi tìm kiếm sự giúp đỡ. Hãy tin rằng mọi thứ sẽ tốt hơn!</em>'
+        a: '💙 <strong>Sức khỏe tâm lý – Em không đơn độc:</strong><br><br><strong>❤️ Nếu bạn đang cảm thấy buồn hoặc sợ:</strong><br>• Đó là cảm xúc bình thường – bạn không sai khi có cảm xúc đó<br>• Em xứng đáng được lắng nghe và giúp đỡ<br>• Không ai có quyền làm bạn tổn thương<br><br><strong>🆘 Em có thể làm gì:</strong><br>① Nói chuyện với bố mẹ hoặc người lớn tin cậy<br>② Gọi <strong>1800 1567</strong> – có chuyên gia tâm lý lắng nghe bạn<br>③ Gọi <strong>111</strong> – đường dây trẻ em miễn phí<br>④ Viết ra cảm xúc của bạn (nhật ký, vẽ tranh)<br>⑤ Tập thở sâu khi cảm thấy lo lắng<br><br><strong>⚠️ Quan trọng:</strong><br>• Nếu bạn hoặc bạn bè có ý nghĩ tự làm hại bản thân, hãy gọi NGAY <strong>1800 1567</strong> hoặc kể cho người lớn<br>• Đây không phải điều đáng xấu hổ<br>• Luôn có người sẵn sàng giúp bạn<br><br>💪 <em>Em rất dũng cảm khi tìm kiếm sự giúp đỡ. Hãy tin rằng mọi thứ sẽ tốt hơn!</em>'
       },
       // === THÔNG TIN CÁ NHÂN ===
       {
         keys: ['thông tin cá nhân', 'địa chỉ', 'số điện thoại', 'email', 'cmnd', 'cccd', 'căn cước', 'họ tên', 'ngày sinh', 'trường học', 'lớp', 'nơi ở', 'dữ liệu cá nhân', 'chia sẻ thông tin', 'đăng thông tin', 'privacy', 'data'],
-        a: '🔏 <strong>Bảo vệ thông tin cá nhân:</strong><br><br><strong>🚫 KHÔNG chia sẻ trên mạng:</strong><br>• Địa chỉ nhà, trường học, nơi học thêm<br>• Số điện thoại, email cá nhân<br>• Số CMND/CCCD, ngày sinh<br>• Lịch trình hàng ngày<br>• Ảnh chụp giấy tờ tùy thân<br>• Mật khẩu, mã OTP<br>• Thông tin tài chính gia đình<br><br><strong>✅ Quy tắc an toàn:</strong><br>• Chỉ chia sẻ thông tin với người thân đáng tin cậy<br>• Kiểm tra cài đặt riêng tư trên mạng xã hội<br>• Đọc kỹ điều khoản trước khi đăng ký dịch vụ<br>• Từ chối nếu trang web yêu cầu quá nhiều thông tin<br>• Dùng biệt danh thay vì tên thật trên mạng<br><br><strong>⚠️ Tại sao quan trọng?</strong><br>Kẻ xấu có thể dùng thông tin cá nhân của em để:<br>• Lừa đảo, mạo danh<br>• Theo dõi, bắt cóc<br>• Bắt nạt, quấy rối<br>• Đánh cắp tài khoản<br><br>📌 <em>Thông tin cá nhân như chìa khóa nhà – không trao cho người lạ!</em>'
+        a: '🔏 <strong>Bảo vệ thông tin cá nhân:</strong><br><br><strong>🚫 KHÔNG chia sẻ trên mạng:</strong><br>• Địa chỉ nhà, trường học, nơi học thêm<br>• Số điện thoại, email cá nhân<br>• Số CMND/CCCD, ngày sinh<br>• Lịch trình hàng ngày<br>• Ảnh chụp giấy tờ tùy thân<br>• Mật khẩu, mã OTP<br>• Thông tin tài chính gia đình<br><br><strong>✅ Quy tắc an toàn:</strong><br>• Chỉ chia sẻ thông tin với người thân đáng tin cậy<br>• Kiểm tra cài đặt riêng tư trên mạng xã hội<br>• Đọc kỹ điều khoản trước khi đăng ký dịch vụ<br>• Từ chối nếu trang web yêu cầu quá nhiều thông tin<br>• Dùng biệt danh thay vì tên thật trên mạng<br><br><strong>⚠️ Tại sao quan trọng?</strong><br>Kẻ xấu có thể dùng thông tin cá nhân của bạn để:<br>• Lừa đảo, mạo danh<br>• Theo dõi, bắt cóc<br>• Bắt nạt, quấy rối<br>• Đánh cắp tài khoản<br><br>📌 <em>Thông tin cá nhân như chìa khóa nhà – không trao cho người lạ!</em>'
       },
       // === NỘI DUNG KHÔNG PHÙ HỢP ===
       {
         keys: ['nội dung xấu', 'nội dung người lớn', 'bạo lực', 'khiêu dâm', '18+', 'nhạy cảm', 'không phù hợp', 'pornography', 'nude', 'ảnh nude', 'ảnh nóng', 'video bạo lực', 'máu me', 'kinh dị', 'sextortion', 'ảnh riêng tư', 'gửi ảnh', 'yêu cầu ảnh', 'sexting'],
-        a: '🛑 <strong>Xử lý nội dung không phù hợp:</strong><br><br><strong>⚠️ Các loại nội dung nguy hiểm:</strong><br>• Nội dung bạo lực, máu me<br>• Nội dung người lớn (18+)<br>• Tin giả, tin sai sự thật<br>• Nội dung cổ xúy tự gây hại<br>• Quảng cáo cờ bạc, chất cấm<br><br><strong>🆘 Khi gặp nội dung xấu:</strong><br>① Đóng trang web/ứng dụng NGAY lập tức<br>② KHÔNG chia sẻ hoặc chuyển tiếp cho ai<br>③ Kể cho bố mẹ hoặc thầy cô biết<br>④ Báo cáo nội dung trên nền tảng đó<br><br><strong>🚫 Nếu ai đó yêu cầu em gửi ảnh riêng tư:</strong><br>• KHÔNG BAO GIỜ gửi ảnh nhạy cảm cho bất kỳ ai<br>• Đây là hành vi <strong>vi phạm pháp luật</strong><br>• Chặn người đó và báo ngay cho bố mẹ<br>• Gọi <strong>1800 1567</strong> để được hỗ trợ<br><br><strong>⚖️ Lưu ý:</strong> Việc phát tán nội dung nhạy cảm về trẻ em là tội phạm hình sự, có thể bị phạt tù lên đến 12 năm.<br><br>📌 <em>Em có quyền từ chối và báo cáo!</em>'
+        a: '🛑 <strong>Xử lý nội dung không phù hợp:</strong><br><br><strong>⚠️ Các loại nội dung nguy hiểm:</strong><br>• Nội dung bạo lực, máu me<br>• Nội dung người lớn (18+)<br>• Tin giả, tin sai sự thật<br>• Nội dung cổ xúy tự gây hại<br>• Quảng cáo cờ bạc, chất cấm<br><br><strong>🆘 Khi gặp nội dung xấu:</strong><br>① Đóng trang web/ứng dụng NGAY lập tức<br>② KHÔNG chia sẻ hoặc chuyển tiếp cho ai<br>③ Kể cho bố mẹ hoặc thầy cô biết<br>④ Báo cáo nội dung trên nền tảng đó<br><br><strong>🚫 Nếu ai đó yêu cầu bạn gửi ảnh riêng tư:</strong><br>• KHÔNG BAO GIỜ gửi ảnh nhạy cảm cho bất kỳ ai<br>• Đây là hành vi <strong>vi phạm pháp luật</strong><br>• Chặn người đó và báo ngay cho bố mẹ<br>• Gọi <strong>1800 1567</strong> để được hỗ trợ<br><br><strong>⚖️ Lưu ý:</strong> Việc phát tán nội dung nhạy cảm về trẻ em là tội phạm hình sự, có thể bị phạt tù lên đến 12 năm.<br><br>📌 <em>Em có quyền từ chối và báo cáo!</em>'
       },
       // === WIFI & MẠNG CÔNG CỘNG ===
       {
@@ -4799,32 +5166,32 @@
       // === BỐ MẸ / PHỤ HUYNH ===
       {
         keys: ['bố mẹ', 'phụ huynh', 'cha mẹ', 'giám sát', 'kiểm soát', 'parental control', 'family link', 'quản lý con', 'hướng dẫn con', 'trách nhiệm phụ huynh', 'bảo vệ con', 'giáo dục con'],
-        a: '👨‍👩‍👧 <strong>Hướng dẫn cho phụ huynh:</strong><br><br><strong>📋 Trách nhiệm theo Luật Trẻ em 2016:</strong><br>• Giám sát, hướng dẫn con sử dụng mạng an toàn<br>• Tạo môi trường để con cởi mở chia sẻ<br>• Kịp thời can thiệp khi con gặp sự cố<br><br><strong>🛡️ Biện pháp bảo vệ:</strong><br>• Cài đặt ứng dụng kiểm soát (Google Family Link, Apple Screen Time)<br>• Đặt thiết bị ở nơi chung trong nhà<br>• Thỏa thuận thời gian sử dụng mạng<br>• Tìm hiểu các nền tảng con đang dùng<br>• Kết bạn với con trên mạng xã hội<br><br><strong>💬 Cách nói chuyện với con:</strong><br>• Lắng nghe không phán xét<br>• Đặt câu hỏi mở: "Hôm nay con xem gì trên mạng?"<br>• Chia sẻ kinh nghiệm thay vì ra lệnh<br>• Để con biết có thể tìm đến bố mẹ bất cứ lúc nào<br>• Khen ngợi khi con báo cáo sự cố<br><br>📌 <em>Tin tưởng nhưng vẫn giám sát – bảo vệ con bằng tình yêu!</em>'
+        a: '👨‍👩‍👧 <strong>Hướng dẫn cho phụ huynh:</strong><br><br><strong>📋 Trách nhiệm theo Luật Trẻ bạn 2016:</strong><br>• Giám sát, hướng dẫn con sử dụng mạng an toàn<br>• Tạo môi trường để con cởi mở chia sẻ<br>• Kịp thời can thiệp khi con gặp sự cố<br><br><strong>🛡️ Biện pháp bảo vệ:</strong><br>• Cài đặt ứng dụng kiểm soát (Google Family Link, Apple Screen Time)<br>• Đặt thiết bị ở nơi chung trong nhà<br>• Thỏa thuận thời gian sử dụng mạng<br>• Tìm hiểu các nền tảng con đang dùng<br>• Kết bạn với con trên mạng xã hội<br><br><strong>💬 Cách nói chuyện với con:</strong><br>• Lắng nghe không phán xét<br>• Đặt câu hỏi mở: "Hôm nay con xem gì trên mạng?"<br>• Chia sẻ kinh nghiệm thay vì ra lệnh<br>• Để con biết có thể tìm đến bố mẹ bất cứ lúc nào<br>• Khen ngợi khi con báo cáo sự cố<br><br>📌 <em>Tin tưởng nhưng vẫn giám sát – bảo vệ con bằng tình yêu!</em>'
       },
       // === CHÀO HỎI ===
       {
-        keys: ['xin chào', 'hello', 'hi', 'chào', 'hey', 'chào bạn', 'alo', 'yo', 'chào em', 'chào anh', 'chào chị', 'good morning', 'good afternoon'],
-        a: 'Chào em! 😊 Mình là <strong>SafeBot</strong> – trợ lý AI chuyên về an toàn mạng cho trẻ em.<br><br>Mình có thể giúp em về:<br>🎣 Lừa đảo trực tuyến & cách phòng tránh<br>😰 Bắt nạt mạng & cách xử lý<br>🚨 Người lạ dụ dỗ & bắt cóc<br>🤖 AI Deepfake & giả mạo<br>🔐 Bảo mật tài khoản & mật khẩu<br>📱 An toàn mạng xã hội<br>🎮 An toàn khi chơi game<br>⚖️ Pháp luật bảo vệ trẻ em<br>💙 Sức khỏe tâm lý<br>📞 Đường dây khẩn cấp<br><br>Hãy hỏi mình bất cứ điều gì em muốn biết nhé! 💪'
+        keys: ['xin chào', 'hello', 'hi', 'chào', 'hey', 'chào bạn', 'alo', 'yo', 'chào bạn', 'chào anh', 'chào chị', 'good morning', 'good afternoon'],
+        a: 'Chào bạn! 😊 Mình là <strong>SafeBot</strong> – trợ lý AI chuyên về an toàn mạng cho trẻ em.<br><br>Mình có thể giúp bạn về:<br>🎣 Lừa đảo trực tuyến & cách phòng tránh<br>😰 Bắt nạt mạng & cách xử lý<br>🚨 Người lạ dụ dỗ & bắt cóc<br>🤖 AI Deepfake & giả mạo<br>🔐 Bảo mật tài khoản & mật khẩu<br>📱 An toàn mạng xã hội<br>🎮 An toàn khi chơi game<br>⚖️ Pháp luật bảo vệ trẻ em<br>💙 Sức khỏe tâm lý<br>📞 Đường dây khẩn cấp<br><br>Hãy hỏi mình bất cứ điều gì bạn muốn biết nhé! 💪'
       },
       // === CẢM ƠN ===
       {
         keys: ['cảm ơn', 'thanks', 'thank', 'tốt lắm', 'giỏi', 'hay', 'tuyệt', 'ok', 'okê', 'hiểu rồi', 'biết rồi', 'rõ', 'được'],
-        a: 'Không có gì đâu em! 😊<br><br><strong>Hãy nhớ 5 nguyên tắc vàng:</strong><br>① Không chia sẻ thông tin cá nhân với người lạ<br>② Không gặp người quen qua mạng một mình<br>③ Lưu bằng chứng khi bị quấy rối<br>④ Báo ngay cho bố mẹ khi gặp sự cố<br>⑤ Ghi nhớ hotline: <strong>1800 1567</strong><br><br>💪 <em>An toàn trên mạng bắt đầu từ chính em!</em>'
+        a: 'Không có gì đâu bạn! 😊<br><br><strong>Hãy nhớ 5 nguyên tắc vàng:</strong><br>① Không chia sẻ thông tin cá nhân với người lạ<br>② Không gặp người quen qua mạng một mình<br>③ Lưu bằng chứng khi bị quấy rối<br>④ Báo ngay cho bố mẹ khi gặp sự cố<br>⑤ Ghi nhớ hotline: <strong>1800 1567</strong><br><br>💪 <em>An toàn trên mạng bắt đầu từ chính bạn!</em>'
       },
       // === SAFENET KIDS ===
       {
         keys: ['safenet', 'safenetkids', 'trang web này', 'web này', 'trang này', 'bạn là ai', 'mày là ai', 'bot là gì', 'ai tạo', 'ai làm', 'giới thiệu', 'about', 'mục đích'],
-        a: '🛡️ <strong>Về SafeNet Kids:</strong><br><br><strong>SafeNet Kids</strong> là trang web giáo dục giúp học sinh:<br>• 🎣 Nhận biết các mối nguy hiểm trên mạng<br>• 🧠 Rèn luyện kỹ năng an toàn qua bài quiz 15 câu<br>• 🆘 Biết cách xử lý khi gặp sự cố trực tuyến<br>• ⚖️ Hiểu về pháp luật bảo vệ trẻ em<br>• 📞 Tiếp cận đường dây hỗ trợ khẩn cấp<br><br>Mình là <strong>SafeBot</strong> – trợ lý AI của SafeNet Kids, được thiết kế để trả lời mọi câu hỏi của em về an toàn mạng! 🤖<br><br>📌 <em>100% miễn phí – Vì sự an toàn của trẻ em Việt Nam!</em>'
+        a: '🛡️ <strong>Về SafeNet Kids:</strong><br><br><strong>SafeNet Kids</strong> là trang web giáo dục giúp học sinh:<br>• 🎣 Nhận biết các mối nguy hiểm trên mạng<br>• 🧠 Rèn luyện kỹ năng an toàn qua bài quiz 15 câu<br>• 🆘 Biết cách xử lý khi gặp sự cố trực tuyến<br>• ⚖️ Hiểu về pháp luật bảo vệ trẻ em<br>• 📞 Tiếp cận đường dây hỗ trợ khẩn cấp<br><br>Mình là <strong>SafeBot</strong> – trợ lý AI của SafeNet Kids, được thiết kế để trả lời mọi câu hỏi của bạn về an toàn mạng! 🤖<br><br>📌 <em>100% miễn phí – Vì sự an toàn của trẻ em Việt Nam!</em>'
       },
       // === QUY TẮC AN TOÀN TỔNG HỢP ===
       {
         keys: ['quy tắc', 'nguyên tắc', 'lời khuyên', 'mẹo', 'tip', 'cách an toàn', 'làm sao an toàn', 'an toàn trên mạng', 'internet an toàn', 'hướng dẫn', 'dạy', 'học', 'kiến thức'],
-        a: '📚 <strong>10 Quy tắc vàng an toàn trên mạng:</strong><br><br>① 🔐 Tạo mật khẩu mạnh và bật xác thực 2 bước<br>② 🙈 Không chia sẻ thông tin cá nhân với người lạ<br>③ 🚫 Không gặp người quen qua mạng một mình<br>④ 🤔 Suy nghĩ kỹ trước khi đăng bất cứ điều gì<br>⑤ 📸 Chụp màn hình bằng chứng khi bị quấy rối<br>⑥ 🚷 Chặn và báo cáo tài khoản xấu<br>⑦ 👨‍👩‍👧 Luôn kể cho bố mẹ khi gặp sự cố<br>⑧ 🔒 Đặt tài khoản ở chế độ riêng tư<br>⑨ ⏰ Hạn chế thời gian online, cân bằng cuộc sống<br>⑩ 📞 Ghi nhớ số <strong>1800 1567</strong> để gọi khi cần<br><br>💪 <em>Nắm vững 10 quy tắc này, em đã an toàn hơn rất nhiều!</em>'
+        a: '📚 <strong>10 Quy tắc vàng an toàn trên mạng:</strong><br><br>① 🔐 Tạo mật khẩu mạnh và bật xác thực 2 bước<br>② 🙈 Không chia sẻ thông tin cá nhân với người lạ<br>③ 🚫 Không gặp người quen qua mạng một mình<br>④ 🤔 Suy nghĩ kỹ trước khi đăng bất cứ điều gì<br>⑤ 📸 Chụp màn hình bằng chứng khi bị quấy rối<br>⑥ 🚷 Chặn và báo cáo tài khoản xấu<br>⑦ 👨‍👩‍👧 Luôn kể cho bố mẹ khi gặp sự cố<br>⑧ 🔒 Đặt tài khoản ở chế độ riêng tư<br>⑨ ⏰ Hạn chế thời gian online, cân bằng cuộc sống<br>⑩ 📞 Ghi nhớ số <strong>1800 1567</strong> để gọi khi cần<br><br>💪 <em>Nắm vững 10 quy tắc này, bạn đã an toàn hơn rất nhiều!</em>'
       },
       // === QUIZ / KIỂM TRA ===
       {
         keys: ['quiz', 'trắc nghiệm', 'kiểm tra', 'bài test', 'bài thi', 'làm bài', 'điểm', 'kết quả', 'câu hỏi', 'đánh giá'],
-        a: '📝 <strong>Bài kiểm tra an toàn mạng:</strong><br><br>Trang web SafeNet Kids có bài trắc nghiệm <strong>15 câu hỏi</strong> giúp em đánh giá kiến thức an toàn mạng!<br><br><strong>📋 Nội dung kiểm tra:</strong><br>• Phòng tránh lừa đảo trực tuyến<br>• Bảo mật tài khoản & mật khẩu<br>• Xử lý sự cố khi bị bắt nạt, dụ dỗ<br>• Kiến thức pháp lý cơ bản<br><br><strong>⏱️ Thời gian:</strong> Khoảng 10 phút<br><strong>🏆 Sau khi hoàn thành:</strong> Nhận đánh giá chi tiết và lời khuyên riêng!<br><br>Hãy lên phần <strong>"Kỹ năng"</strong> trên trang web để bắt đầu làm bài nhé! 🚀'
+        a: '📝 <strong>Bài kiểm tra an toàn mạng:</strong><br><br>Trang web SafeNet Kids có bài trắc nghiệm <strong>15 câu hỏi</strong> giúp bạn đánh giá kiến thức an toàn mạng!<br><br><strong>📋 Nội dung kiểm tra:</strong><br>• Phòng tránh lừa đảo trực tuyến<br>• Bảo mật tài khoản & mật khẩu<br>• Xử lý sự cố khi bị bắt nạt, dụ dỗ<br>• Kiến thức pháp lý cơ bản<br><br><strong>⏱️ Thời gian:</strong> Khoảng 10 phút<br><strong>🏆 Sau khi hoàn thành:</strong> Nhận đánh giá chi tiết và lời khuyên riêng!<br><br>Hãy lên phần <strong>"Kỹ năng"</strong> trên trang web để bắt đầu làm bài nhé! 🚀'
       },
       // === TRƯỜNG HỌC ===
       {
@@ -4844,9 +5211,9 @@
     ];
 
     const FALLBACK_RESPONSES = [
-      '🤔 Câu hỏi hay! Mình sẽ cố gắng giúp em.<br><br>Dựa trên kiến thức về an toàn mạng, mình khuyên em:<br>• Luôn cẩn thận với người lạ trên mạng<br>• Không chia sẻ thông tin cá nhân<br>• Báo ngay cho bố mẹ khi gặp sự cố<br>• Ghi nhớ hotline <strong>1800 1567</strong><br><br>Em có thể hỏi cụ thể hơn về lừa đảo, bắt nạt, deepfake, mật khẩu, pháp luật hoặc bất kỳ chủ đề an toàn mạng nào khác! 💬',
-      '🤖 Mình hiểu em đang muốn tìm hiểu thêm! Mình có thể tư vấn chuyên sâu về:<br><br>🎣 <strong>Lừa đảo</strong> – cách nhận biết & phòng tránh<br>😰 <strong>Bắt nạt mạng</strong> – xử lý & báo cáo<br>🚨 <strong>Người lạ dụ dỗ</strong> – quy tắc an toàn<br>🤖 <strong>Deepfake AI</strong> – hiểu & bảo vệ<br>🔐 <strong>Bảo mật</strong> – mật khẩu & tài khoản<br>📱 <strong>Mạng xã hội</strong> – cài đặt riêng tư<br>🎮 <strong>Game online</strong> – chơi an toàn<br>⚖️ <strong>Pháp luật</strong> – quyền trẻ em<br>💙 <strong>Tâm lý</strong> – hỗ trợ cảm xúc<br><br>Em thử hỏi lại theo chủ đề cụ thể nhé! 😊',
-      '💡 Mình chưa tìm thấy câu trả lời chính xác, nhưng đây là điều quan trọng em cần nhớ:<br><br><strong>5 Nguyên tắc vàng an toàn mạng:</strong><br>① Không chia sẻ thông tin cá nhân<br>② Không gặp người lạ từ mạng một mình<br>③ Lưu bằng chứng khi bị quấy rối<br>④ Báo ngay cho người lớn tin cậy<br>⑤ Gọi <strong>1800 1567</strong> khi cần giúp đỡ<br><br>Hãy hỏi mình câu khác hoặc mô tả cụ thể hơn nhé! 🙋'
+      '🤔 Câu hỏi hay! Mình sẽ cố gắng giúp bạn.<br><br>Dựa trên kiến thức về an toàn mạng, mình khuyên bạn:<br>• Luôn cẩn thận với người lạ trên mạng<br>• Không chia sẻ thông tin cá nhân<br>• Báo ngay cho bố mẹ khi gặp sự cố<br>• Ghi nhớ hotline <strong>1800 1567</strong><br><br>Em có thể hỏi cụ thể hơn về lừa đảo, bắt nạt, deepfake, mật khẩu, pháp luật hoặc bất kỳ chủ đề an toàn mạng nào khác! 💬',
+      '🤖 Mình hiểu bạn đang muốn tìm hiểu thêm! Mình có thể tư vấn chuyên sâu về:<br><br>🎣 <strong>Lừa đảo</strong> – cách nhận biết & phòng tránh<br>😰 <strong>Bắt nạt mạng</strong> – xử lý & báo cáo<br>🚨 <strong>Người lạ dụ dỗ</strong> – quy tắc an toàn<br>🤖 <strong>Deepfake AI</strong> – hiểu & bảo vệ<br>🔐 <strong>Bảo mật</strong> – mật khẩu & tài khoản<br>📱 <strong>Mạng xã hội</strong> – cài đặt riêng tư<br>🎮 <strong>Game online</strong> – chơi an toàn<br>⚖️ <strong>Pháp luật</strong> – quyền trẻ em<br>💙 <strong>Tâm lý</strong> – hỗ trợ cảm xúc<br><br>Em thử hỏi lại theo chủ đề cụ thể nhé! 😊',
+      '💡 Mình chưa tìm thấy câu trả lời chính xác, nhưng đây là điều quan trọng bạn cần nhớ:<br><br><strong>5 Nguyên tắc vàng an toàn mạng:</strong><br>① Không chia sẻ thông tin cá nhân<br>② Không gặp người lạ từ mạng một mình<br>③ Lưu bằng chứng khi bị quấy rối<br>④ Báo ngay cho người lớn tin cậy<br>⑤ Gọi <strong>1800 1567</strong> khi cần giúp đỡ<br><br>Hãy hỏi mình câu khác hoặc mô tả cụ thể hơn nhé! 🙋'
     ];
 
     let fallbackIdx = 0;
@@ -4906,13 +5273,272 @@
       c.appendChild(m); c.scrollTop = c.scrollHeight;
     }
     function removeTyping() { const t = document.querySelector('.typing-msg'); if (t) t.remove(); }
+
+    // ══════════════════════════════════════
+    // AUTH SYSTEM - Đăng ký / Đăng nhập
+    // ══════════════════════════════════════
+
+    // --- Storage helpers ---
+    const SNK_USERS_KEY = 'snk_users';
+    const SNK_SESSION_KEY = 'snk_session';
+    const SNK_HISTORY_KEY = 'snk_history';
+
+    function getUsers() {
+      try { return JSON.parse(localStorage.getItem(SNK_USERS_KEY)) || []; } catch { return []; }
+    }
+    function saveUsers(u) { localStorage.setItem(SNK_USERS_KEY, JSON.stringify(u)); }
+    function getSession() {
+      try { return JSON.parse(localStorage.getItem(SNK_SESSION_KEY)); } catch { return null; }
+    }
+    function saveSession(s) { localStorage.setItem(SNK_SESSION_KEY, JSON.stringify(s)); }
+    function clearSession() { localStorage.removeItem(SNK_SESSION_KEY); }
+    function getHistory() {
+      try { return JSON.parse(localStorage.getItem(SNK_HISTORY_KEY)) || {}; } catch { return {}; }
+    }
+    function saveHistory(h) { localStorage.setItem(SNK_HISTORY_KEY, JSON.stringify(h)); }
+
+    // --- Track visit ---
+    function trackVisit(email) {
+      if (!email) return;
+      const hist = getHistory();
+      if (!hist[email]) hist[email] = [];
+      hist[email].unshift({
+        page: document.title || 'SafeNet Kids',
+        url: location.href,
+        time: new Date().toISOString()
+      });
+      hist[email] = hist[email].slice(0, 20); // keep last 20
+      saveHistory(hist);
+    }
+
+    // --- Format time ---
+    function fmtTime(iso) {
+      try {
+        const d = new Date(iso);
+        const now = new Date();
+        const diff = Math.floor((now - d) / 1000);
+        if (diff < 60) return 'Vừa xong';
+        if (diff < 3600) return Math.floor(diff/60) + ' phút trước';
+        if (diff < 86400) return Math.floor(diff/3600) + ' giờ trước';
+        return d.toLocaleDateString('vi-VN');
+      } catch { return ''; }
+    }
+
+    // --- Auth Modal control ---
+    let _selectedRole = 'member';
+
+    function openAuthModal(type) {
+      closeUserDropdown();
+      const id = type === 'login' ? 'loginModal' : 'registerModal';
+      document.getElementById(id).classList.add('open');
+      document.body.style.overflow = 'hidden';
+      // Focus first input
+      setTimeout(() => {
+        const inp = document.getElementById(type === 'login' ? 'li_email' : 'rg_name');
+        if (inp) inp.focus();
+      }, 300);
+    }
+
+    function closeAuthModal(id) {
+      document.getElementById(id).classList.remove('open');
+      document.body.style.overflow = '';
+      // Reset errors
+      document.querySelectorAll('#' + id + ' .auth-err').forEach(e => {
+        e.textContent = ''; e.classList.remove('show');
+      });
+    }
+
+    function switchAuthModal(targetId) {
+      document.querySelectorAll('.auth-overlay.open').forEach(m => {
+        m.classList.remove('open');
+      });
+      document.getElementById(targetId).classList.add('open');
+    }
+
+    function selectRole(role) {
+      _selectedRole = role;
+      document.getElementById('role_member').classList.toggle('selected', role === 'member');
+      document.getElementById('role_collab').classList.toggle('selected', role === 'collab');
+    }
+
+    function authErr(id, msg) {
+      const el = document.getElementById(id);
+      if (el) { el.textContent = msg; el.classList.add('show'); }
+    }
+    function authClrErr(id) {
+      const el = document.getElementById(id);
+      if (el) { el.textContent = ''; el.classList.remove('show'); }
+    }
+
+    // --- REGISTER ---
+    function doRegister() {
+      const name = document.getElementById('rg_name').value.trim();
+      const email = document.getElementById('rg_email').value.trim();
+      const pass = document.getElementById('rg_pass').value;
+      const role = _selectedRole;
+
+      // Clear errors
+      ['rg_name_err','rg_email_err','rg_pass_err','rg_role_err','rg_general_err'].forEach(authClrErr);
+
+      let valid = true;
+      if (!name || name.length < 2) { authErr('rg_name_err','⚠ Vui lòng nhập họ tên đầy đủ (ít nhất 2 ký tự).'); valid = false; }
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { authErr('rg_email_err','⚠ Email không hợp lệ.'); valid = false; }
+      if (!pass || pass.length < 6) { authErr('rg_pass_err','⚠ Mật khẩu phải có ít nhất 6 ký tự.'); valid = false; }
+      if (!valid) return;
+
+      // Check duplicate email
+      const users = getUsers();
+      if (users.find(u => u.email.toLowerCase() === email.toLowerCase())) {
+        authErr('rg_general_err','⚠ Email này đã được đăng ký. Vui lòng đăng nhập hoặc dùng email khác.');
+        return;
+      }
+
+      // Save user
+      const newUser = {
+        id: Date.now().toString(36) + Math.random().toString(36).slice(2),
+        name, email: email.toLowerCase(), pass, role,
+        createdAt: new Date().toISOString()
+      };
+      users.push(newUser);
+      saveUsers(users);
+
+      // Auto login
+      const session = { id: newUser.id, name, email: email.toLowerCase(), role };
+      saveSession(session);
+      trackVisit(email.toLowerCase());
+
+      closeAuthModal('registerModal');
+      updateNavAuth();
+      showToast(`🎉 Đăng ký thành công! Chào mừng ${name}!`, 'success');
+    }
+
+    // --- LOGIN ---
+    function doLogin() {
+      const email = document.getElementById('li_email').value.trim();
+      const pass = document.getElementById('li_pass').value;
+
+      ['li_email_err','li_pass_err','li_general_err'].forEach(authClrErr);
+
+      let valid = true;
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { authErr('li_email_err','⚠ Email không hợp lệ.'); valid = false; }
+      if (!pass) { authErr('li_pass_err','⚠ Vui lòng nhập mật khẩu.'); valid = false; }
+      if (!valid) return;
+
+      const users = getUsers();
+      const user = users.find(u => u.email === email.toLowerCase() && u.pass === pass);
+      if (!user) {
+        authErr('li_general_err','⚠ Email hoặc mật khẩu không đúng. Vui lòng thử lại.');
+        return;
+      }
+
+      const session = { id: user.id, name: user.name, email: user.email, role: user.role };
+      saveSession(session);
+      trackVisit(user.email);
+
+      closeAuthModal('loginModal');
+      updateNavAuth();
+      showToast(`👋 Chào mừng trở lại, ${user.name}!`, 'success');
+    }
+
+    // --- LOGOUT ---
+    function doLogout() {
+      clearSession();
+      closeUserDropdown();
+      updateNavAuth();
+      showToast('Đã đăng xuất thành công.', 'success');
+    }
+
+    // --- Update navbar based on auth state ---
+    function updateNavAuth() {
+      const session = getSession();
+      const area = document.getElementById('navAuthArea');
+      if (!area) return;
+
+      if (session) {
+        const initials = session.name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+        const roleLabel = session.role === 'collab' ? 'Cộng tác viên' : 'Thành viên';
+        area.innerHTML = `
+          <button class="nav-user" id="navUserBtn" onclick="toggleUserDropdown()">
+            <div class="nav-user-avatar">${initials}</div>
+            <span>${session.name.split(' ').pop()}</span>
+            <i class="fas fa-chevron-down" style="font-size:.65rem"></i>
+          </button>`;
+        // Update dropdown
+        document.getElementById('udAvatar').textContent = initials;
+        document.getElementById('udName').textContent = session.name;
+        document.getElementById('udRoleText').textContent = roleLabel;
+        const badge = document.getElementById('udRoleBadge');
+        badge.className = 'ud-role-badge ' + (session.role === 'collab' ? 'ud-role-collab' : 'ud-role-member');
+        badge.querySelector('i').className = session.role === 'collab' ? 'fas fa-people-group' : 'fas fa-user-graduate';
+        // Load history
+        const hist = getHistory();
+        const userHist = (hist[session.email] || []).slice(0, 5);
+        const histEl = document.getElementById('udHistList');
+        if (userHist.length === 0) {
+          histEl.innerHTML = '<div style="color:var(--text3);font-size:.8rem;padding:4px 0">Chưa có lịch sử.</div>';
+        } else {
+          histEl.innerHTML = userHist.map(h => `
+            <div class="ud-hist-item">
+              <i class="fas fa-globe"></i>
+              <span>SafeNet Kids</span>
+              <span class="ud-hist-time">${fmtTime(h.time)}</span>
+            </div>`).join('');
+        }
+      } else {
+        area.innerHTML = `
+          <button class="nav-auth-btn" id="navAuthBtn" onclick="openAuthModal('login')">
+            <i class="fas fa-user"></i> Đăng nhập
+          </button>`;
+      }
+    }
+
+    // --- User Dropdown ---
+    function toggleUserDropdown() {
+      const dd = document.getElementById('userDropdown');
+      dd.classList.toggle('open');
+    }
+    function closeUserDropdown() {
+      document.getElementById('userDropdown').classList.remove('open');
+    }
+    document.addEventListener('click', e => {
+      const dd = document.getElementById('userDropdown');
+      const btn = document.getElementById('navUserBtn');
+      if (dd && btn && !dd.contains(e.target) && !btn.contains(e.target)) {
+        closeUserDropdown();
+      }
+    });
+
+    // --- Close auth modals on overlay click ---
+    document.getElementById('loginModal').addEventListener('click', function(e) {
+      if (e.target === this) closeAuthModal('loginModal');
+    });
+    document.getElementById('registerModal').addEventListener('click', function(e) {
+      if (e.target === this) closeAuthModal('registerModal');
+    });
+
+    // --- Keyboard Enter support ---
+    document.getElementById('li_pass').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+    document.getElementById('li_email').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+    document.getElementById('rg_pass').addEventListener('keydown', e => { if(e.key==='Enter') doRegister(); });
+
+    // --- Init on load ---
+    updateNavAuth();
+
+    // --- Track page visit for logged-in users ---
+    (function() {
+      const session = getSession();
+      if (session) {
+        trackVisit(session.email);
+      }
+    })();
+
     (function initChat() {
       const fab = document.getElementById('chatFab');
       const win = document.getElementById('chatWin');
       const closeBtn = document.getElementById('chatClose');
       const input = document.getElementById('chatInput');
       const sendBtn = document.getElementById('chatSend');
-      addMsg('Chào em! 😊 Mình là <strong>SafeBot AI</strong> – trợ lý thông minh chuyên về an toàn mạng cho trẻ em.<br><br>Mình có thể trả lời mọi câu hỏi về: lừa đảo, bắt nạt, deepfake, mật khẩu, mạng xã hội, game online, pháp luật, và nhiều hơn nữa!<br><br>Hãy hỏi mình bất cứ điều gì em muốn biết! 💪', 'bot');
+      addMsg('Chào bạn! 😊 Mình là <strong>SafeBot AI</strong> – trợ lý thông minh chuyên về an toàn mạng cho trẻ em.<br><br>Mình có thể trả lời mọi câu hỏi về: lừa đảo, bắt nạt, deepfake, mật khẩu, mạng xã hội, game online, pháp luật, và nhiều hơn nữa!<br><br>Hãy hỏi mình bất cứ điều gì bạn muốn biết! 💪', 'bot');
       fab.addEventListener('click', () => {
         win.classList.toggle('open');
         if (win.classList.contains('open')) {
