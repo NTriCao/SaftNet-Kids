@@ -3415,6 +3415,194 @@
     }
     .auth-success h3 { font-size: 1.2rem; font-weight: 800; color: var(--text); margin-bottom: 8px; }
     .auth-success p { color: var(--text3); font-size: .9rem; }
+
+    /* ══════════════════════════════════════
+   ADMIN PAGE
+══════════════════════════════════════ */
+    .admin-header {
+      background: linear-gradient(135deg, #0c1e3f 0%, #1a3a6b 100%);
+      padding: 0;
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 20px rgba(0,0,0,.3);
+    }
+    .admin-header-inner {
+      max-width: 1200px; margin: 0 auto;
+      padding: 18px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px;
+    }
+    .admin-title-row {
+      display: flex; align-items: center; gap: 16px;
+    }
+    .admin-logo {
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg, var(--primary-light), var(--cyan));
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; color: #fff; flex-shrink: 0;
+    }
+    .admin-header h1 {
+      color: #fff; font-size: 1.3rem; font-weight: 800; margin-bottom: 2px;
+    }
+    .admin-header p { color: rgba(255,255,255,.6); font-size: .8rem; }
+    .admin-back-btn {
+      display: flex; align-items: center; gap: 8px;
+      padding: 9px 18px;
+      border-radius: var(--r-full);
+      background: rgba(255,255,255,.1);
+      border: 1.5px solid rgba(255,255,255,.25);
+      color: #fff;
+      font-weight: 600; font-size: .875rem;
+      cursor: pointer; transition: all .2s;
+    }
+    .admin-back-btn:hover { background: rgba(255,255,255,.2); }
+
+    .admin-body {
+      max-width: 1200px; margin: 0 auto;
+      padding: 32px 24px 64px;
+    }
+    .admin-stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px; margin-bottom: 28px;
+    }
+    .admin-stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 20px 22px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .admin-stat-icon {
+      width: 46px; height: 46px;
+      border-radius: var(--r-md);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .admin-stat-num {
+      font-family: var(--font-head);
+      font-size: 1.8rem; font-weight: 900; color: var(--text); line-height: 1;
+    }
+    .admin-stat-label { font-size: .78rem; color: var(--text3); margin-top: 3px; }
+
+    .admin-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+    }
+    .admin-tabs {
+      display: flex; border-bottom: 1px solid var(--border);
+      background: var(--surface2);
+    }
+    .admin-tab {
+      display: flex; align-items: center; gap: 8px;
+      padding: 14px 22px;
+      font-weight: 700; font-size: .875rem;
+      color: var(--text3); cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all .2s; background: none;
+    }
+    .admin-tab:hover { color: var(--primary); }
+    .admin-tab.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+      background: var(--surface);
+    }
+    .admin-table-toolbar {
+      display: flex; align-items: center; gap: 12px;
+      padding: 16px 20px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border);
+    }
+    .admin-search {
+      flex: 1; min-width: 200px;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-md);
+      background: var(--surface2);
+      color: var(--text); font-size: .875rem;
+      outline: none; transition: border-color .2s;
+    }
+    .admin-search:focus { border-color: var(--primary-light); }
+    .admin-toolbar-right { display: flex; gap: 10px; align-items: center; margin-left: auto; }
+    .admin-filter {
+      padding: 9px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-md);
+      background: var(--surface2);
+      color: var(--text); font-size: .875rem;
+      outline: none; cursor: pointer;
+    }
+    .admin-export-btn {
+      display: flex; align-items: center; gap: 7px;
+      padding: 9px 16px;
+      border-radius: var(--r-md);
+      background: var(--success-bg);
+      border: 1.5px solid rgba(22,163,74,.25);
+      color: var(--success);
+      font-weight: 700; font-size: .8rem;
+      cursor: pointer; transition: all .2s;
+    }
+    .admin-export-btn:hover { background: rgba(22,163,74,.15); }
+    .admin-table-wrap { overflow-x: auto; }
+    .admin-table {
+      width: 100%; border-collapse: collapse;
+      font-size: .875rem;
+    }
+    .admin-table th {
+      padding: 12px 16px;
+      text-align: left;
+      font-size: .73rem; font-weight: 700;
+      color: var(--text3);
+      text-transform: uppercase; letter-spacing: .06em;
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .admin-table td {
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text2);
+      vertical-align: middle;
+    }
+    .admin-table tbody tr:last-child td { border-bottom: none; }
+    .admin-table tbody tr:hover td { background: var(--surface2); }
+    .admin-role-pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 10px;
+      border-radius: var(--r-full);
+      font-size: .72rem; font-weight: 700;
+    }
+    .pill-member { background: var(--primary-glow); color: var(--primary); }
+    .pill-collab { background: var(--purple-bg); color: var(--purple); }
+    .admin-del-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 5px 10px;
+      border-radius: var(--r-md);
+      background: var(--danger-bg);
+      border: 1px solid rgba(220,38,38,.2);
+      color: var(--danger);
+      font-size: .75rem; font-weight: 600;
+      cursor: pointer; transition: all .2s;
+    }
+    .admin-del-btn:hover { background: rgba(220,38,38,.15); }
+    .admin-empty {
+      text-align: center; padding: 60px 24px;
+      color: var(--text3);
+    }
+    .admin-empty i { font-size: 2.5rem; margin-bottom: 14px; display: block; opacity: .4; }
+    .admin-empty p { font-size: .95rem; }
+
+    /* Admin trigger in user dropdown */
+    .ud-admin-link {
+      display: flex; align-items: center; gap: 8px;
+      width: 100%; padding: 12px 16px;
+      color: var(--primary); font-size: .875rem; font-weight: 600;
+      border-top: 1px solid var(--border);
+      transition: background .2s; cursor: pointer;
+    }
+    .ud-admin-link:hover { background: var(--primary-glow); }
   </style>
 </head>
 
@@ -3841,9 +4029,9 @@
               </div>
               <div class="cf-item">
                 <div class="cf-icon"><i class="fas fa-envelope"></i></div>
-                <div class="cf-text"><strong>Email</strong><span><a href="/cdn-cgi/l/email-protection#483c3a212b29277d79797f082f25292124662b2725" class="__cf_email__" data-cfemail="33405255565d5647585a5740735657461d455d"><span
+                <div class="cf-text"><strong>Email</strong><span><a href="mailto:tricao5117@gmail.com" class="__cf_email__" data-cfemail="33405255565d5647585a5740735657461d455d"><span
                         class="__cf_email__"
-                        data-cfemail="fe8a8c979d9f91cbcfcfc9be99939f9792d09d9193"><span class="__cf_email__" data-cfemail="5125233832303e6460606611363c30383d7f323e3c">[email&#160;protected]</span></span></a></span>
+                        data-cfemail="fe8a8c979d9f91cbcfcfc9be99939f9792d09d9193"><span class="__cf_email__" data-cfemail="5125233832303e6460606611363c30383d7f323e3c">tricao5117@gmail.com</span></span></a></span>
                 </div>
               </div>
               <div class="cf-item">
@@ -4061,6 +4249,128 @@
       </div>
     </div>
   </div><!-- end reportPage -->
+
+  <!-- ============================================================
+     ADMIN PAGE
+============================================================ -->
+  <div class="page" id="adminPage">
+    <div class="admin-header">
+      <div class="admin-header-inner">
+        <div class="admin-title-row">
+          <div class="admin-logo"><i class="fas fa-shield-halved"></i></div>
+          <div>
+            <h1>Trang Quản Trị</h1>
+            <p>SafeNet Kids – Hệ thống quản lý thành viên & cộng tác viên</p>
+          </div>
+        </div>
+        <button class="admin-back-btn" onclick="showMainPage()">
+          <i class="fas fa-arrow-left"></i> Về trang chủ
+        </button>
+      </div>
+    </div>
+
+    <div class="admin-body">
+      <!-- STATS ROW -->
+      <div class="admin-stats-row" id="adminStatsRow"></div>
+
+      <!-- TABS -->
+      <div class="admin-card">
+        <div class="admin-tabs">
+          <button class="admin-tab active" id="tab-users" onclick="switchAdminTab('users')">
+            <i class="fas fa-users"></i> Tài khoản
+          </button>
+          <button class="admin-tab" id="tab-history" onclick="switchAdminTab('history')">
+            <i class="fas fa-clock-rotate-left"></i> Lịch sử truy cập
+          </button>
+        </div>
+
+        <!-- USERS TABLE -->
+        <div id="adminTabUsers">
+          <div class="admin-table-toolbar">
+            <input class="admin-search" type="text" id="adminSearch" placeholder="🔍  Tìm theo tên, email, vai trò..."
+              oninput="renderUsersTable()" />
+            <div class="admin-toolbar-right">
+              <select class="admin-filter" id="adminRoleFilter" onchange="renderUsersTable()">
+                <option value="">Tất cả vai trò</option>
+                <option value="member">Thành viên</option>
+                <option value="collab">Cộng tác viên</option>
+              </select>
+              <button class="admin-export-btn" onclick="exportCSV()">
+                <i class="fas fa-file-excel"></i> Xuất Excel
+              </button>
+            </div>
+          </div>
+          <div class="admin-table-wrap">
+            <table class="admin-table" id="adminUsersTable">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Họ và tên</th>
+                  <th>Email</th>
+                  <th>Vai trò</th>
+                  <th>Ngày đăng ký</th>
+                  <th>Lần cuối truy cập</th>
+                  <th>Thao tác</th>
+                </tr>
+              </thead>
+              <tbody id="adminUsersTbody"></tbody>
+            </table>
+          </div>
+          <div class="admin-empty" id="adminUsersEmpty" style="display:none">
+            <i class="fas fa-users-slash"></i>
+            <p>Chưa có tài khoản nào được đăng ký.</p>
+          </div>
+        </div>
+
+        <!-- HISTORY TABLE -->
+        <div id="adminTabHistory" style="display:none">
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Người dùng</th>
+                  <th>Email</th>
+                  <th>Thời gian truy cập</th>
+                </tr>
+              </thead>
+              <tbody id="adminHistTbody"></tbody>
+            </table>
+          </div>
+          <div class="admin-empty" id="adminHistEmpty" style="display:none">
+            <i class="fas fa-clock"></i>
+            <p>Chưa có lịch sử truy cập nào.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- end adminPage -->
+
+  <!-- ADMIN LOGIN MODAL -->
+  <div class="auth-overlay" id="adminLoginModal">
+    <div class="auth-box" style="max-width:380px">
+      <div class="auth-head" style="background:linear-gradient(135deg,#1e3a5f,#0891b2)">
+        <h2><i class="fas fa-user-shield" style="margin-right:8px"></i>Xác thực Admin</h2>
+        <p>Nhập mật khẩu quản trị để tiếp tục.</p>
+      </div>
+      <div class="auth-body">
+        <div class="auth-field">
+          <label><i class="fas fa-key"></i> Mật khẩu Admin</label>
+          <input type="password" id="adminPassInput" placeholder="Nhập mật khẩu admin"
+            onkeydown="if(event.key==='Enter')checkAdminPass()" />
+          <div class="auth-err" id="adminPassErr"></div>
+        </div>
+        <button class="auth-submit" onclick="checkAdminPass()" style="background:linear-gradient(135deg,#1e3a5f,#0891b2)">
+          <i class="fas fa-unlock"></i> Xác nhận
+        </button>
+        <div class="auth-switch" style="margin-top:14px">
+          <a onclick="closeAuthModal('adminLoginModal')">Huỷ</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 
   <!-- ============================================================
      MODALS
@@ -4607,6 +4917,9 @@
       <h4><i class="fas fa-clock-rotate-left"></i> Lịch sử truy cập</h4>
       <div id="udHistList"></div>
     </div>
+    <button class="ud-admin-link" onclick="openAdminPage()">
+      <i class="fas fa-user-shield"></i> Trang Quản Trị
+    </button>
     <button class="ud-logout" onclick="doLogout()">
       <i class="fas fa-right-from-bracket"></i> Đăng xuất
     </button>
@@ -4630,6 +4943,8 @@
     function showMainPage(hash) {
       document.getElementById('mainPage').classList.add('active');
       document.getElementById('reportPage').classList.remove('active');
+      document.getElementById('adminPage').classList.remove('active');
+      document.querySelector('.navbar').style.display = '';
       document.body.style.overflow = '';
       window.scrollTo({ top: 0, behavior: 'instant' });
       if (hash) setTimeout(() => document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth' }), 100);
@@ -4637,6 +4952,7 @@
     function showReportPage() {
       document.getElementById('mainPage').classList.remove('active');
       document.getElementById('reportPage').classList.add('active');
+      document.getElementById('adminPage').classList.remove('active');
       window.scrollTo({ top: 0, behavior: 'instant' });
       // Reset form
       document.getElementById('reportFormContent').style.display = 'block';
@@ -5273,6 +5589,218 @@
       c.appendChild(m); c.scrollTop = c.scrollHeight;
     }
     function removeTyping() { const t = document.querySelector('.typing-msg'); if (t) t.remove(); }
+
+
+    // ══════════════════════════════════════
+    // ADMIN PANEL
+    // ══════════════════════════════════════
+    const ADMIN_PASS = 'admin2026';
+    let _adminUnlocked = false;
+
+    function openAdminPage() {
+      closeUserDropdown();
+      if (_adminUnlocked) {
+        _showAdminPage();
+      } else {
+        document.getElementById('adminLoginModal').classList.add('open');
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => document.getElementById('adminPassInput').focus(), 300);
+      }
+    }
+
+    function checkAdminPass() {
+      const val = document.getElementById('adminPassInput').value;
+      const err = document.getElementById('adminPassErr');
+      if (val === ADMIN_PASS) {
+        _adminUnlocked = true;
+        document.getElementById('adminPassInput').value = '';
+        err.textContent = ''; err.classList.remove('show');
+        closeAuthModal('adminLoginModal');
+        _showAdminPage();
+      } else {
+        err.textContent = '⚠ Mật khẩu không đúng.'; err.classList.add('show');
+      }
+    }
+
+    function _showAdminPage() {
+      document.getElementById('mainPage').classList.remove('active');
+      document.getElementById('reportPage').classList.remove('active');
+      document.getElementById('adminPage').classList.add('active');
+      document.querySelector('.navbar').style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      renderAdminStats();
+      renderUsersTable();
+      renderHistoryTable();
+    }
+
+    function switchAdminTab(tab) {
+      document.getElementById('adminTabUsers').style.display = tab === 'users' ? 'block' : 'none';
+      document.getElementById('adminTabHistory').style.display = tab === 'history' ? 'block' : 'none';
+      document.getElementById('tab-users').classList.toggle('active', tab === 'users');
+      document.getElementById('tab-history').classList.toggle('active', tab === 'history');
+    }
+
+    function renderAdminStats() {
+      const users = getUsers();
+      const hist = getHistory();
+      const members = users.filter(u => u.role === 'member').length;
+      const collabs = users.filter(u => u.role === 'collab').length;
+      const totalVisits = Object.values(hist).reduce((s, arr) => s + arr.length, 0);
+
+      const stats = [
+        { icon: 'fas fa-users', color: 'var(--primary-glow)', iconColor: 'var(--primary)', num: users.length, label: 'Tổng tài khoản' },
+        { icon: 'fas fa-user-graduate', color: 'rgba(16,163,74,.12)', iconColor: 'var(--success)', num: members, label: 'Thành viên' },
+        { icon: 'fas fa-people-group', color: 'var(--purple-bg)', iconColor: 'var(--purple)', num: collabs, label: 'Cộng tác viên' },
+        { icon: 'fas fa-globe', color: 'rgba(8,145,178,.1)', iconColor: 'var(--cyan)', num: totalVisits, label: 'Lượt truy cập' },
+      ];
+      document.getElementById('adminStatsRow').innerHTML = stats.map(s => `
+        <div class="admin-stat-card">
+          <div class="admin-stat-icon" style="background:${s.color}">
+            <i class="${s.icon}" style="color:${s.iconColor}"></i>
+          </div>
+          <div>
+            <div class="admin-stat-num">${s.num}</div>
+            <div class="admin-stat-label">${s.label}</div>
+          </div>
+        </div>`).join('');
+    }
+
+    function renderUsersTable() {
+      const query = (document.getElementById('adminSearch')?.value || '').toLowerCase();
+      const roleF = document.getElementById('adminRoleFilter')?.value || '';
+      let users = getUsers();
+      const hist = getHistory();
+
+      if (query) users = users.filter(u =>
+        u.name.toLowerCase().includes(query) ||
+        u.email.toLowerCase().includes(query) ||
+        (u.role === 'collab' ? 'cộng tác viên' : 'thành viên').includes(query)
+      );
+      if (roleF) users = users.filter(u => u.role === roleF);
+
+      const tbody = document.getElementById('adminUsersTbody');
+      const empty = document.getElementById('adminUsersEmpty');
+
+      if (users.length === 0) {
+        tbody.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+      }
+      empty.style.display = 'none';
+
+      tbody.innerHTML = users.map((u, i) => {
+        const lastVisit = (hist[u.email] || [])[0];
+        const roleLabel = u.role === 'collab' ? 'Cộng tác viên' : 'Thành viên';
+        const rolePill = u.role === 'collab'
+          ? '<span class="admin-role-pill pill-collab"><i class="fas fa-people-group"></i> Cộng tác viên</span>'
+          : '<span class="admin-role-pill pill-member"><i class="fas fa-user-graduate"></i> Thành viên</span>';
+        const regDate = new Date(u.createdAt).toLocaleDateString('vi-VN', {day:'2-digit',month:'2-digit',year:'numeric'});
+        const lastTime = lastVisit ? fmtTime(lastVisit.time) : '—';
+        return `<tr>
+          <td style="color:var(--text3);font-size:.8rem">${i + 1}</td>
+          <td><strong style="color:var(--text)">${u.name}</strong></td>
+          <td><span style="font-family:monospace;font-size:.82rem">${u.email}</span></td>
+          <td>${rolePill}</td>
+          <td>${regDate}</td>
+          <td><span style="font-size:.82rem">${lastTime}</span></td>
+          <td>
+            <button class="admin-del-btn" onclick="deleteUser('${u.id}')">
+              <i class="fas fa-trash"></i> Xoá
+            </button>
+          </td>
+        </tr>`;
+      }).join('');
+    }
+
+    function renderHistoryTable() {
+      const hist = getHistory();
+      const users = getUsers();
+      const tbody = document.getElementById('adminHistTbody');
+      const empty = document.getElementById('adminHistEmpty');
+
+      // Flatten all history entries
+      const rows = [];
+      for (const [email, visits] of Object.entries(hist)) {
+        const user = users.find(u => u.email === email);
+        const name = user ? user.name : email;
+        for (const v of visits) rows.push({ name, email, time: v.time });
+      }
+      rows.sort((a, b) => new Date(b.time) - new Date(a.time));
+
+      if (rows.length === 0) {
+        tbody.innerHTML = ''; empty.style.display = 'block'; return;
+      }
+      empty.style.display = 'none';
+      tbody.innerHTML = rows.map((r, i) => `<tr>
+        <td style="color:var(--text3);font-size:.8rem">${i + 1}</td>
+        <td><strong style="color:var(--text)">${r.name}</strong></td>
+        <td><span style="font-family:monospace;font-size:.82rem">${r.email}</span></td>
+        <td><span style="font-size:.82rem">${new Date(r.time).toLocaleString('vi-VN')}</span></td>
+      </tr>`).join('');
+    }
+
+    function deleteUser(id) {
+      if (!confirm('Bạn có chắc muốn xoá tài khoản này không?')) return;
+      let users = getUsers();
+      users = users.filter(u => u.id !== id);
+      saveUsers(users);
+      // Also logout if deleting current session
+      const sess = getSession();
+      if (sess && users.findIndex(u => u.id === id) === -1 && sess.id === id) clearSession();
+      renderAdminStats();
+      renderUsersTable();
+      showToast('Đã xoá tài khoản.', 'success');
+    }
+
+    function exportCSV() {
+      function doExport() {
+        const XLSX = window.XLSX;
+        const users = getUsers();
+        const hist = getHistory();
+
+        const header = ['STT', 'Ho va ten', 'Email', 'Vai tro', 'Ngay dang ky', 'Lan cuoi truy cap'];
+        const headerVi = ['STT', 'Họ và tên', 'Email', 'Vai trò', 'Ngày đăng ký', 'Lần cuối truy cập'];
+        const rows = users.map((u, i) => {
+          const lastVisit = (hist[u.email] || [])[0];
+          return [
+            i + 1,
+            u.name,
+            u.email,
+            u.role === 'collab' ? 'Cộng tác viên' : 'Thành viên',
+            new Date(u.createdAt).toLocaleDateString('vi-VN'),
+            lastVisit ? new Date(lastVisit.time).toLocaleString('vi-VN') : 'Chưa có'
+          ];
+        });
+
+        const wsData = [headerVi, ...rows];
+        const ws = XLSX.utils.aoa_to_sheet(wsData);
+
+        ws['!cols'] = [
+          { wch: 6 },
+          { wch: 26 },
+          { wch: 34 },
+          { wch: 18 },
+          { wch: 16 },
+          { wch: 22 },
+        ];
+
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Thanh vien');
+
+        const fileName = 'safenet_users_' + new Date().toISOString().slice(0, 10) + '.xlsx';
+        XLSX.writeFile(wb, fileName);
+        showToast('Đã xuất file Excel thành công!', 'success');
+      }
+
+      if (window.XLSX) {
+        doExport();
+      } else {
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+        script.onload = doExport;
+        document.head.appendChild(script);
+      }
+    }
 
     // ══════════════════════════════════════
     // AUTH SYSTEM - Đăng ký / Đăng nhập
