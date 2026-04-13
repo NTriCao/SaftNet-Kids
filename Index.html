@@ -6097,135 +6097,110 @@
       }
     }
 
-    function _showAdminPage() {
-      document.getElementById('mainPage').classList.remove('active');
-      document.getElementById('reportPage').classList.remove('active');
-      document.getElementById('adminPage').classList.add('active');
-      document.querySelector('.navbar').style.display = 'none';
-      window.scrollTo({ top: 0, behavior: 'instant' });
-      renderAdminStats();
-      renderUsersTable();
-      renderHistoryTable();
-    }
+    // ── ADMIN PAGE ──────────────────────────────────────────
 
-    function switchAdminTab(tab) {
-      document.getElementById('adminTabUsers').style.display = tab === 'users' ? 'block' : 'none';
-      document.getElementById('adminTabHistory').style.display = tab === 'history' ? 'block' : 'none';
-      document.getElementById('tab-users').classList.toggle('active', tab === 'users');
-      document.getElementById('tab-history').classList.toggle('active', tab === 'history');
-    }
+async function _showAdminPage() {
+  document.getElementById('mainPage').classList.remove('active');
+  document.getElementById('reportPage').classList.remove('active');
+  document.getElementById('adminPage').classList.add('active');
+  document.querySelector('.navbar').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'instant' });
+  await loadAdminData();
+}
 
-    function renderAdminStats() {
-      const users = getUsers();
-      const hist = getHistory();
-      const members = users.filter(u => u.role === 'member').length;
-      const collabs = users.filter(u => u.role === 'collab').length;
-      const totalVisits = Object.values(hist).reduce((s, arr) => s + arr.length, 0);
+async function loadAdminData() {
+  // Lấy toàn bộ users từ Firestore
+  const snap = await db.collection('users').get();
+  const users = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  window._adminUsers = users; // cache lại để dùng cho filter/search
 
-      const stats = [
-        { icon: 'fas fa-users', color: 'var(--primary-glow)', iconColor: 'var(--primary)', num: users.length, label: 'Tổng tài khoản' },
-        { icon: 'fas fa-user-graduate', color: 'rgba(16,163,74,.12)', iconColor: 'var(--success)', num: members, label: 'Thành viên' },
-        { icon: 'fas fa-people-group', color: 'var(--purple-bg)', iconColor: 'var(--purple)', num: collabs, label: 'Cộng tác viên' },
-        { icon: 'fas fa-globe', color: 'rgba(8,145,178,.1)', iconColor: 'var(--cyan)', num: totalVisits, label: 'Lượt truy cập' },
-      ];
-      document.getElementById('adminStatsRow').innerHTML = stats.map(s => `
-        <div class="admin-stat-card">
-          <div class="admin-stat-icon" style="background:${s.color}">
-            <i class="${s.icon}" style="color:${s.iconColor}"></i>
-          </div>
-          <div>
-            <div class="admin-stat-num">${s.num}</div>
-            <div class="admin-stat-label">${s.label}</div>
-          </div>
-        </div>`).join('');
-    }
+  renderAdminStats(users);
+  renderUsersTable(users);
+  renderHistoryTable(users);
+}
 
-    function renderUsersTable() {
-      const query = (document.getElementById('adminSearch')?.value || '').toLowerCase();
-      const roleF = document.getElementById('adminRoleFilter')?.value || '';
-      let users = getUsers();
-      const hist = getHistory();
+function renderAdminStats(users) {
+  users = users || window._adminUsers || [];
+  const hist = getHistory();
+  const members = users.filter(u => u.role === 'member').length;
+  const collabs = users.filter(u => u.role === 'collab').length;
+  const totalVisits = Object.values(hist).reduce((s, arr) => s + arr.length, 0);
 
-      if (query) users = users.filter(u =>
-        u.name.toLowerCase().includes(query) ||
-        u.email.toLowerCase().includes(query) ||
-        (u.role === 'collab' ? 'cộng tác viên' : 'thành viên').includes(query)
-      );
-      if (roleF) users = users.filter(u => u.role === roleF);
+  const stats = [
+    { icon: 'fas fa-users', color: 'var(--primary-glow)', iconColor: 'var(--primary)', num: users.length, label: 'Tổng tài khoản' },
+    { icon: 'fas fa-user-graduate', color: 'rgba(16,163,74,.12)', iconColor: 'var(--success)', num: members, label: 'Thành viên' },
+    { icon: 'fas fa-people-group', color: 'var(--purple-bg)', iconColor: 'var(--purple)', num: collabs, label: 'Cộng tác viên' },
+    { icon: 'fas fa-globe', color: 'rgba(8,145,178,.1)', iconColor: 'var(--cyan)', num: totalVisits, label: 'Lượt truy cập' },
+  ];
+  document.getElementById('adminStatsRow').innerHTML = stats.map(s => `
+    <div class="admin-stat-card">
+      <div class="admin-stat-icon" style="background:${s.color}">
+        <i class="${s.icon}" style="color:${s.iconColor}"></i>
+      </div>
+      <div>
+        <div class="admin-stat-num">${s.num}</div>
+        <div class="admin-stat-label">${s.label}</div>
+      </div>
+    </div>`).join('');
+}
 
-      const tbody = document.getElementById('adminUsersTbody');
-      const empty = document.getElementById('adminUsersEmpty');
+function renderUsersTable(users) {
+  const allUsers = users || window._adminUsers || [];
+  const query = (document.getElementById('adminSearch')?.value || '').toLowerCase();
+  const roleF = document.getElementById('adminRoleFilter')?.value || '';
+  const hist = getHistory();
 
-      if (users.length === 0) {
-        tbody.innerHTML = '';
-        empty.style.display = 'block';
-        return;
-      }
-      empty.style.display = 'none';
+  let filtered = allUsers;
+  if (query) filtered = filtered.filter(u =>
+    (u.name || '').toLowerCase().includes(query) ||
+    (u.email || '').toLowerCase().includes(query) ||
+    (u.role === 'collab' ? 'cộng tác viên' : 'thành viên').includes(query)
+  );
+  if (roleF) filtered = filtered.filter(u => u.role === roleF);
 
-      tbody.innerHTML = users.map((u, i) => {
-        const lastVisit = (hist[u.email] || [])[0];
-        const roleLabel = u.role === 'collab' ? 'Cộng tác viên' : 'Thành viên';
-        const rolePill = u.role === 'collab'
-          ? '<span class="admin-role-pill pill-collab"><i class="fas fa-people-group"></i> Cộng tác viên</span>'
-          : '<span class="admin-role-pill pill-member"><i class="fas fa-user-graduate"></i> Thành viên</span>';
-        const regDate = new Date(u.createdAt).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' });
-        const lastTime = lastVisit ? fmtTime(lastVisit.time) : '—';
-        return `<tr>
-          <td style="color:var(--text3);font-size:.8rem">${i + 1}</td>
-          <td><strong style="color:var(--text)">${u.name}</strong></td>
-          <td><span style="font-family:monospace;font-size:.82rem">${u.email}</span></td>
-          <td>${rolePill}</td>
-          <td>${regDate}</td>
-          <td><span style="font-size:.82rem">${lastTime}</span></td>
-          <td>
-            <button class="admin-del-btn" onclick="deleteUser('${u.id}')">
-              <i class="fas fa-trash"></i> Xoá
-            </button>
-          </td>
-        </tr>`;
-      }).join('');
-    }
+  const tbody = document.getElementById('adminUsersTbody');
+  const empty = document.getElementById('adminUsersEmpty');
 
-    function renderHistoryTable() {
-      const hist = getHistory();
-      const users = getUsers();
-      const tbody = document.getElementById('adminHistTbody');
-      const empty = document.getElementById('adminHistEmpty');
+  if (filtered.length === 0) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
 
-      // Flatten all history entries
-      const rows = [];
-      for (const [email, visits] of Object.entries(hist)) {
-        const user = users.find(u => u.email === email);
-        const name = user ? user.name : email;
-        for (const v of visits) rows.push({ name, email, time: v.time });
-      }
-      rows.sort((a, b) => new Date(b.time) - new Date(a.time));
+  tbody.innerHTML = filtered.map((u, i) => {
+    const lastVisit = (hist[u.email] || [])[0];
+    const rolePill = u.role === 'collab'
+      ? '<span class="admin-role-pill pill-collab"><i class="fas fa-people-group"></i> Cộng tác viên</span>'
+      : '<span class="admin-role-pill pill-member"><i class="fas fa-user-graduate"></i> Thành viên</span>';
+    const regDate = u.createdAt ? new Date(u.createdAt).toLocaleDateString('vi-VN') : '—';
+    const lastTime = lastVisit ? fmtTime(lastVisit.time) : '—';
+    return `<tr>
+      <td style="color:var(--text3);font-size:.8rem">${i + 1}</td>
+      <td><strong style="color:var(--text)">${u.name || ''}</strong></td>
+      <td><span style="font-family:monospace;font-size:.82rem">${u.email || ''}</span></td>
+      <td>${rolePill}</td>
+      <td>${regDate}</td>
+      <td><span style="font-size:.82rem">${lastTime}</span></td>
+      <td>
+        <button class="admin-del-btn" onclick="deleteUser('${u.id}')">
+          <i class="fas fa-trash"></i> Xoá
+        </button>
+      </td>
+    </tr>`;
+  }).join('');
+}
 
-      if (rows.length === 0) {
-        tbody.innerHTML = ''; empty.style.display = 'block'; return;
-      }
-      empty.style.display = 'none';
-      tbody.innerHTML = rows.map((r, i) => `<tr>
-        <td style="color:var(--text3);font-size:.8rem">${i + 1}</td>
-        <td><strong style="color:var(--text)">${r.name}</strong></td>
-        <td><span style="font-family:monospace;font-size:.82rem">${r.email}</span></td>
-        <td><span style="font-size:.82rem">${new Date(r.time).toLocaleString('vi-VN')}</span></td>
-      </tr>`).join('');
-    }
-
-    function deleteUser(id) {
-      if (!confirm('Bạn có chắc muốn xoá tài khoản này không?')) return;
-      let users = getUsers();
-      users = users.filter(u => u.id !== id);
-      saveUsers(users);
-      // Also logout if deleting current session
-      const sess = getSession();
-      if (sess && users.findIndex(u => u.id === id) === -1 && sess.id === id) clearSession();
-      renderAdminStats();
-      renderUsersTable();
-      showToast('Đã xoá tài khoản.', 'success');
-    }
+async function deleteUser(id) {
+  if (!confirm('Bạn có chắc muốn xoá tài khoản này không?')) return;
+  try {
+    await db.collection('users').doc(id).delete();
+    showToast('Đã xoá tài khoản.', 'success');
+    await loadAdminData(); // reload lại dữ liệu
+  } catch (e) {
+    showToast('Lỗi khi xoá: ' + e.message, 'error');
+  }
+}
 
     function exportCSV() {
       function doExport() {
