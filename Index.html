@@ -3157,7 +3157,7 @@
     .auth-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,.6);
+      background: rgba(0, 0, 0, .6);
       z-index: 2000;
       display: none;
       align-items: center;
@@ -3165,7 +3165,10 @@
       padding: 20px;
       backdrop-filter: blur(4px);
     }
-    .auth-overlay.open { display: flex; }
+
+    .auth-overlay.open {
+      display: flex;
+    }
 
     .auth-box {
       background: var(--surface);
@@ -3177,45 +3180,77 @@
       overflow: hidden;
       animation: authSlideIn .3s ease;
     }
+
     @keyframes authSlideIn {
-      from { opacity:0; transform:translateY(-20px); }
-      to   { opacity:1; transform:none; }
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
     }
+
     .auth-head {
       background: linear-gradient(135deg, var(--primary), var(--cyan));
       padding: 28px 28px 24px;
       position: relative;
     }
+
     .auth-head h2 {
       color: #fff;
       font-size: 1.4rem;
       font-weight: 800;
       margin-bottom: 4px;
     }
-    .auth-head p { color: rgba(255,255,255,.75); font-size: .875rem; }
+
+    .auth-head p {
+      color: rgba(255, 255, 255, .75);
+      font-size: .875rem;
+    }
+
     .auth-close {
       position: absolute;
-      top: 16px; right: 16px;
-      width: 32px; height: 32px;
+      top: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
-      background: rgba(255,255,255,.15);
+      background: rgba(255, 255, 255, .15);
       color: #fff;
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: .85rem;
       transition: background .2s;
     }
-    .auth-close:hover { background: rgba(255,255,255,.3); }
-    .auth-body { padding: 28px; }
-    .auth-field { margin-bottom: 18px; }
+
+    .auth-close:hover {
+      background: rgba(255, 255, 255, .3);
+    }
+
+    .auth-body {
+      padding: 28px;
+    }
+
+    .auth-field {
+      margin-bottom: 18px;
+    }
+
     .auth-field label {
       display: block;
-      font-size: .8rem; font-weight: 700;
+      font-size: .8rem;
+      font-weight: 700;
       color: var(--text2);
       margin-bottom: 6px;
       text-transform: uppercase;
       letter-spacing: .05em;
     }
-    .auth-field input, .auth-field select {
+
+    .auth-field input,
+    .auth-field select {
       width: 100%;
       padding: 12px 14px;
       border: 1.5px solid var(--border);
@@ -3226,21 +3261,29 @@
       transition: border-color .2s;
       outline: none;
     }
-    .auth-field input:focus, .auth-field select:focus {
+
+    .auth-field input:focus,
+    .auth-field select:focus {
       border-color: var(--primary-light);
     }
+
     .auth-field .auth-err {
       color: var(--danger);
       font-size: .78rem;
       margin-top: 5px;
       display: none;
     }
-    .auth-field .auth-err.show { display: block; }
+
+    .auth-field .auth-err.show {
+      display: block;
+    }
+
     .auth-role-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
     }
+
     .auth-role-btn {
       padding: 12px 10px;
       border: 2px solid var(--border);
@@ -3253,13 +3296,24 @@
       cursor: pointer;
       transition: all .2s;
     }
-    .auth-role-btn:hover { border-color: var(--primary-light); color: var(--primary); }
+
+    .auth-role-btn:hover {
+      border-color: var(--primary-light);
+      color: var(--primary);
+    }
+
     .auth-role-btn.selected {
       border-color: var(--primary);
       background: var(--primary-glow);
       color: var(--primary);
     }
-    .auth-role-btn i { display: block; font-size: 1.3rem; margin-bottom: 6px; }
+
+    .auth-role-btn i {
+      display: block;
+      font-size: 1.3rem;
+      margin-bottom: 6px;
+    }
+
     .auth-submit {
       width: 100%;
       padding: 13px;
@@ -3274,69 +3328,115 @@
       border: none;
       cursor: pointer;
     }
-    .auth-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(59,130,246,.35); }
+
+    .auth-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(59, 130, 246, .35);
+    }
+
     .auth-switch {
       text-align: center;
       margin-top: 18px;
       font-size: .875rem;
       color: var(--text3);
     }
-    .auth-switch a { color: var(--primary); font-weight: 700; cursor: pointer; }
-    .auth-switch a:hover { text-decoration: underline; }
+
+    .auth-switch a {
+      color: var(--primary);
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .auth-switch a:hover {
+      text-decoration: underline;
+    }
+
     .auth-divider {
-      display: flex; align-items: center; gap: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
       margin: 18px 0;
     }
-    .auth-divider::before, .auth-divider::after {
-      content: ''; flex:1; height:1px; background: var(--border);
+
+    .auth-divider::before,
+    .auth-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
     }
-    .auth-divider span { color: var(--text3); font-size: .8rem; }
+
+    .auth-divider span {
+      color: var(--text3);
+      font-size: .8rem;
+    }
 
     /* ── USER PROFILE NAV ── */
     .nav-user {
-      display: flex; align-items: center; gap: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
       padding: 6px 12px;
       border-radius: var(--r-full);
-      background: rgba(255,255,255,.12);
-      border: 1.5px solid rgba(255,255,255,.25);
+      background: rgba(255, 255, 255, .12);
+      border: 1.5px solid rgba(255, 255, 255, .25);
       color: #fff;
-      font-size: .85rem; font-weight: 600;
+      font-size: .85rem;
+      font-weight: 600;
       cursor: pointer;
       transition: all .2s;
       white-space: nowrap;
     }
+
     .navbar.scrolled .nav-user {
       background: var(--primary-glow);
       border-color: var(--primary-light);
       color: var(--primary);
     }
-    .nav-user:hover { transform: translateY(-1px); }
+
+    .nav-user:hover {
+      transform: translateY(-1px);
+    }
+
     .nav-user-avatar {
-      width: 26px; height: 26px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--primary-light), var(--cyan));
-      display: flex; align-items: center; justify-content: center;
-      font-size: .7rem; font-weight: 800; color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .7rem;
+      font-weight: 800;
+      color: #fff;
       flex-shrink: 0;
     }
+
     .nav-auth-btn {
-      display: flex; align-items: center; gap: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
       padding: 8px 16px;
       border-radius: var(--r-full);
-      background: rgba(255,255,255,.12);
-      border: 1.5px solid rgba(255,255,255,.3);
+      background: rgba(255, 255, 255, .12);
+      border: 1.5px solid rgba(255, 255, 255, .3);
       color: #fff;
-      font-size: .85rem; font-weight: 600;
+      font-size: .85rem;
+      font-weight: 600;
       cursor: pointer;
       transition: all .2s;
       white-space: nowrap;
     }
+
     .navbar.scrolled .nav-auth-btn {
       background: var(--primary-glow);
       border-color: var(--primary-light);
       color: var(--primary);
     }
-    .nav-auth-btn:hover { transform: translateY(-1px); }
+
+    .nav-auth-btn:hover {
+      transform: translateY(-1px);
+    }
 
     /* ── USER DROPDOWN ── */
     .user-dropdown {
@@ -3352,69 +3452,141 @@
       display: none;
       animation: authSlideIn .2s ease;
     }
-    .user-dropdown.open { display: block; }
+
+    .user-dropdown.open {
+      display: block;
+    }
+
     .ud-head {
       padding: 20px;
-      background: linear-gradient(135deg, rgba(30,64,175,.08), rgba(8,145,178,.06));
+      background: linear-gradient(135deg, rgba(30, 64, 175, .08), rgba(8, 145, 178, .06));
       border-bottom: 1px solid var(--border);
       border-radius: var(--r-xl) var(--r-xl) 0 0;
     }
+
     .ud-avatar {
-      width: 44px; height: 44px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--primary-light), var(--cyan));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1rem; font-weight: 800; color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 800;
+      color: #fff;
       margin-bottom: 10px;
     }
-    .ud-name { font-weight: 800; font-size: .95rem; color: var(--text); }
+
+    .ud-name {
+      font-weight: 800;
+      font-size: .95rem;
+      color: var(--text);
+    }
+
     .ud-role-badge {
-      display: inline-flex; align-items: center; gap: 5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
       padding: 3px 10px;
       border-radius: var(--r-full);
-      font-size: .72rem; font-weight: 700;
+      font-size: .72rem;
+      font-weight: 700;
       margin-top: 5px;
     }
-    .ud-role-member { background: var(--primary-glow); color: var(--primary); }
-    .ud-role-collab { background: var(--purple-bg); color: var(--purple); }
-    .ud-history { padding: 12px 16px; border-bottom: 1px solid var(--border); }
+
+    .ud-role-member {
+      background: var(--primary-glow);
+      color: var(--primary);
+    }
+
+    .ud-role-collab {
+      background: var(--purple-bg);
+      color: var(--purple);
+    }
+
+    .ud-history {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
     .ud-history h4 {
-      font-size: .75rem; font-weight: 700;
+      font-size: .75rem;
+      font-weight: 700;
       color: var(--text3);
-      text-transform: uppercase; letter-spacing: .06em;
+      text-transform: uppercase;
+      letter-spacing: .06em;
       margin-bottom: 10px;
     }
+
     .ud-hist-item {
-      display: flex; align-items: center; gap: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
       padding: 6px 0;
-      font-size: .8rem; color: var(--text2);
+      font-size: .8rem;
+      color: var(--text2);
     }
-    .ud-hist-item i { color: var(--text3); font-size: .75rem; width: 14px; }
-    .ud-hist-time { margin-left: auto; color: var(--text3); font-size: .72rem; }
+
+    .ud-hist-item i {
+      color: var(--text3);
+      font-size: .75rem;
+      width: 14px;
+    }
+
+    .ud-hist-time {
+      margin-left: auto;
+      color: var(--text3);
+      font-size: .72rem;
+    }
+
     .ud-logout {
-      display: flex; align-items: center; gap: 8px;
-      width: 100%; padding: 14px 16px;
-      color: var(--danger); font-size: .875rem; font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      padding: 14px 16px;
+      color: var(--danger);
+      font-size: .875rem;
+      font-weight: 600;
       border-radius: 0 0 var(--r-xl) var(--r-xl);
       transition: background .2s;
     }
-    .ud-logout:hover { background: var(--danger-bg); }
+
+    .ud-logout:hover {
+      background: var(--danger-bg);
+    }
 
     /* ── SUCCESS AUTH SCREEN ── */
     .auth-success {
-      text-align: center; padding: 32px 28px;
+      text-align: center;
+      padding: 32px 28px;
     }
+
     .auth-success-icon {
-      width: 64px; height: 64px;
+      width: 64px;
+      height: 64px;
       background: var(--success-bg);
       color: var(--success);
       border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 1.6rem;
       margin: 0 auto 16px;
     }
-    .auth-success h3 { font-size: 1.2rem; font-weight: 800; color: var(--text); margin-bottom: 8px; }
-    .auth-success p { color: var(--text3); font-size: .9rem; }
+
+    .auth-success h3 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .auth-success p {
+      color: var(--text3);
+      font-size: .9rem;
+    }
 
     /* ══════════════════════════════════════
    ADMIN PAGE
@@ -3422,68 +3594,119 @@
     .admin-header {
       background: linear-gradient(135deg, #0c1e3f 0%, #1a3a6b 100%);
       padding: 0;
-      position: sticky; top: 0; z-index: 100;
-      box-shadow: 0 2px 20px rgba(0,0,0,.3);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, .3);
     }
+
     .admin-header-inner {
-      max-width: 1200px; margin: 0 auto;
+      max-width: 1200px;
+      margin: 0 auto;
       padding: 18px 24px;
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       gap: 16px;
     }
+
     .admin-title-row {
-      display: flex; align-items: center; gap: 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
+
     .admin-logo {
-      width: 48px; height: 48px;
+      width: 48px;
+      height: 48px;
       background: linear-gradient(135deg, var(--primary-light), var(--cyan));
       border-radius: 14px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.3rem; color: #fff; flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: #fff;
+      flex-shrink: 0;
     }
+
     .admin-header h1 {
-      color: #fff; font-size: 1.3rem; font-weight: 800; margin-bottom: 2px;
+      color: #fff;
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 2px;
     }
-    .admin-header p { color: rgba(255,255,255,.6); font-size: .8rem; }
+
+    .admin-header p {
+      color: rgba(255, 255, 255, .6);
+      font-size: .8rem;
+    }
+
     .admin-back-btn {
-      display: flex; align-items: center; gap: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
       padding: 9px 18px;
       border-radius: var(--r-full);
-      background: rgba(255,255,255,.1);
-      border: 1.5px solid rgba(255,255,255,.25);
+      background: rgba(255, 255, 255, .1);
+      border: 1.5px solid rgba(255, 255, 255, .25);
       color: #fff;
-      font-weight: 600; font-size: .875rem;
-      cursor: pointer; transition: all .2s;
+      font-weight: 600;
+      font-size: .875rem;
+      cursor: pointer;
+      transition: all .2s;
     }
-    .admin-back-btn:hover { background: rgba(255,255,255,.2); }
+
+    .admin-back-btn:hover {
+      background: rgba(255, 255, 255, .2);
+    }
 
     .admin-body {
-      max-width: 1200px; margin: 0 auto;
+      max-width: 1200px;
+      margin: 0 auto;
       padding: 32px 24px 64px;
     }
+
     .admin-stats-row {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px; margin-bottom: 28px;
+      gap: 16px;
+      margin-bottom: 28px;
     }
+
     .admin-stat-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--r-lg);
       padding: 20px 22px;
-      display: flex; align-items: center; gap: 14px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
     }
+
     .admin-stat-icon {
-      width: 46px; height: 46px;
+      width: 46px;
+      height: 46px;
       border-radius: var(--r-md);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
     }
+
     .admin-stat-num {
       font-family: var(--font-head);
-      font-size: 1.8rem; font-weight: 900; color: var(--text); line-height: 1;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--text);
+      line-height: 1;
     }
-    .admin-stat-label { font-size: .78rem; color: var(--text3); margin-top: 3px; }
+
+    .admin-stat-label {
+      font-size: .78rem;
+      color: var(--text3);
+      margin-top: 3px;
+    }
 
     .admin-card {
       background: var(--surface);
@@ -3491,118 +3714,212 @@
       border-radius: var(--r-xl);
       overflow: hidden;
     }
+
     .admin-tabs {
-      display: flex; border-bottom: 1px solid var(--border);
+      display: flex;
+      border-bottom: 1px solid var(--border);
       background: var(--surface2);
     }
+
     .admin-tab {
-      display: flex; align-items: center; gap: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
       padding: 14px 22px;
-      font-weight: 700; font-size: .875rem;
-      color: var(--text3); cursor: pointer;
+      font-weight: 700;
+      font-size: .875rem;
+      color: var(--text3);
+      cursor: pointer;
       border-bottom: 2px solid transparent;
-      transition: all .2s; background: none;
+      transition: all .2s;
+      background: none;
     }
-    .admin-tab:hover { color: var(--primary); }
+
+    .admin-tab:hover {
+      color: var(--primary);
+    }
+
     .admin-tab.active {
       color: var(--primary);
       border-bottom-color: var(--primary);
       background: var(--surface);
     }
+
     .admin-table-toolbar {
-      display: flex; align-items: center; gap: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
       padding: 16px 20px;
       flex-wrap: wrap;
       border-bottom: 1px solid var(--border);
     }
+
     .admin-search {
-      flex: 1; min-width: 200px;
+      flex: 1;
+      min-width: 200px;
       padding: 10px 14px;
       border: 1.5px solid var(--border);
       border-radius: var(--r-md);
       background: var(--surface2);
-      color: var(--text); font-size: .875rem;
-      outline: none; transition: border-color .2s;
+      color: var(--text);
+      font-size: .875rem;
+      outline: none;
+      transition: border-color .2s;
     }
-    .admin-search:focus { border-color: var(--primary-light); }
-    .admin-toolbar-right { display: flex; gap: 10px; align-items: center; margin-left: auto; }
+
+    .admin-search:focus {
+      border-color: var(--primary-light);
+    }
+
+    .admin-toolbar-right {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-left: auto;
+    }
+
     .admin-filter {
       padding: 9px 12px;
       border: 1.5px solid var(--border);
       border-radius: var(--r-md);
       background: var(--surface2);
-      color: var(--text); font-size: .875rem;
-      outline: none; cursor: pointer;
+      color: var(--text);
+      font-size: .875rem;
+      outline: none;
+      cursor: pointer;
     }
+
     .admin-export-btn {
-      display: flex; align-items: center; gap: 7px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
       padding: 9px 16px;
       border-radius: var(--r-md);
       background: var(--success-bg);
-      border: 1.5px solid rgba(22,163,74,.25);
+      border: 1.5px solid rgba(22, 163, 74, .25);
       color: var(--success);
-      font-weight: 700; font-size: .8rem;
-      cursor: pointer; transition: all .2s;
+      font-weight: 700;
+      font-size: .8rem;
+      cursor: pointer;
+      transition: all .2s;
     }
-    .admin-export-btn:hover { background: rgba(22,163,74,.15); }
-    .admin-table-wrap { overflow-x: auto; }
+
+    .admin-export-btn:hover {
+      background: rgba(22, 163, 74, .15);
+    }
+
+    .admin-table-wrap {
+      overflow-x: auto;
+    }
+
     .admin-table {
-      width: 100%; border-collapse: collapse;
+      width: 100%;
+      border-collapse: collapse;
       font-size: .875rem;
     }
+
     .admin-table th {
       padding: 12px 16px;
       text-align: left;
-      font-size: .73rem; font-weight: 700;
+      font-size: .73rem;
+      font-weight: 700;
       color: var(--text3);
-      text-transform: uppercase; letter-spacing: .06em;
+      text-transform: uppercase;
+      letter-spacing: .06em;
       background: var(--surface2);
       border-bottom: 1px solid var(--border);
       white-space: nowrap;
     }
+
     .admin-table td {
       padding: 13px 16px;
       border-bottom: 1px solid var(--border);
       color: var(--text2);
       vertical-align: middle;
     }
-    .admin-table tbody tr:last-child td { border-bottom: none; }
-    .admin-table tbody tr:hover td { background: var(--surface2); }
+
+    .admin-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .admin-table tbody tr:hover td {
+      background: var(--surface2);
+    }
+
     .admin-role-pill {
-      display: inline-flex; align-items: center; gap: 5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
       padding: 3px 10px;
       border-radius: var(--r-full);
-      font-size: .72rem; font-weight: 700;
+      font-size: .72rem;
+      font-weight: 700;
     }
-    .pill-member { background: var(--primary-glow); color: var(--primary); }
-    .pill-collab { background: var(--purple-bg); color: var(--purple); }
+
+    .pill-member {
+      background: var(--primary-glow);
+      color: var(--primary);
+    }
+
+    .pill-collab {
+      background: var(--purple-bg);
+      color: var(--purple);
+    }
+
     .admin-del-btn {
-      display: inline-flex; align-items: center; gap: 5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
       padding: 5px 10px;
       border-radius: var(--r-md);
       background: var(--danger-bg);
-      border: 1px solid rgba(220,38,38,.2);
+      border: 1px solid rgba(220, 38, 38, .2);
       color: var(--danger);
-      font-size: .75rem; font-weight: 600;
-      cursor: pointer; transition: all .2s;
+      font-size: .75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s;
     }
-    .admin-del-btn:hover { background: rgba(220,38,38,.15); }
+
+    .admin-del-btn:hover {
+      background: rgba(220, 38, 38, .15);
+    }
+
     .admin-empty {
-      text-align: center; padding: 60px 24px;
+      text-align: center;
+      padding: 60px 24px;
       color: var(--text3);
     }
-    .admin-empty i { font-size: 2.5rem; margin-bottom: 14px; display: block; opacity: .4; }
-    .admin-empty p { font-size: .95rem; }
+
+    .admin-empty i {
+      font-size: 2.5rem;
+      margin-bottom: 14px;
+      display: block;
+      opacity: .4;
+    }
+
+    .admin-empty p {
+      font-size: .95rem;
+    }
 
     /* Admin trigger in user dropdown */
     .ud-admin-link {
-      display: flex; align-items: center; gap: 8px;
-      width: 100%; padding: 12px 16px;
-      color: var(--primary); font-size: .875rem; font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      padding: 12px 16px;
+      color: var(--primary);
+      font-size: .875rem;
+      font-weight: 600;
       border-top: 1px solid var(--border);
-      transition: background .2s; cursor: pointer;
+      transition: background .2s;
+      cursor: pointer;
     }
-    .ud-admin-link:hover { background: var(--primary-glow); }
+
+    .ud-admin-link:hover {
+      background: var(--primary-glow);
+    }
   </style>
 </head>
 
@@ -3670,10 +3987,12 @@
       </div>
       <div class="hero-content">
         <div class="hero-text">
-          <div class="hero-badge"><i class="fas fa-star" style="color:#facc15"></i> Sáng kiến bảo đảm trật tự trường học về phòng, chống bạo lực học đường
+          <div class="hero-badge"><i class="fas fa-star" style="color:#facc15"></i> Sáng kiến bảo đảm trật tự trường học
+            về phòng, chống bạo lực học đường
           </div>
           <h1 class="hero-title">Mạng an toàn –<br><span class="gradient-text">Em vững bước!</span></h1>
-          <p class="hero-desc">Trang bị cho bạn những kỹ năng quan trọng để nhận biết và phòng tránh <strong>bạo lực, lừa
+          <p class="hero-desc">Trang bị cho bạn những kỹ năng quan trọng để nhận biết và phòng tránh <strong>bạo lực,
+              lừa
               đảo, dụ dỗ bắt cóc</strong> trên không gian mạng.</p>
           <div class="hero-btns">
             <a href="#risks" class="btn-cta"><i class="fas fa-compass"></i> Tìm hiểu ngay</a>
@@ -4020,7 +4339,8 @@
             <div class="contact-badge"><span class="sec-badge badge-cyan"><i class="fas fa-file-shield"></i> Tiếp nhận
                 thông tin</span></div>
             <h2 class="contact-title">Báo Cáo Sự Cố<br><span class="grad-text">An Toàn Mạng</span></h2>
-            <p class="contact-desc">Nếu bạn hoặc ai đó đang gặp nguy hiểm trên mạng, hãy liên hệ với chúng tôi. Mọi thông
+            <p class="contact-desc">Nếu bạn hoặc ai đó đang gặp nguy hiểm trên mạng, hãy liên hệ với chúng tôi. Mọi
+              thông
               tin được bảo mật tuyệt đối và xử lý nhanh chóng.</p>
             <div class="contact-facts">
               <div class="cf-item">
@@ -4029,9 +4349,12 @@
               </div>
               <div class="cf-item">
                 <div class="cf-icon"><i class="fas fa-envelope"></i></div>
-                <div class="cf-text"><strong>Email</strong><span><a href="mailto:tricao5117@gmail.com" class="__cf_email__" data-cfemail="33405255565d5647585a5740735657461d455d"><span
-                        class="__cf_email__"
-                        data-cfemail="fe8a8c979d9f91cbcfcfc9be99939f9792d09d9193"><span class="__cf_email__" data-cfemail="5125233832303e6460606611363c30383d7f323e3c"><span class="__cf_email__" data-cfemail="cbbfb9a2a8aaa4fefafafc8baca6aaa2a7e5a8a4a6">tricao5117@gmail.com</span></span></span></a></span>
+                <div class="cf-text"><strong>Email</strong><span><a href="mailto:tricao5117@gmail.com"
+                      class="__cf_email__" data-cfemail="33405255565d5647585a5740735657461d455d"><span
+                        class="__cf_email__" data-cfemail="fe8a8c979d9f91cbcfcfc9be99939f9792d09d9193"><span
+                          class="__cf_email__" data-cfemail="5125233832303e6460606611363c30383d7f323e3c"><span
+                            class="__cf_email__"
+                            data-cfemail="cbbfb9a2a8aaa4fefafafc8baca6aaa2a7e5a8a4a6">tricao5117@gmail.com</span></span></span></a></span>
                 </div>
               </div>
               <div class="cf-item">
@@ -4044,7 +4367,8 @@
             <div class="contact-cta-box">
               <div class="contact-cta-icon"><i class="fas fa-flag"></i></div>
               <h3>Gửi Báo Cáo Sự Cố</h3>
-              <p>Hãy mô tả chi tiết sự cố bạn gặp phải. Đội ngũ của chúng tôi sẽ hỗ trợ bạn trong thời gian sớm nhất.</p>
+              <p>Hãy mô tả chi tiết sự cố bạn gặp phải. Đội ngũ của chúng tôi sẽ hỗ trợ bạn trong thời gian sớm nhất.
+              </p>
               <button class="btn btn-report" onclick="showReportPage()">
                 <i class="fas fa-paper-plane"></i> Báo Cáo Ngay
               </button>
@@ -4360,7 +4684,8 @@
             onkeydown="if(event.key==='Enter')checkAdminPass()" />
           <div class="auth-err" id="adminPassErr"></div>
         </div>
-        <button class="auth-submit" onclick="checkAdminPass()" style="background:linear-gradient(135deg,#1e3a5f,#0891b2)">
+        <button class="auth-submit" onclick="checkAdminPass()"
+          style="background:linear-gradient(135deg,#1e3a5f,#0891b2)">
           <i class="fas fa-unlock"></i> Xác nhận
         </button>
         <div class="auth-switch" style="margin-top:14px">
@@ -4879,7 +5204,8 @@
           <div class="auth-err" id="rg_email_err"></div>
         </div>
         <div class="auth-field">
-          <label><i class="fas fa-lock"></i> Mật khẩu <span style="color:var(--text3);font-weight:400;text-transform:none">(tối thiểu 6 ký tự)</span></label>
+          <label><i class="fas fa-lock"></i> Mật khẩu <span
+              style="color:var(--text3);font-weight:400;text-transform:none">(tối thiểu 6 ký tự)</span></label>
           <input type="password" id="rg_pass" placeholder="Tạo mật khẩu" autocomplete="new-password" />
           <div class="auth-err" id="rg_pass_err"></div>
         </div>
@@ -4911,7 +5237,8 @@
     <div class="ud-head">
       <div class="ud-avatar" id="udAvatar">?</div>
       <div class="ud-name" id="udName">Người dùng</div>
-      <div class="ud-role-badge" id="udRoleBadge"><i class="fas fa-user"></i> <span id="udRoleText">Thành viên</span></div>
+      <div class="ud-role-badge" id="udRoleBadge"><i class="fas fa-user"></i> <span id="udRoleText">Thành viên</span>
+      </div>
     </div>
     <div class="ud-history">
       <h4><i class="fas fa-clock-rotate-left"></i> Lịch sử truy cập</h4>
@@ -4936,7 +5263,9 @@
   <!-- ============================================================
      SCRIPTS
 ============================================================ -->
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script>
     // ── PAGE ROUTER ──
@@ -5036,20 +5365,38 @@
     // ── MODALS ──
     function openModal(id) {
       const m = document.getElementById(id);
-      if (m) { m.classList.add('open'); document.body.style.overflow = 'hidden'; }
+      if (!m) return;
+      m.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      // Restore video src khi mở lại
+      const iframe = m.querySelector('iframe');
+      if (iframe && iframe.dataset.src && !iframe.src) {
+        iframe.src = iframe.dataset.src;
+      }
     }
+
     function closeModal(id) {
       const m = document.getElementById(id);
-      if (m) { m.classList.remove('open'); document.body.style.overflow = ''; }
-      // pause video
-      const iframe = m?.querySelector('iframe');
-      if (iframe) { const src = iframe.src; iframe.src = ''; setTimeout(() => iframe.src = src, 50); }
+      if (!m) return;
+      m.classList.remove('open');
+      document.body.style.overflow = '';
+      // Dừng video: lưu src vào data-src rồi xóa src
+      const iframe = m.querySelector('iframe');
+      if (iframe && iframe.src) {
+        iframe.dataset.src = iframe.src; // Lưu lại để dùng lần sau
+        iframe.src = '';                  // Dừng video ngay lập tức
+        // ✅ KHÔNG có setTimeout nữa!
+      }
     }
+
     function closeAllModals() {
       document.querySelectorAll('.modal-overlay.open').forEach(m => {
         m.classList.remove('open');
         const iframe = m.querySelector('iframe');
-        if (iframe) { const src = iframe.src; iframe.src = ''; setTimeout(() => iframe.src = src, 50); }
+        if (iframe && iframe.src) {
+          iframe.dataset.src = iframe.src;
+          iframe.src = '';
+        }
       });
       document.body.style.overflow = '';
     }
@@ -5269,18 +5616,18 @@
 
         const now = new Date();
         const params = {
-          sent_at:       now.toLocaleString('vi-VN'),
-          from_name:     name,
-          from_email:    email,
-          from_phone:    phone || 'Không cung cấp',
-          victim_name:   victim || '(Bản thân)',
-          victim_age:    age || 'Không rõ',
+          sent_at: now.toLocaleString('vi-VN'),
+          from_name: name,
+          from_email: email,
+          from_phone: phone || 'Không cung cấp',
+          victim_name: victim || '(Bản thân)',
+          victim_age: age || 'Không rõ',
           incident_type: type,
-          platform:      platform,
+          platform: platform,
           incident_date: now.toLocaleDateString('vi-VN'),
-          urgency:       '🟡 Bình thường',
-          perpetrator:   'Chưa xác định',
-          message:       desc
+          urgency: '🟡 Bình thường',
+          perpetrator: 'Chưa xác định',
+          message: desc
         };
 
         if (results[0]) {
@@ -5700,7 +6047,7 @@
         const rolePill = u.role === 'collab'
           ? '<span class="admin-role-pill pill-collab"><i class="fas fa-people-group"></i> Cộng tác viên</span>'
           : '<span class="admin-role-pill pill-member"><i class="fas fa-user-graduate"></i> Thành viên</span>';
-        const regDate = new Date(u.createdAt).toLocaleDateString('vi-VN', {day:'2-digit',month:'2-digit',year:'numeric'});
+        const regDate = new Date(u.createdAt).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' });
         const lastTime = lastVisit ? fmtTime(lastVisit.time) : '—';
         return `<tr>
           <td style="color:var(--text3);font-size:.8rem">${i + 1}</td>
@@ -5852,8 +6199,8 @@
         const now = new Date();
         const diff = Math.floor((now - d) / 1000);
         if (diff < 60) return 'Vừa xong';
-        if (diff < 3600) return Math.floor(diff/60) + ' phút trước';
-        if (diff < 86400) return Math.floor(diff/3600) + ' giờ trước';
+        if (diff < 3600) return Math.floor(diff / 60) + ' phút trước';
+        if (diff < 86400) return Math.floor(diff / 3600) + ' giờ trước';
         return d.toLocaleDateString('vi-VN');
       } catch { return ''; }
     }
@@ -5912,18 +6259,18 @@
       const role = _selectedRole;
 
       // Clear errors
-      ['rg_name_err','rg_email_err','rg_pass_err','rg_role_err','rg_general_err'].forEach(authClrErr);
+      ['rg_name_err', 'rg_email_err', 'rg_pass_err', 'rg_role_err', 'rg_general_err'].forEach(authClrErr);
 
       let valid = true;
-      if (!name || name.length < 2) { authErr('rg_name_err','⚠ Vui lòng nhập họ tên đầy đủ (ít nhất 2 ký tự).'); valid = false; }
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { authErr('rg_email_err','⚠ Email không hợp lệ.'); valid = false; }
-      if (!pass || pass.length < 6) { authErr('rg_pass_err','⚠ Mật khẩu phải có ít nhất 6 ký tự.'); valid = false; }
+      if (!name || name.length < 2) { authErr('rg_name_err', '⚠ Vui lòng nhập họ tên đầy đủ (ít nhất 2 ký tự).'); valid = false; }
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { authErr('rg_email_err', '⚠ Email không hợp lệ.'); valid = false; }
+      if (!pass || pass.length < 6) { authErr('rg_pass_err', '⚠ Mật khẩu phải có ít nhất 6 ký tự.'); valid = false; }
       if (!valid) return;
 
       // Check duplicate email
       const users = getUsers();
       if (users.find(u => u.email.toLowerCase() === email.toLowerCase())) {
-        authErr('rg_general_err','⚠ Email này đã được đăng ký. Vui lòng đăng nhập hoặc dùng email khác.');
+        authErr('rg_general_err', '⚠ Email này đã được đăng ký. Vui lòng đăng nhập hoặc dùng email khác.');
         return;
       }
 
@@ -5951,17 +6298,17 @@
       const email = document.getElementById('li_email').value.trim();
       const pass = document.getElementById('li_pass').value;
 
-      ['li_email_err','li_pass_err','li_general_err'].forEach(authClrErr);
+      ['li_email_err', 'li_pass_err', 'li_general_err'].forEach(authClrErr);
 
       let valid = true;
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { authErr('li_email_err','⚠ Email không hợp lệ.'); valid = false; }
-      if (!pass) { authErr('li_pass_err','⚠ Vui lòng nhập mật khẩu.'); valid = false; }
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { authErr('li_email_err', '⚠ Email không hợp lệ.'); valid = false; }
+      if (!pass) { authErr('li_pass_err', '⚠ Vui lòng nhập mật khẩu.'); valid = false; }
       if (!valid) return;
 
       const users = getUsers();
       const user = users.find(u => u.email === email.toLowerCase() && u.pass === pass);
       if (!user) {
-        authErr('li_general_err','⚠ Email hoặc mật khẩu không đúng. Vui lòng thử lại.');
+        authErr('li_general_err', '⚠ Email hoặc mật khẩu không đúng. Vui lòng thử lại.');
         return;
       }
 
@@ -5989,7 +6336,7 @@
       if (!area) return;
 
       if (session) {
-        const initials = session.name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+        const initials = session.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
         const roleLabel = session.role === 'collab' ? 'Cộng tác viên' : 'Thành viên';
         area.innerHTML = `
           <button class="nav-user" id="navUserBtn" onclick="toggleUserDropdown()">
@@ -6043,23 +6390,23 @@
     });
 
     // --- Close auth modals on overlay click ---
-    document.getElementById('loginModal').addEventListener('click', function(e) {
+    document.getElementById('loginModal').addEventListener('click', function (e) {
       if (e.target === this) closeAuthModal('loginModal');
     });
-    document.getElementById('registerModal').addEventListener('click', function(e) {
+    document.getElementById('registerModal').addEventListener('click', function (e) {
       if (e.target === this) closeAuthModal('registerModal');
     });
 
     // --- Keyboard Enter support ---
-    document.getElementById('li_pass').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
-    document.getElementById('li_email').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
-    document.getElementById('rg_pass').addEventListener('keydown', e => { if(e.key==='Enter') doRegister(); });
+    document.getElementById('li_pass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+    document.getElementById('li_email').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+    document.getElementById('rg_pass').addEventListener('keydown', e => { if (e.key === 'Enter') doRegister(); });
 
     // --- Init on load ---
     updateNavAuth();
 
     // --- Track page visit for logged-in users ---
-    (function() {
+    (function () {
       const session = getSession();
       if (session) {
         trackVisit(session.email);
