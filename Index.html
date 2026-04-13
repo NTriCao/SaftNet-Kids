@@ -17,6 +17,30 @@
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>(function () { emailjs.init({ publicKey: "JhOg_4uRh3HyBLu-1" }); })()</script>
 
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script>
+    // ════════════════════════════════════════════
+    // FIREBASE CONFIG – Thay bằng config của bạn
+    // Lấy tại: Firebase Console > Project Settings
+    // ════════════════════════════════════════════
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyD7RkDzuOfpvOyRv7iajbR4RxH_7WV2jgs",
+      authDomain: "safenet-kids.firebaseapp.com",
+      projectId: "safenet-kids",
+      storageBucket: "safenet-kids.firebasestorage.app",
+      messagingSenderId: "305297766862",
+      appId: "1:305297766862:web:ae9bfab8783b0cb0d4d39f",
+      measurementId: "G-KFW00W6QLD"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+  </script>
+
   <style>
     /* ── RESET ── */
     *,
@@ -511,9 +535,10 @@
       }
     }
 
-    /* Ẩn mobile auth item trên desktop */
-    #mobileAuthLi {
-      display: none
+    @media(min-width: 961px) {
+      #mobileAuthLi {
+        display: none
+      }
     }
 
     /* ══════════════════════════════════════
@@ -4445,11 +4470,12 @@
               </div>
               <div class="cf-item">
                 <div class="cf-icon"><i class="fas fa-envelope"></i></div>
-                <div class="cf-text"><strong>Email</strong><span><a href="/cdn-cgi/l/email-protection#1460667d77757b21252523547379757d783a777b79" class="__cf_email__" data-cfemail="33405255565d5647585a5740735657461d455d"><span
-                        class="__cf_email__" data-cfemail="fe8a8c979d9f91cbcfcfc9be99939f9792d09d9193"><span
-                          class="__cf_email__" data-cfemail="5125233832303e6460606611363c30383d7f323e3c"><span
-                            class="__cf_email__"
-                            data-cfemail="cbbfb9a2a8aaa4fefafafc8baca6aaa2a7e5a8a4a6"><span class="__cf_email__" data-cfemail="d6a2a4bfb5b7b9e3e7e7e196b1bbb7bfbaf8b5b9bb">[email&#160;protected]</span></span></span></span></a></span>
+                <div class="cf-text"><strong>Email</strong><span><a href="tricao5117@gmail.com" class="__cf_email__"
+                      data-cfemail="33405255565d5647585a5740735657461d455d"><span class="__cf_email__"
+                        data-cfemail="fe8a8c979d9f91cbcfcfc9be99939f9792d09d9193"><span class="__cf_email__"
+                          data-cfemail="5125233832303e6460606611363c30383d7f323e3c"><span class="__cf_email__"
+                            data-cfemail="cbbfb9a2a8aaa4fefafafc8baca6aaa2a7e5a8a4a6"><span class="__cf_email__"
+                              data-cfemail="d6a2a4bfb5b7b9e3e7e7e196b1bbb7bfbaf8b5b9bb">tricao5117@gmail.com</span></span></span></span></a></span>
                 </div>
               </div>
               <div class="cf-item">
@@ -5358,7 +5384,8 @@
   <!-- ============================================================
      SCRIPTS
 ============================================================ -->
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
@@ -6251,23 +6278,16 @@
     }
 
     // ══════════════════════════════════════
-    // AUTH SYSTEM - Đăng ký / Đăng nhập
+    // AUTH SYSTEM - Firebase (đồng bộ đa thiết bị)
     // ══════════════════════════════════════
 
-    // --- Storage helpers ---
-    const SNK_USERS_KEY = 'snk_users';
-    const SNK_SESSION_KEY = 'snk_session';
+    // Session trong bộ nhớ (Firebase tự quản lý persistence)
+    let _currentSession = null;
+
     const SNK_HISTORY_KEY = 'snk_history';
 
-    function getUsers() {
-      try { return JSON.parse(localStorage.getItem(SNK_USERS_KEY)) || []; } catch { return []; }
-    }
-    function saveUsers(u) { localStorage.setItem(SNK_USERS_KEY, JSON.stringify(u)); }
-    function getSession() {
-      try { return JSON.parse(localStorage.getItem(SNK_SESSION_KEY)); } catch { return null; }
-    }
-    function saveSession(s) { localStorage.setItem(SNK_SESSION_KEY, JSON.stringify(s)); }
-    function clearSession() { localStorage.removeItem(SNK_SESSION_KEY); }
+    function getSession() { return _currentSession; }
+
     function getHistory() {
       try { return JSON.parse(localStorage.getItem(SNK_HISTORY_KEY)) || {}; } catch { return {}; }
     }
@@ -6347,13 +6367,12 @@
     }
 
     // --- REGISTER ---
-    function doRegister() {
+    async function doRegister() {
       const name = document.getElementById('rg_name').value.trim();
       const email = document.getElementById('rg_email').value.trim();
       const pass = document.getElementById('rg_pass').value;
       const role = _selectedRole;
 
-      // Clear errors
       ['rg_name_err', 'rg_email_err', 'rg_pass_err', 'rg_role_err', 'rg_general_err'].forEach(authClrErr);
 
       let valid = true;
@@ -6362,34 +6381,35 @@
       if (!pass || pass.length < 6) { authErr('rg_pass_err', '⚠ Mật khẩu phải có ít nhất 6 ký tự.'); valid = false; }
       if (!valid) return;
 
-      // Check duplicate email
-      const users = getUsers();
-      if (users.find(u => u.email.toLowerCase() === email.toLowerCase())) {
-        authErr('rg_general_err', '⚠ Email này đã được đăng ký. Vui lòng đăng nhập hoặc dùng email khác.');
-        return;
+      try {
+        // Tạo tài khoản Firebase Auth
+        const cred = await auth.createUserWithEmailAndPassword(email, pass);
+
+        // Lưu thông tin bổ sung vào Firestore
+        await db.collection('users').doc(cred.user.uid).set({
+          name,
+          email: email.toLowerCase(),
+          role,
+          createdAt: new Date().toISOString()
+        });
+
+        // Cập nhật displayName
+        await cred.user.updateProfile({ displayName: name });
+
+        closeAuthModal('registerModal');
+        showToast(`🎉 Đăng ký thành công! Chào mừng ${name}!`, 'success');
+        // onAuthStateChanged sẽ tự gọi updateNavAuth()
+      } catch (err) {
+        let msg = '⚠ Đã xảy ra lỗi. Vui lòng thử lại.';
+        if (err.code === 'auth/email-already-in-use') msg = '⚠ Email này đã được đăng ký. Vui lòng đăng nhập.';
+        else if (err.code === 'auth/invalid-email') msg = '⚠ Email không hợp lệ.';
+        else if (err.code === 'auth/weak-password') msg = '⚠ Mật khẩu phải có ít nhất 6 ký tự.';
+        authErr('rg_general_err', msg);
       }
-
-      // Save user
-      const newUser = {
-        id: Date.now().toString(36) + Math.random().toString(36).slice(2),
-        name, email: email.toLowerCase(), pass, role,
-        createdAt: new Date().toISOString()
-      };
-      users.push(newUser);
-      saveUsers(users);
-
-      // Auto login
-      const session = { id: newUser.id, name, email: email.toLowerCase(), role };
-      saveSession(session);
-      trackVisit(email.toLowerCase());
-
-      closeAuthModal('registerModal');
-      updateNavAuth();
-      showToast(`🎉 Đăng ký thành công! Chào mừng ${name}!`, 'success');
     }
 
     // --- LOGIN ---
-    function doLogin() {
+    async function doLogin() {
       const email = document.getElementById('li_email').value.trim();
       const pass = document.getElementById('li_pass').value;
 
@@ -6400,29 +6420,55 @@
       if (!pass) { authErr('li_pass_err', '⚠ Vui lòng nhập mật khẩu.'); valid = false; }
       if (!valid) return;
 
-      const users = getUsers();
-      const user = users.find(u => u.email === email.toLowerCase() && u.pass === pass);
-      if (!user) {
-        authErr('li_general_err', '⚠ Email hoặc mật khẩu không đúng. Vui lòng thử lại.');
-        return;
+      try {
+        await auth.signInWithEmailAndPassword(email, pass);
+        closeAuthModal('loginModal');
+        // onAuthStateChanged sẽ tự gọi updateNavAuth() và showToast
+      } catch (err) {
+        let msg = '⚠ Email hoặc mật khẩu không đúng. Vui lòng thử lại.';
+        if (err.code === 'auth/user-not-found') msg = '⚠ Không tìm thấy tài khoản với email này.';
+        else if (err.code === 'auth/wrong-password') msg = '⚠ Mật khẩu không đúng.';
+        else if (err.code === 'auth/too-many-requests') msg = '⚠ Đăng nhập quá nhiều lần. Vui lòng thử lại sau.';
+        authErr('li_general_err', msg);
       }
-
-      const session = { id: user.id, name: user.name, email: user.email, role: user.role };
-      saveSession(session);
-      trackVisit(user.email);
-
-      closeAuthModal('loginModal');
-      updateNavAuth();
-      showToast(`👋 Chào mừng trở lại, ${user.name}!`, 'success');
     }
 
     // --- LOGOUT ---
-    function doLogout() {
-      clearSession();
+    async function doLogout() {
+      await auth.signOut();
       closeUserDropdown();
-      updateNavAuth();
+      // onAuthStateChanged sẽ tự gọi updateNavAuth()
       showToast('Đã đăng xuất thành công.', 'success');
     }
+
+    // --- Firebase Auth State Listener (tự động chạy khi đăng nhập/đăng xuất) ---
+    auth.onAuthStateChanged(async (firebaseUser) => {
+      if (firebaseUser) {
+        // Lấy profile từ Firestore
+        try {
+          const doc = await db.collection('users').doc(firebaseUser.uid).get();
+          const profile = doc.exists ? doc.data() : {};
+          _currentSession = {
+            id: firebaseUser.uid,
+            name: profile.name || firebaseUser.displayName || firebaseUser.email,
+            email: firebaseUser.email,
+            role: profile.role || 'member'
+          };
+          trackVisit(firebaseUser.email);
+          showToast(`👋 Chào mừng trở lại, ${_currentSession.name}!`, 'success');
+        } catch (e) {
+          _currentSession = {
+            id: firebaseUser.uid,
+            name: firebaseUser.displayName || firebaseUser.email,
+            email: firebaseUser.email,
+            role: 'member'
+          };
+        }
+      } else {
+        _currentSession = null;
+      }
+      updateNavAuth();
+    });
 
     // --- Update navbar based on auth state ---
     function updateNavAuth() {
@@ -6520,15 +6566,10 @@
     document.getElementById('rg_pass').addEventListener('keydown', e => { if (e.key === 'Enter') doRegister(); });
 
     // --- Init on load ---
-    updateNavAuth();
+    // Auth state được quản lý bởi Firebase onAuthStateChanged ở trên
 
     // --- Track page visit for logged-in users ---
-    (function () {
-      const session = getSession();
-      if (session) {
-        trackVisit(session.email);
-      }
-    })();
+    // (Được xử lý tự động bởi onAuthStateChanged)
 
     (function initChat() {
       const fab = document.getElementById('chatFab');
