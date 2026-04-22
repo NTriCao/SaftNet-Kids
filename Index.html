@@ -1918,6 +1918,7 @@
     }
 
     .form-input {
+      width: 100%;
       padding: 13px 16px;
       border-radius: var(--r-md);
       border: 1.5px solid var(--border);
@@ -1925,7 +1926,8 @@
       color: var(--text);
       font-size: .9rem;
       transition: border-color .2s, box-shadow .2s;
-      outline: none
+      outline: none;
+      box-sizing: border-box
     }
 
     .form-input:focus {
@@ -4470,11 +4472,12 @@
               </div>
               <div class="cf-item">
                 <div class="cf-icon"><i class="fas fa-envelope"></i></div>
-                <div class="cf-text"><strong>Email</strong><span><a href="tricao5117@gmail.com" class="__cf_email__"
-                      data-cfemail="33405255565d5647585a5740735657461d455d"><span class="__cf_email__"
-                        data-cfemail="fe8a8c979d9f91cbcfcfc9be99939f9792d09d9193"><span class="__cf_email__"
-                          data-cfemail="5125233832303e6460606611363c30383d7f323e3c"><span class="__cf_email__"
-                            data-cfemail="cbbfb9a2a8aaa4fefafafc8baca6aaa2a7e5a8a4a6"><span class="__cf_email__"
+                <div class="cf-text"><strong>Email</strong><span><a href="mailto:tricao5117@gmail.com"
+                      class="__cf_email__" data-cfemail="33405255565d5647585a5740735657461d455d"><span
+                        class="__cf_email__" data-cfemail="fe8a8c979d9f91cbcfcfc9be99939f9792d09d9193"><span
+                          class="__cf_email__" data-cfemail="5125233832303e6460606611363c30383d7f323e3c"><span
+                            class="__cf_email__" data-cfemail="cbbfb9a2a8aaa4fefafafc8baca6aaa2a7e5a8a4a6"><span
+                              class="__cf_email__"
                               data-cfemail="d6a2a4bfb5b7b9e3e7e7e196b1bbb7bfbaf8b5b9bb">tricao5117@gmail.com</span></span></span></span></a></span>
                 </div>
               </div>
@@ -4536,6 +4539,8 @@
         </div>
         <div class="footer-bottom">
           <p>© 2026 SafeNet Kids. Dự án phi lợi nhuận bảo vệ trẻ em.</p>
+          <p><i class="fas fa-chalkboard-teacher" style="color:#22d3ee"></i> Giáo viên hướng dẫn: <strong>Lê Văn
+              Ngô</strong></p>
           <p><i class="fas fa-heart" style="color:#ef4444"></i> Vì một không gian mạng an toàn</p>
         </div>
       </div>
@@ -6099,40 +6104,40 @@
 
     // ── ADMIN PAGE ──────────────────────────────────────────
 
-async function _showAdminPage() {
-  document.getElementById('mainPage').classList.remove('active');
-  document.getElementById('reportPage').classList.remove('active');
-  document.getElementById('adminPage').classList.add('active');
-  document.querySelector('.navbar').style.display = 'none';
-  window.scrollTo({ top: 0, behavior: 'instant' });
-  await loadAdminData();
-}
+    async function _showAdminPage() {
+      document.getElementById('mainPage').classList.remove('active');
+      document.getElementById('reportPage').classList.remove('active');
+      document.getElementById('adminPage').classList.add('active');
+      document.querySelector('.navbar').style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      await loadAdminData();
+    }
 
-async function loadAdminData() {
-  // Lấy toàn bộ users từ Firestore
-  const snap = await db.collection('users').get();
-  const users = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-  window._adminUsers = users; // cache lại để dùng cho filter/search
+    async function loadAdminData() {
+      // Lấy toàn bộ users từ Firestore
+      const snap = await db.collection('users').get();
+      const users = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      window._adminUsers = users; // cache lại để dùng cho filter/search
 
-  renderAdminStats(users);
-  renderUsersTable(users);
-  renderHistoryTable(users);
-}
+      renderAdminStats(users);
+      renderUsersTable(users);
+      renderHistoryTable(users);
+    }
 
-function renderAdminStats(users) {
-  users = users || window._adminUsers || [];
-  const hist = getHistory();
-  const members = users.filter(u => u.role === 'member').length;
-  const collabs = users.filter(u => u.role === 'collab').length;
-  const totalVisits = Object.values(hist).reduce((s, arr) => s + arr.length, 0);
+    function renderAdminStats(users) {
+      users = users || window._adminUsers || [];
+      const hist = getHistory();
+      const members = users.filter(u => u.role === 'member').length;
+      const collabs = users.filter(u => u.role === 'collab').length;
+      const totalVisits = Object.values(hist).reduce((s, arr) => s + arr.length, 0);
 
-  const stats = [
-    { icon: 'fas fa-users', color: 'var(--primary-glow)', iconColor: 'var(--primary)', num: users.length, label: 'Tổng tài khoản' },
-    { icon: 'fas fa-user-graduate', color: 'rgba(16,163,74,.12)', iconColor: 'var(--success)', num: members, label: 'Thành viên' },
-    { icon: 'fas fa-people-group', color: 'var(--purple-bg)', iconColor: 'var(--purple)', num: collabs, label: 'Cộng tác viên' },
-    { icon: 'fas fa-globe', color: 'rgba(8,145,178,.1)', iconColor: 'var(--cyan)', num: totalVisits, label: 'Lượt truy cập' },
-  ];
-  document.getElementById('adminStatsRow').innerHTML = stats.map(s => `
+      const stats = [
+        { icon: 'fas fa-users', color: 'var(--primary-glow)', iconColor: 'var(--primary)', num: users.length, label: 'Tổng tài khoản' },
+        { icon: 'fas fa-user-graduate', color: 'rgba(16,163,74,.12)', iconColor: 'var(--success)', num: members, label: 'Thành viên' },
+        { icon: 'fas fa-people-group', color: 'var(--purple-bg)', iconColor: 'var(--purple)', num: collabs, label: 'Cộng tác viên' },
+        { icon: 'fas fa-globe', color: 'rgba(8,145,178,.1)', iconColor: 'var(--cyan)', num: totalVisits, label: 'Lượt truy cập' },
+      ];
+      document.getElementById('adminStatsRow').innerHTML = stats.map(s => `
     <div class="admin-stat-card">
       <div class="admin-stat-icon" style="background:${s.color}">
         <i class="${s.icon}" style="color:${s.iconColor}"></i>
@@ -6142,40 +6147,40 @@ function renderAdminStats(users) {
         <div class="admin-stat-label">${s.label}</div>
       </div>
     </div>`).join('');
-}
+    }
 
-function renderUsersTable(users) {
-  const allUsers = users || window._adminUsers || [];
-  const query = (document.getElementById('adminSearch')?.value || '').toLowerCase();
-  const roleF = document.getElementById('adminRoleFilter')?.value || '';
-  const hist = getHistory();
+    function renderUsersTable(users) {
+      const allUsers = users || window._adminUsers || [];
+      const query = (document.getElementById('adminSearch')?.value || '').toLowerCase();
+      const roleF = document.getElementById('adminRoleFilter')?.value || '';
+      const hist = getHistory();
 
-  let filtered = allUsers;
-  if (query) filtered = filtered.filter(u =>
-    (u.name || '').toLowerCase().includes(query) ||
-    (u.email || '').toLowerCase().includes(query) ||
-    (u.role === 'collab' ? 'cộng tác viên' : 'thành viên').includes(query)
-  );
-  if (roleF) filtered = filtered.filter(u => u.role === roleF);
+      let filtered = allUsers;
+      if (query) filtered = filtered.filter(u =>
+        (u.name || '').toLowerCase().includes(query) ||
+        (u.email || '').toLowerCase().includes(query) ||
+        (u.role === 'collab' ? 'cộng tác viên' : 'thành viên').includes(query)
+      );
+      if (roleF) filtered = filtered.filter(u => u.role === roleF);
 
-  const tbody = document.getElementById('adminUsersTbody');
-  const empty = document.getElementById('adminUsersEmpty');
+      const tbody = document.getElementById('adminUsersTbody');
+      const empty = document.getElementById('adminUsersEmpty');
 
-  if (filtered.length === 0) {
-    tbody.innerHTML = '';
-    empty.style.display = 'block';
-    return;
-  }
-  empty.style.display = 'none';
+      if (filtered.length === 0) {
+        tbody.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+      }
+      empty.style.display = 'none';
 
-  tbody.innerHTML = filtered.map((u, i) => {
-    const lastVisit = (hist[u.email] || [])[0];
-    const rolePill = u.role === 'collab'
-      ? '<span class="admin-role-pill pill-collab"><i class="fas fa-people-group"></i> Cộng tác viên</span>'
-      : '<span class="admin-role-pill pill-member"><i class="fas fa-user-graduate"></i> Thành viên</span>';
-    const regDate = u.createdAt ? new Date(u.createdAt).toLocaleDateString('vi-VN') : '—';
-    const lastTime = lastVisit ? fmtTime(lastVisit.time) : '—';
-    return `<tr>
+      tbody.innerHTML = filtered.map((u, i) => {
+        const lastVisit = (hist[u.email] || [])[0];
+        const rolePill = u.role === 'collab'
+          ? '<span class="admin-role-pill pill-collab"><i class="fas fa-people-group"></i> Cộng tác viên</span>'
+          : '<span class="admin-role-pill pill-member"><i class="fas fa-user-graduate"></i> Thành viên</span>';
+        const regDate = u.createdAt ? new Date(u.createdAt).toLocaleDateString('vi-VN') : '—';
+        const lastTime = lastVisit ? fmtTime(lastVisit.time) : '—';
+        return `<tr>
       <td style="color:var(--text3);font-size:.8rem">${i + 1}</td>
       <td><strong style="color:var(--text)">${u.name || ''}</strong></td>
       <td><span style="font-family:monospace;font-size:.82rem">${u.email || ''}</span></td>
@@ -6188,19 +6193,19 @@ function renderUsersTable(users) {
         </button>
       </td>
     </tr>`;
-  }).join('');
-}
+      }).join('');
+    }
 
-async function deleteUser(id) {
-  if (!confirm('Bạn có chắc muốn xoá tài khoản này không?')) return;
-  try {
-    await db.collection('users').doc(id).delete();
-    showToast('Đã xoá tài khoản.', 'success');
-    await loadAdminData(); // reload lại dữ liệu
-  } catch (e) {
-    showToast('Lỗi khi xoá: ' + e.message, 'error');
-  }
-}
+    async function deleteUser(id) {
+      if (!confirm('Bạn có chắc muốn xoá tài khoản này không?')) return;
+      try {
+        await db.collection('users').doc(id).delete();
+        showToast('Đã xoá tài khoản.', 'success');
+        await loadAdminData(); // reload lại dữ liệu
+      } catch (e) {
+        showToast('Lỗi khi xoá: ' + e.message, 'error');
+      }
+    }
 
     function exportCSV() {
       function doExport() {
